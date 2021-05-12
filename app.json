@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/mine/mine",
+    "pages/home/home",
+    "pages/home/search/search",
+    "pages/commodity-detail/commodity-detail",
+    "pages/publish/publish",
+    "pages/mine/publish/publish",
+    "pages/mine/history/history",
+    "pages/mine/favorite/favorite",
+    "pages/setting/setting"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#85C464",
+    "navigationBarTitleText": "淘建材",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "image/home2.png",
+        "selectedIconPath": "image/home1.png",
+        "text": "找材料"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "image/user2.png",
+        "selectedIconPath": "image/user1.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

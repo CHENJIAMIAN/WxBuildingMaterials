@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="container">
+  <image style="position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);width: 190rpx;height:190rpx;" mode="aspectFit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/icon-tjc1.png">
+  </image>
+</view>

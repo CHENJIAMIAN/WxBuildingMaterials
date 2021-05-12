@@ -1,0 +1,51 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 130rpx;
+  background: 0 0/ 100% 100% no-repeat;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-bar-bg {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/tabbar-bg.png) 0 0/ 100% 100% no-repeat;
+  position: absolute;
+  bottom: env(safe-area-inset-bottom);
+  width: 750rpx;
+  height: 123rpx;
+}
+
+.tab-bar-add {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/icon-add.png) 0 0 / 100% 100% no-repeat;
+  position: absolute;
+  left: 331rpx;
+  bottom: calc(env(safe-area-inset-bottom) + 35rpx);
+  width: 92rpx;
+  height: 92rpx;
+}
+
+.tab-bar-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.tab1{
+  transform: translate(-30rpx,15rpx);
+}
+.tab2{
+  transform: translate(30rpx,15rpx);
+}
+
+.tab-bar-item cover-image {
+  width: 27px;
+  height: 27px;
+}
+
+.tab-bar-item cover-view {
+  font-size: 10px;
+}

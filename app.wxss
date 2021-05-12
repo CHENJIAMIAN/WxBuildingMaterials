@@ -1,0 +1,63 @@
+/**app.wxss**/
+:root {
+}
+
+@font-face {
+  font-family: "FZYaSong-DB-GBK";
+  src: url(https://www.lemengsc.com/static/FZZQJW.TTF);
+}
+
+page {
+  background: white;
+}
+
+
+.flex-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-content-v {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flex-between-v {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.flex-around-v {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+/* flex end */

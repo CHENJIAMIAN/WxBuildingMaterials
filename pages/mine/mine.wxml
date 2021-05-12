@@ -1,0 +1,65 @@
+<!--pages/mine.wxml-->
+<van-button type="primary">按钮</van-button>
+<navigator open-type="navigate" class="setting" url="/pages/setting/setting"></navigator>
+<view class="bg-tx flex-content">
+  <view class="flex-content-v">
+    <view class="tx">
+      <image style=width: 100%;height:100%;border-radius:50%;" mode="aspectFit"
+        src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t2.png">
+      </image>
+    </view>
+    <view class="nickname">asfsdfs</view>
+    <view class="membername">会员名:123123</view>
+  </view>
+</view>
+<view class="bg-1">
+  <view class="flex-around" style="padding:10rpx 60rpx;color:white;font-size:28rpx;">
+    <navigator open-type="navigate" class="flex-content-v" url="/pages/mine/publish/publish">
+      <view class="a-xiaoxi">
+      </view>
+      <view>
+        我的发布</view>
+    </navigator>
+    <navigator open-type="navigate" class="flex-content-v" url="/pages/mine/favorite/favorite">
+      <view class="a-shoucang">
+      </view>
+      <view>
+        我的收藏</view>
+    </navigator>
+    <navigator open-type="navigate" class="flex-content-v" url="/pages/mine/history/history">
+      <view class="a-daiban">
+      </view>
+      <view>
+        历史浏览</view>
+    </navigator>
+  </view>
+
+  <view class="card">
+    <view class="card-head">基本信息</view>
+    <view class="card-content">
+      <view>会员名</view>
+      <view>XXXXXX</view>
+      <view>性别</view>
+      <view>XXXXXX</view>
+      <view>常住</view>
+      <view>XXXXXX</view>
+      <view>职位</view>
+      <view>XXXXXX</view>
+      <view>公司</view>
+      <view>XXXXXX</view>
+    </view>
+  </view>
+  <view class="card">
+    <view class="card-head">联系信息</view>
+    <view class="card-content">
+      <view>手机</view>
+      <view>XXXXXX</view>
+      <view>微信</view>
+      <view>XXXXXX</view>
+      <view>QQ</view>
+      <view>XXXXXX</view>
+      <view>邮箱</view>
+      <view>XXXXXX</view>
+    </view>
+  </view>
+</view>
