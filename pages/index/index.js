@@ -33,8 +33,8 @@ Page({
       });
     setTimeout(() => {
       wx.switchTab({
-        // url: "/pages/home/home"
-        url: "/pages/mine/mine"
+        url: "/pages/home/home"
+        // url: "/pages/mine/mine"
       });
     }, 1 * 1000);
 

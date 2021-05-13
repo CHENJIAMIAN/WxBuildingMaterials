@@ -1,4 +1,21 @@
 /* pages/home/home.wxss */
-page{
-  background:burlywood;
+.van-search__content {
+  border: 1px solid var(--primary-color);
+}
+.van-search{
+  width: 648rpx;
+}
+
+.icon-all {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/all.png) 0 0 / 100% 100% no-repeat;
+  width: 47rpx;
+  height: 47rpx;
+}
+
+.card-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 20rpx;
+  padding: 30rpx;
 }

@@ -1,2 +1,27 @@
 <!--pages/home/home.wxml-->
-<view style="height:64rpx;width"></view>
+<van-tabs type="card" style="height:64rpx;">
+  <van-tab title="推荐">
+    <view class="flex" style="padding-left:40rpx;">
+      <view class="icon-all"></view>
+      <van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" use-action-slot>
+        <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
+      </van-search>
+    </view>
+    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{2000}}">
+      <block wx:for="[1,2,3]" wx:key="*this">
+        <swiper-item>
+          <image style="width:750rpx;" mode="scaleToFill" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
+          </image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <my-card img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
+      <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
+      <view slot="after">这里是插入到组件slot中的内容1</view>
+    </my-card>
+    <view name='商品卡片滚动列表' class="card-list">
+    </view>
+
+  </van-tab>
+  <van-tab title="惠州">内容 2</van-tab>
+</van-tabs>

@@ -1,0 +1,7 @@
+/* components/component-tag-name.wxss */
+.card{
+  width: 341rpx;
+  height: 570rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 0 15px 0 rgba(0,0,0,.1);
+}

@@ -1,5 +1,4 @@
 <!--pages/mine.wxml-->
-<van-button type="primary">按钮</van-button>
 <navigator open-type="navigate" class="setting" url="/pages/setting/setting"></navigator>
 <view class="bg-tx flex-content">
   <view class="flex-content-v">

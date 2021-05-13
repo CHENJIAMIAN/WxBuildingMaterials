@@ -1,14 +1,15 @@
 /**app.wxss**/
-:root {
-}
-
 @font-face {
   font-family: "FZYaSong-DB-GBK";
   src: url(https://www.lemengsc.com/static/FZZQJW.TTF);
 }
 
 page {
-  background: white;
+  --tabs-default-color: #85C464;
+  --padding-md: 0;
+  --primary-color: #85C464;
+  --button-primary-background-color: #85C464;
+  --button-primary-border-color: #85C464;
 }
 
 
