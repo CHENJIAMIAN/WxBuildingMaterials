@@ -1,4 +1,4 @@
-// pages/publish/publish.js
+// pages/home/search-result/search-result.js
 Page({
 
   /**
@@ -31,37 +31,64 @@ Page({
         value: 'c'
       },
     ],
+    option3: [{
+        text: '品牌',
+        value: 'a'
+      },
+      {
+        text: '品牌1',
+        value: 'b'
+      },
+      {
+        text: '品牌2',
+        value: 'c'
+      },
+    ],
+    option4: [{
+        text: '规格',
+        value: 'a'
+      },
+      {
+        text: '规格1',
+        value: 'b'
+      },
+      {
+        text: '规格2',
+        value: 'c'
+      },
+    ],
+    option5: [{
+        text: '成色',
+        value: 'a'
+      },
+      {
+        text: '成色1',
+        value: 'b'
+      },
+      {
+        text: '成色2',
+        value: 'c'
+      },
+    ],
+    option6: [{
+        text: '状态',
+        value: 'a'
+      },
+      {
+        text: '状态1',
+        value: 'b'
+      },
+      {
+        text: '状态2',
+        value: 'c'
+      },
+    ],
     value1: 0,
     value2: 'a',
-    fileList: [],
-  },
-
-  afterRead(event) {
-    const {
-      file
-    } = event.detail;
-    // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-    wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-      filePath: file.url,
-      name: 'file',
-      formData: {
-        user: 'test'
-      },
-      success(res) {
-        // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
-        fileList.push({
-          ...file,
-          url: res.data
-        });
-        this.setData({
-          fileList
-        });
-      },
-    });
+    value3: 'a',
+    value4: 'a',
+    value5: 'a',
+    value6: 'a',
   },
 
   /**

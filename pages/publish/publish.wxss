@@ -1,1 +1,24 @@
 /* pages/publish/publish.wxss */
+page {
+  background: #F7F7F7;
+}
+
+.green-arrow-tag {
+  background: var(--primary-color);
+  color: white;
+  font-size: 26rpx;
+  padding-left: 20rpx;
+  width: 120rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  margin-right: -20rpx;
+
+  display: inline-block;
+
+  border-bottom-left-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  background: linear-gradient(-45deg, transparent 36rpx, var(--primary-color) 0) bottom right,
+    linear-gradient(-135deg, transparent 36rpx, var(--primary-color) 0) top right;
+  background-size: 100% 50%;
+  background-repeat: no-repeat;
+}

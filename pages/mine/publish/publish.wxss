@@ -1,1 +1,4 @@
 /* pages/mine/publish/publish.wxss */
+page {
+  background: #fafafa;
+}

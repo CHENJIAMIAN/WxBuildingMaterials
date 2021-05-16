@@ -2,15 +2,18 @@
 <view class="card">
   <image style="width:100%;height:345rpx;border-radius:20rpx 20rpx 0rpx 0rpx;" mode="scaleToFill" src="{{imgSrc}}">
   </image>
-  <view>产品信息的士大夫士大夫但是</view>
-  <view style="color:#757475;">产品说明</view>
-  <view class="flex-between">
-    <view style="color:#E62129;">￥8.88万</view>
-    <view style="color:#B6B6B7;">88人想要</view>
+  <view style="padding:10rpx 10rpx 20rpx 10rpx;">
+    <view class="single-line">{{primaryTitle}}</view>
+    <view class="single-line" style="color:#757475;">{{subTitle}}</view>
+    <view class="flex-between" style="margin:15rpx 0;">
+      <view style="color:#E62129;">￥{{price}}万</view>
+      <view style="color:#B6B6B7;font-size:20rpx;">{{wantCount}}人想要</view>
+    </view>
+    <image style="width:40rpx;height:40rpx;border-radius:50%;transform:translateY(25%);" mode="scaleToFill"
+      src="{{imgSrc}}">
+    </image>
+    <text style="margin-left:10rpx;color:#757475;">xiaoyi</text>
   </view>
-  <image style="width:40rpx;height:40rpx;border-radius:50%;transform:translateY(25%);" mode="scaleToFill" src="{{imgSrc}}">
-  </image>
-  <text style="margin-left:10rpx;color:#757475;">xiaoyi</text>
   <!-- <slot name="before"></slot>
   <slot name="after"></slot> -->
 </view>

@@ -1,2 +1,24 @@
 <!--pages/mine/publish/publish.wxml-->
-<text>pages/mine/publish/publish.wxml</text>
+<van-tabs type="card" style="height:64rpx;">
+  <van-tab title="我的发布">
+    <view wx:for="[1,2,3]">
+      <van-card num="" tag="" price="10.00" title="水龙头" thumb="http://www.lemengsc.com:9901/jc/static/wx_imgs/t2.png">
+        <view slot="footer">
+          <van-button size="mini">降价</van-button>
+          <van-button size="mini">编辑</van-button>
+        </view>
+        <view slot="origin-price">
+          <text decode="{{true}}">&ensp;</text>
+        </view>
+        <view slot="bottom" style="color:gray;">
+          曝光0·浏览1·想要0
+        </view>
+      </van-card>
+      <van-divider />
+    </view>
+  </van-tab>
+  <van-tab title="下架宝贝">
+    <van-empty class="custom-image" image="http://www.lemengsc.com:9901/jc/static/wx_imgs/gwc.png"
+      description="你没有下架的宝贝哦" />
+  </van-tab>
+</van-tabs>

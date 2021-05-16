@@ -1,11 +1,11 @@
-// pages/home/home.js
+// pages/mine/removed/removed.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    searchValue: '',
+
   },
 
   /**
@@ -25,7 +25,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  show() {
+  onShow: function () {
 
   },
 
@@ -62,19 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-})
-
-Component({
-  pageLifetimes: {
-    show() {
-      if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 0
-        })
-      }
-    }
   }
 })

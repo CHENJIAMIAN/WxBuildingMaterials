@@ -1,0 +1,19 @@
+<!--pages/home/search-result/search-result.wxml-->
+<navigator open-type="redirect" url="/pages/home/search/search">
+  <van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" use-action-slot clearable>
+    <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
+  </van-search>
+</navigator>
+<van-dropdown-menu active-color="#85C464">
+  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+  <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+  <van-dropdown-item value="{{ value3 }}" options="{{ option3 }}" />
+  <van-dropdown-item value="{{ value4 }}" options="{{ option4 }}" />
+  <van-dropdown-item value="{{ value5 }}" options="{{ option5 }}" />
+  <van-dropdown-item value="{{ value6 }}" options="{{ option6 }}" />
+</van-dropdown-menu>
+<view name='商品卡片滚动列表' class="card-list">
+  <my-card wx:for="[1,2]" img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
+    primary-title="流量卡斯克法律界圣诞快乐房价是独立空间" sub-title="产品说明" want-count="{{18}}" price="{{18.88}}">
+  </my-card>
+</view>

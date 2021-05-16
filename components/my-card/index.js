@@ -9,6 +9,10 @@ Component({
    */
   properties: {
     imgSrc: String,
+    primaryTitle: String,
+    subTitle:String,
+    wantCount:Number,
+    price:Number,
   },
 
   /**

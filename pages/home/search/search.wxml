@@ -1,2 +1,12 @@
 <!--pages/home/search/search.wxml-->
-<text>pages/home/search/search.wxml</text>
+<van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" use-action-slot clearable>
+  <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
+</van-search>
+<van-cell-group>
+  <navigator open-type="redirect" url="/pages/home/search-result/search-result">
+    <van-cell title="瓷砖地砖" value="" />
+  </navigator>
+  <navigator open-type="redirect" url="/pages/home/search-result/search-result">
+    <van-cell title="瓷砖贴纸" value="" />
+  </navigator>
+</van-cell-group>

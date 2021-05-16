@@ -1,0 +1,7 @@
+<view class="custom-class demo-block van-clearfix {{ padding ? 'demo-block--padding' : '' }}"  style="margin:{{margin}}rpx 0;">
+  <view wx:if="{{ title }}" class="demo-block__title">{{ title }}</view>
+  <view class="demo-block__card" wx:if="{{ card }}" style="background:white;">
+    <slot />
+  </view>
+ <slot wx:else />
+</view>

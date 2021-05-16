@@ -12,10 +12,3 @@
   height: 47rpx;
 }
 
-.card-list{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  gap: 20rpx;
-  padding: 30rpx;
-}

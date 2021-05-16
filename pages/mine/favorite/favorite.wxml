@@ -1,2 +1,23 @@
 <!--pages/mine/favorite/favorite.wxml-->
-<text>pages/mine/favorite/favorite.wxml</text>
+<view wx:for="[1,2,3]">
+  <van-card tag="" price="10.00" desc="描述信息描述信息描述信息描述信息描述信息描述信息"
+    thumb="http://www.lemengsc.com:9901/jc/static/wx_imgs/t2.png">
+    <view slot="title" class="flex">
+      <van-image width="60rpx;" radius="2" height="60rpx" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg"
+        slot="icon" />
+      <view class="flex-between-v" style="height:60rpx;margin-left:15rpx;">
+        <view style="font-size:26rpx;font-weight:bold;">撒旦反对</view>
+        <view style="color:gray;font-size:20rpx;">10分钟前来过 <text>发布于温州</text></view>
+      </view>
+    </view>
+    <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
+      <van-button size="mini">取消收藏</van-button>
+    </view>
+    <!-- <view slot="footer">
+    </view> -->
+    <!-- <view slot="origin-price">
+      <text decode="{{true}}">&ensp;</text>
+    </view> -->
+  </van-card>
+  <van-divider />
+</view>
