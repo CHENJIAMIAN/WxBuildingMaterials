@@ -18,9 +18,11 @@
       </block>
     </swiper>
     <view name='商品卡片滚动列表' class="card-list">
-      <my-card wx:for="[1,2]" img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
-        primary-title="流量卡斯克法律界圣诞快乐房价是独立空间" sub-title="产品说明" want-count="{{18}}" price="{{18.88}}">
-      </my-card>
+      <navigator wx:for="[1,2]" open-type="navigate" url="/pages/commodity-detail/commodity-detail">
+        <my-card  img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
+          primary-title="流量卡斯克法律界圣诞快乐房价是独立空间" sub-title="产品说明" want-count="{{18}}" price="{{18.88}}">
+        </my-card>
+      </navigator>
     </view>
 
   </van-tab>

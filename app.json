@@ -12,7 +12,8 @@
     "pages/mine/favorite/favorite",
     "pages/setting/setting",
     "pages/home/search-result/search-result",
-    "pages/mine/removed/removed"
+    "pages/mine/removed/removed",
+    "pages/publish/price/price"
   ],
   "window": {
     "backgroundTextStyle": "light",

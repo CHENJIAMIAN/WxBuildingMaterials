@@ -5,7 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    show: false,
+  },
+  onChange(event) {
+    // event.detail 为当前输入的值
+    console.log(event.detail);
+  },
+  onClickButton() {
+    this.setData({
+      show: true
+    });
+  },
+  onComfirm() {
+    this.setData({
+      show: false
+    });
+    wx.navigateBack({
+      delta: -1,
+    })
+  },
+  onClose() {
+    this.setData({
+      show: false
+    });
   },
 
   /**

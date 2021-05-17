@@ -89,7 +89,42 @@
     </view>
     <view>
       <text style="margin-left:15rpx;font-size:26rpx;color:red;margin:0 30rpx;">￥0.00</text>
-      <van-button icon="arrow" type="primary"></van-button>
+      <van-button icon="arrow" type="primary" bindtap="onPrice"></van-button>
     </view>
   </view>
 </demo-block>
+<van-action-sheet show="{{ show }}" title="价格" round="{{false}}" close-on-click-overlay="{{true}}" bind:close="onClose">
+  <demo-block>
+    <van-cell-group>
+      <van-field value="{{ price }}" type="digit" placeholder="0.00" bind:click-icon="onClickIcon">
+        <view slot="label">
+          价<text decode="{{true}}">&ensp;&ensp;</text>格<text style="color:#E62129;">￥</text>
+        </view>
+      </van-field>
+      <van-field value="{{ origin_price }}" type="digit" placeholder="0.00">
+        <view slot="label">
+          入手价<text style="color:#E62129;">￥</text>
+        </view>
+      </van-field>
+      <van-field value="{{ shipping_fee }}" type="digit" placeholder="0.00" border="{{ false }}">
+        <view slot="label">
+          运<text decode="{{true}}">&ensp;&ensp;</text>费<text style="color:#E62129;">￥</text>
+        </view>
+      </van-field>
+    </van-cell-group>
+    <van-button type="primary" block>确定</van-button>
+  </demo-block>
+  <!-- <view class="flex van-hairline--bottom">
+    <view>价格</view>
+    <view style="color:red;">￥0.00</view>
+  </view>
+  <view class="flex van-hairline--bottom">
+    <view>入手价</view>
+    <view style="color:red;">￥0.00</view>
+  </view>
+  <view class="flex van-hairline--bottom">
+    <view>运费</view>
+    <view style="color:red;">￥0.00</view>
+  </view> -->
+</van-action-sheet>
+<van-dialog id="van-dialog" confirm-button-color="var(--primary-color)"/>

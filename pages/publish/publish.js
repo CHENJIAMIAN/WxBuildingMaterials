@@ -1,3 +1,5 @@
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+
 // pages/publish/publish.js
 Page({
 
@@ -34,6 +36,17 @@ Page({
     value1: 0,
     value2: 'a',
     fileList: [],
+    show: false,
+  },
+  onPrice() {
+    this.setData({
+      show: true
+    });
+  },
+  onClose() {
+    this.setData({
+      show: false
+    });
   },
 
   afterRead(event) {
@@ -96,7 +109,21 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.showModal({
+      title: '提示',
+      content: '是否保存修改信息？',
+      success: function (res) {
+        if (res.confirm) {
+          var pages = getCurrentPages(); //当前页面栈
+          if (pages.length > 0) {
+            var beforePage = pages[pages.length - 1]; //获取上一个页面实例对象                      
+            // beforePage.reloadData(); //触发父页面中的方法                        
+          }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
 
   /**

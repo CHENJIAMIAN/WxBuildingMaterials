@@ -1,35 +1,11 @@
-// pages/mine/publish/publish.js
+// pages/publish/price/price.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    showAction: false,
-    actions: [{
-        name: '成交',
-      },
-      {
-        name: '下架',
-      },
-      {
-        name: '删除',
-      },
-    ],
-  },
-  moreAction() {
-    this.setData({
-      showAction: true
-    });
-  },
-  onClose() {
-    this.setData({
-      showAction: false
-    });
-  },
 
-  onSelect(event) {
-    console.log(event.detail);
   },
 
   /**

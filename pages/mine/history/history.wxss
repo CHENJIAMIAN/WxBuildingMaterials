@@ -1,1 +1,58 @@
 /* pages/mine/history/history.wxss */
+page {
+  padding-left: 17rpx;
+  background: #F7F7F7;
+}
+
+.custom-van-col {
+  /* background: white; */
+  margin: 10rpx 5rpx;
+}
+
+.dash-line {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/dash-line.png) 0 0/ 100% 100% no-repeat;
+  position: fixed;
+  top: 0;
+  left: 30rpx;
+  bottom: 0;
+  width: 1rpx;
+  z-index: -1;
+}
+
+.bar-bg-1 {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/bar-bg-1.png) 0 0/ 100% 100% no-repeat;
+  height: 23rpx;
+  line-height: 23rpx;
+  width: 161rpx;
+  color: white;
+  font-size: 18rpx;
+  text-align: center;
+}
+
+.bar-bg-2 {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/bar-bg-2.png) 0 0/ 100% 100% no-repeat;
+  height: 23rpx;
+  line-height: 23rpx;
+  width: 161rpx;
+  color: white;
+  font-size: 18rpx;
+  text-align: center;
+}
+
+.circlegreen {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/circlegreen.png) 0 0/ 100% 100% no-repeat;
+  width: 29rpx;
+  height: 29rpx;
+  line-height: 26rpx;
+  text-align: center;
+  color: white;
+}
+
+.circlewhite {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/circlewhite.png) 0 0/ 100% 100% no-repeat;
+  width: 29rpx;
+  height: 29rpx;
+  line-height: 26rpx;
+  text-align: center;
+  color: white;
+}

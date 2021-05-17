@@ -38,7 +38,7 @@ Page({
       });
     }, 1 * 1000);
 
-    this.login();
+    // this.login();
   },
 
   /**
