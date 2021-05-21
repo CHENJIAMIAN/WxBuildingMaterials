@@ -1,7 +1,11 @@
 /* components/component-tag-name.wxss */
-.card{
+.card {
   width: 341rpx;
-  height: 570rpx;
+  height: 520rpx;
   border-radius: 20rpx;
-  box-shadow: 0 0 15px 0 rgba(0,0,0,.1);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, .1);
+}
+
+.custom-van-image-class {
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
 }

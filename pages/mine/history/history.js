@@ -1,18 +1,75 @@
 // pages/mine/history/history.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    serverUrl: app.serverUrl,
+    // 
+    pageNo: '',
+    current_page: '',
+    pageSize: '',
+    per_page: '',
+    total: '',
+    totalPage: '',
+    last_page: '',
+    lastVisitTime: '',
+    rows: [],
   },
+  getMyBrowser() {
+    var url = app.serverUrl + "/api/browser/myBrowser";
+    let userId = app.globalData.userId;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data.data)
+        if (resdata.data.code == 0) {
+          const {
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          } = resdata.data.data;
+          this.setData({
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
+  
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getMyBrowser();
   },
 
   /**

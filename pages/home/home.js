@@ -1,72 +1,114 @@
 // pages/home/home.js
-Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    searchValue: '',
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  show() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-})
-
+var app = getApp();
 Component({
+  data: {
+    showLoading: false,
+    // 
+    serverUrl: app.serverUrl,
+    searchName: '',
+    categoryId: '',
+    specesId: '',
+    brandId: '',
+    qualityId: '',
+    statusId: '',
+    areaCode: '',
+    // 
+    pageNo: '',
+    current_page: '',
+    pageSize: '',
+    per_page: '',
+    total: '',
+    totalPage: '',
+    last_page: '',
+    lastVisitTime: '',
+    rows: [],
+  },
+  methods: {
+    scrollMytrip() {
+      console.log("scrollMytrip");
+      const nextPageNo = this.data.pageNo + 1;
+      if (nextPageNo <= this.data.totalPage) {
+        this.setData({
+          showLoading: true,
+          pageNo: nextPageNo
+        });
+        this.loadGoodsListByPage();
+      }
+    },
+    loadGoodsListByPage() {
+      var url = app.serverUrl + "/api/goods/loadGoodsListByPage";
+      const {
+        searchName,
+        categoryId,
+        specesId,
+        brandId,
+        qualityId,
+        statusId,
+        areaCode,
+        pageNo,
+        pageSize,
+      } = this.data;
+      const reqParams = {
+        searchName,
+        categoryId,
+        specesId,
+        brandId,
+        qualityId,
+        statusId,
+        areaCode,
+        pageNo,
+        pageSize,
+      }
+      wx.request({
+        url: url,
+        method: "POST",
+        data: reqParams,
+        success: (resdata) => {
+          console.log(url, resdata.data.data)
+          if (resdata.data.code == 0) {
+            const {
+              pageNo,
+              current_page,
+              pageSize,
+              per_page,
+              total,
+              totalPage,
+              last_page,
+              lastVisitTime,
+              rows,
+            } = resdata.data.data;
+            this.setData({
+              pageNo,
+              current_page,
+              pageSize,
+              per_page,
+              total,
+              totalPage,
+              last_page,
+              lastVisitTime,
+              rows,
+            });
+          } else {
+            wx.showToast({
+              icon: "none",
+              title: resdata.data.msg || '',
+              duration: 1000
+            });
+          }
+        },
+        fail: (resdata) => {
+          this.setData({
+            showLoading: false
+          });
+          console.log(resdata);
+        }
+      });
+
+    },
+  },
+  attached() {
+    this.loadGoodsListByPage();
+  },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' &&

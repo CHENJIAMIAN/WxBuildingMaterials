@@ -1,71 +1,241 @@
 // pages/mine.js
-Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  show() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+var app = getApp();
 
 Component({
+  data: {
+    fileList1: [],
+    avatar: '',
+    show: false,
+    isBaseInfo: true,
+    name: '',
+    sex: '',
+    addr: '',
+    jobPosition: '',
+    company: '',
+    phone: '',
+    wechat: '',
+    qq: '',
+    email: ''
+  },
+  methods: {
+    showPopup(e) {
+      const {
+        name
+      } = e.currentTarget.dataset;
+      switch (name) {
+        case '1':
+          this.setData({
+            isBaseInfo: true
+          })
+          break;
+        case '2':
+          this.setData({
+            isBaseInfo: false
+          })
+          break;
+      }
+      this.setData({
+        show: true
+      });
+    },
+    onChange(event) {
+      // event.detail 为当前输入的值
+      console.log(event.detail);
+    },
+    onClose() {
+      this.setData({
+        show: false
+      });
+    },
+    onComfirm() {
+      this.setData({
+        show: false
+      });
+      this.addUserInfo();
+    },
+    addUserInfo() {
+      var url = app.serverUrl + "/api/user/addUserInfo";
+      var id = app.globalData.userId;
+      const {
+        name,
+        sex,
+        addr,
+        jobPosition,
+        company,
+        phone,
+        wechat,
+        qq,
+        email
+      } = this.data;
+      wx.request({
+        url: url,
+        method: "POST",
+        data: {
+          id,
+          name,
+          sex,
+          addr,
+          jobPosition,
+          company,
+          phone,
+          wechat,
+          qq,
+          email
+        },
+        success: (resdata) => {
+          console.log(url, resdata.data);
+          if (resdata.data.code == 0) {
+            wx.showToast({
+              icon: "success",
+              title: "提交成功",
+              duration: 1000
+            });
+            this.getUser();
+          } else {
+            wx.showToast({
+              icon: "none",
+              title: resdata.data.msg || '',
+              duration: 1000
+            });
+          }
+        },
+        fail: (resdata) => {}
+      });
+    },
+    afterRead1(event) {
+      const {
+        file
+      } = event.detail;
+      // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+      var url = app.serverUrl + "/api/uploadFile/upload";
+      wx.uploadFile({
+        name: 'file',
+        url,
+        fileName: "image",
+        filePath: file.url,
+        fileType: "image",
+        name: "image",
+        formData: {},
+        success: (res) => {
+          var obj = JSON.parse(res.data);
+          console.log(obj);
+          if (obj.code == 0) {
+            // 上传完成需要更新 fileList
+            // const {
+            //   fileList1 = []
+            // } = this.data;
+            // fileList1.push({
+            //   ...file,
+            //   url: app.serverUrl + obj.data
+            // });
+            // this.setData({
+            //   fileList1
+            // });
+            let avatar = app.serverUrl + obj.data;
+            this.setData({
+              avatar
+            })
+            this.addAvatar(avatar);
+
+            wx.showToast({
+              title: "上传成功!",
+              icon: 'none'
+            });
+          } else {
+            wx.showToast({
+              title: "上传失败!",
+              icon: 'none'
+            });
+          }
+        },
+      });
+    },
+
+    getUser() {
+      var url = app.serverUrl + "/api/user/getUser";
+      var userId = app.globalData.userId;
+      wx.request({
+        url: url,
+        method: "POST",
+        data: {
+          id: userId
+        },
+        success: (resdata) => {
+          console.log(url, resdata.data.data)
+          const {
+            id,
+            openId,
+            name,
+            sex,
+            addr,
+            jobPosition,
+            company,
+            phone,
+            wechat,
+            qq,
+            email,
+            avatar,
+          } = resdata.data.data;
+
+          if (resdata.data.code == 0) {
+            this.setData({
+              id,
+              openId,
+              name,
+              sex,
+              addr,
+              jobPosition,
+              company,
+              phone,
+              wechat,
+              qq,
+              email,
+              avatar,
+            });
+          }
+        },
+        fail: (resdata) => {
+          console.log(resdata);
+        }
+      });
+
+    },
+
+
+    addAvatar(avatar) {
+      var url = app.serverUrl + "/api/user/addAvatar";
+      let id = app.globalData.userId;
+      wx.showLoading();
+      wx.request({
+        url: url,
+        method: "POST",
+        data: {
+          id,
+          avatar
+        },
+        success: (resdata) => {
+          console.log(url, resdata.data)
+          wx.hideLoading();
+          if (resdata.data.code == 0) {
+            // wx.showToast({
+            //   icon: "success",
+            //   title: "提交成功",
+            //   duration: 1000
+            // });
+          } else {
+            wx.showToast({
+              icon: "none",
+              title: resdata.data.msg || '',
+              duration: 1000
+            });
+          }
+        },
+        fail: (resdata) => {
+          wx.hideLoading();
+        }
+      });
+    },
+  },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' &&
@@ -74,6 +244,8 @@ Component({
           selected: 1
         })
       }
+
+      this.getUser();
     }
   }
 })

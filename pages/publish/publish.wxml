@@ -5,18 +5,22 @@
       round>发布</van-button>
   </view>
 </van-sticky>
+
 <demo-block title="" padding card margin="15">
-  <van-field value="{{ message }}" type="textarea" placeholder="说受你的使用感受,入手渠道,转手原因..."
-    autosize="{{ { maxHeight: 500, minHeight: 94 } }}" border="{{ false }}" />
+  <van-field model:value="{{ name }}" placeholder="产品名称" bind:change="onChange"></van-field>
+</demo-block>
+<demo-block title="" padding card margin="15">
+  <van-field model:value="{{ describes }}" type="textarea" placeholder="说受你的使用感受,进货渠道,转手原因..."
+    autosize="{{ { maxHeight: 500, minHeight: 94 } }}" border="{{ false }}" bind:change="onChange" />
 </demo-block>
 <demo-block title="" padding card margin="15">
   <view class="flex" style="padding:30rpx;">
-    <image style="width:207rpx;height:207rpx;border-radius:15rpx;" mode="scaleToFill"
+    <!-- <image style="width:207rpx;height:207rpx;border-radius:15rpx;" mode="scaleToFill"
       src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
-    </image>
-    <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead">
-      <view class="flex-content"
-        style="background:#EEEEEF;width:207rpx;height:207rpx;margin-left:15rpx;border-radius:15rpx;">
+    </image> -->
+    <van-uploader name="1" deletable="{{ true }}" preview-size="199rpx" file-list="{{ imgList1 }}" accept="image"
+      bind:after-read="afterRead1" bind:delete="delete">
+      <view class="flex-content" style="background:#EEEEEF;width:200rpx;height:200rpx;border-radius:0rpx;">
         <image style="width:39rpx;height:39rpx;border-radius:15rpx;" mode="scaleToFill"
           src="http://www.lemengsc.com:9901/jc/static/wx_imgs/add.png">
         </image>
@@ -25,12 +29,12 @@
   </view>
 </demo-block>
 <demo-block title="" padding card margin="15">
-  <view class="flex" style="padding:10rpx 20rpx;">
+  <view class="flex" style="padding:10rpx 20rpx;" bindtap="tapShowAreaPopup">
     <image style="width:22rpx;height:30rpx;border-radius:15rpx;" mode="scaleToFill"
       src="http://www.lemengsc.com:9901/jc/static/wx_imgs/dw1.png">
     </image>
     <text style="margin-left:15rpx;font-size:26rpx;color:#757475;">发货地:</text>
-    <text style="margin-left:15rpx;font-size:26rpx;">东莞</text>
+    <text style="margin-left:15rpx;font-size:26rpx;">{{areaName}}</text>
   </view>
 </demo-block>
 <demo-block title="" padding card margin="15">
@@ -41,23 +45,43 @@
     <text style="margin-left:15rpx;font-size:26rpx;">分类/品牌/成色等</text>
   </view>
   <van-dropdown-menu active-color="#85C464">
-    <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
-    <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+    <van-dropdown-item data-name='categoryId' value="{{ categoryId }}" options="{{ categoryOption }}" title="分类"
+      bind:change="onOptionChange" />
+    <van-dropdown-item data-name='specesId' value="{{ specesId }}" options="{{ specsOption }}" title="规格"
+      bind:change="onOptionChange" />
+    <!-- <van-dropdown-item data-name='brandId' value="{{ brandId }}" options="{{ brandOption }}" title="品牌"
+      bind:change="onOptionChange" />
+    <van-dropdown-item data-name='qualityId' value="{{ qualityId }}" options="{{ qualityOption }}" title="成色"
+      bind:change="onOptionChange" />
+    <van-dropdown-item data-name='statusId' value="{{ statusId }}" options="{{ stateOption }}" title="状态"
+      bind:change="onOptionChange" /> -->
   </van-dropdown-menu>
   <view style="margin:15rpx 30rpx">
     <text class="green-arrow-tag">品牌</text>
-    <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" wx:for="{{['潜水艇','箭牌','法恩莎','+ 输入品牌']}}">
-      {{item}}
+    <van-tag data-type="brandId" data-value="{{item.value}}" round
+      color="{{brandId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
+      text-color="{{brandId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{brandOption}}" bindtap="tapTag">
+      {{item.text}}
+    </van-tag>
+    <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" bindtap="tapAddBrand">
+      + 输入品牌
     </van-tag>
   </view>
   <view style="margin:15rpx 30rpx">
     <text class="green-arrow-tag">成色</text>
-    <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" wx:for="{{['全新','几乎全新','轻微使用痕迹','1年-3年']}}">
-      {{item}}</van-tag>
+    <van-tag data-type="qualityId" data-value="{{item.value}}" round
+      color="{{qualityId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
+      text-color="{{qualityId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{qualityOption}}"
+      bindtap="tapTag">
+      {{item.text}}
+    </van-tag>
   </view>
   <view style="margin:15rpx 30rpx">
     <text class="green-arrow-tag">状态</text>
-    <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" wx:for="{{['功能完好无维修','更换过配件']}}">{{item}}
+    <van-tag data-type="statusId" data-value="{{item.value}}" round
+      color="{{statusId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
+      text-color="{{statusId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{stateOption}}" bindtap="tapTag">
+      {{item.text}}
     </van-tag>
   </view>
 </demo-block>
@@ -69,9 +93,9 @@
     <text style="margin-left:15rpx;font-size:26rpx;">供货证明/合格证/质量检测报告</text>
   </view>
   <view style="padding:30rpx;">
-    <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead">
-      <view class="flex-content"
-        style="background:#EEEEEF;width:207rpx;height:207rpx;margin-left:15rpx;border-radius:15rpx;">
+    <van-uploader name="2" deletable="{{ true }}" preview-size="199rpx" file-list="{{ imgList2 }}" accept="image"
+      bind:after-read="afterRead2" bind:delete="delete">
+      <view class="flex-content" style="background:#EEEEEF;width:200rpx;height:200rpx;border-radius:0rpx;">
         <image style="width:39rpx;height:39rpx;border-radius:15rpx;" mode="scaleToFill"
           src="http://www.lemengsc.com:9901/jc/static/wx_imgs/add.png">
         </image>
@@ -96,30 +120,37 @@
 <van-action-sheet show="{{ show }}" title="价格" round="{{false}}" close-on-click-overlay="{{true}}" bind:close="onClose">
   <demo-block>
     <van-cell-group>
-      <van-field value="{{ price }}" type="digit" placeholder="0.00" bind:click-icon="onClickIcon">
+      <van-field model:value="{{ priceOut }}" type="digit" placeholder="0.00" bind:change="onChange">
         <view slot="label">
           价<text decode="{{true}}">&ensp;&ensp;</text>格<text style="color:#E62129;">￥</text>
         </view>
       </van-field>
-      <van-field value="{{ origin_price }}" type="digit" placeholder="0.00">
+      <van-field model:value="{{ priceIn }}" type="digit" placeholder="0.00" bind:change="onChange">
         <view slot="label">
-          入手价<text style="color:#E62129;">￥</text>
+          进货价<text style="color:#E62129;">￥</text>
         </view>
       </van-field>
-      <van-field value="{{ shipping_fee }}" type="digit" placeholder="0.00" border="{{ false }}">
+      <van-field model:value="{{ pricePost }}" type="digit" placeholder="0.00" border="{{ false }}"
+        disabled="{{radio=='1'}}" bind:change="onChange">
         <view slot="label">
           运<text decode="{{true}}">&ensp;&ensp;</text>费<text style="color:#E62129;">￥</text>
         </view>
+        <view slot="button">
+          <van-radio-group value="{{ radio }}" bind:change="onIsFreePostChange">
+            <van-radio name="1" checked-color="var(--primary-color)">包邮</van-radio>
+            <van-radio custom-class='custom-van-radio' name="2" checked-color="var(--primary-color)">不包邮</van-radio>
+          </van-radio-group>
+        </view>
       </van-field>
     </van-cell-group>
-    <van-button type="primary" block>确定</van-button>
+    <van-button type="primary" block bindtap="addGoods">确定</van-button>
   </demo-block>
   <!-- <view class="flex van-hairline--bottom">
     <view>价格</view>
     <view style="color:red;">￥0.00</view>
   </view>
   <view class="flex van-hairline--bottom">
-    <view>入手价</view>
+    <view>进货价</view>
     <view style="color:red;">￥0.00</view>
   </view>
   <view class="flex van-hairline--bottom">
@@ -127,4 +158,12 @@
     <view style="color:red;">￥0.00</view>
   </view> -->
 </van-action-sheet>
-<van-dialog id="van-dialog" confirm-button-color="var(--primary-color)"/>
+<van-dialog id="van-dialog" confirm-button-color="var(--primary-color)" />
+
+<van-popup show="{{ showAreaPopup }}" position="bottom" custom-style="height: 30%;" bind:close="onClose">
+  <van-area bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
+</van-popup>
+
+<van-dialog use-slot title="" show="{{ true }}" show-cancel-button bind:confirm="onConfirm">
+  <van-field model:value="{{ brandName }}" label="品牌名称" placeholder="" clearable bind:change="onChange" />
+</van-dialog>

@@ -1,18 +1,108 @@
 // pages/mine/favorite/favorite.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    serverUrl: app.serverUrl,
+    // 
+    pageNo: '',
+    current_page: '',
+    pageSize: '',
+    per_page: '',
+    total: '',
+    totalPage: '',
+    last_page: '',
+    lastVisitTime: '',
+    rows: [],
+  },
+  getMyCollect() {
+    var url = app.serverUrl + "/api/collect/myCollect";
+    let userId = app.globalData.userId;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data.data)
+        if (resdata.data.code == 0) {
+          const {
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          } = resdata.data.data;
+          this.setData({
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
 
+  delCollect(e) {
+    var url = app.serverUrl + "/api/collect/delCollect";
+    var userId = app.globalData.userId;
+    const {
+      id
+    } = e.currentTarget.dataset;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId,
+        goodsId: id
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          wx.showToast({
+            icon: "success",
+            title: "提交成功",
+            duration: 1000
+          });
+          this.getMyCollect();
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getMyCollect();
   },
 
   /**

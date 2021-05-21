@@ -1,20 +1,23 @@
 <!--pages/mine/favorite/favorite.wxml-->
-<view wx:for="[1,2,3]">
-  <van-card tag="" price="10.00" desc="描述信息描述信息描述信息描述信息描述信息描述信息"
-    thumb="http://www.lemengsc.com:9901/jc/static/wx_imgs/t2.png">
-    <view slot="title" class="flex">
-      <van-image width="60rpx;" radius="2" height="60rpx" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg"
-        slot="icon" />
+<view wx:for="{{rows}}">
+  <van-card tag="" title="{{item.goodsName}}" price="{{item.priceOut}}" desc="" thumb="{{serverUrl+item.img}}">
+    <!-- <view slot="title" class="flex">
+      <van-image width="60rpx;" radius="2" height="60rpx" fit="cover" src="{{serverUrl+item.img}}" slot="icon" />
       <view class="flex-between-v" style="height:60rpx;margin-left:15rpx;">
-        <view style="font-size:26rpx;font-weight:bold;">撒旦反对</view>
-        <view style="color:gray;font-size:20rpx;">10分钟前来过 <text>发布于温州</text></view>
+        <view style="font-size:26rpx;font-weight:bold;">{{item.goodsName}}</view>
+        <view style="color:gray;font-size:20rpx;">
+          10分钟前来过
+          <text>发布于温州</text>
+        </view>
       </view>
-    </view>
-    <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
-      <van-button size="mini">取消收藏</van-button>
-    </view>
-    <!-- <view slot="footer">
     </view> -->
+    <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
+      收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+    </view>
+    <view slot="footer" style="margin-top:10rpx;">
+      <van-icon name="star" data-id="{{item.goodsId}}" size="42rpx" color="{{'red'}}" bindtap="delCollect" />
+      <!-- <van-button size="mini" data-id="{{item.goodsId}}" bindtap="delCollect">取消收藏</van-button> -->
+    </view>
     <!-- <view slot="origin-price">
       <text decode="{{true}}">&ensp;</text>
     </view> -->

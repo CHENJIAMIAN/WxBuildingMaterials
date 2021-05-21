@@ -1,43 +1,101 @@
 import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
-
+import {
+  areaList
+} from '../../miniprogram_npm/@vant/area-data/index.js';
+var app = getApp();
 // pages/publish/publish.js
-Page({
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
-    option1: [{
-        text: '区域',
-        value: 0
-      },
-      {
-        text: '区域1',
-        value: 1
-      },
-      {
-        text: '区域2',
-        value: 2
-      },
-    ],
-    option2: [{
-        text: '分类',
-        value: 'a'
-      },
-      {
-        text: '分类1',
-        value: 'b'
-      },
-      {
-        text: '分类2',
-        value: 'c'
-      },
-    ],
-    value1: 0,
-    value2: 'a',
-    fileList: [],
+    showAreaPopup: false,
+    areaList,
+    categoryOption: [],
+    brandOption: [],
+    specsOption: [],
+    qualityOption: [],
+    stateOption: [],
     show: false,
+    radio: '1',
+    name: '', //
+    describes: '', //
+    categoryId: '', //
+    brandId: '', //
+    specesId: '', //
+    qualityId: '', //
+    statusId: '', //
+    areaCode: '', //
+    areaName: '', //
+    priceOut: '', //
+    priceIn: '', //
+    pricePost: '', //
+    isFreePost: '', //
+    imgList1: [
+      //   {
+      //   type,
+      //   imgUrl,
+      // }
+    ],
+    imgList2: []
   },
+  onConfirm(){
+    
+  },
+  tapShowAreaPopup() {
+    this.setData({
+      showAreaPopup: true
+    })
+  },
+  onAreaConfirm(event) {
+    let areaName = ''
+    for (let i of event.detail.values) {
+      areaName += i.name;
+    }
+
+    this.setData({
+      showAreaPopup: false,
+      areaName,
+      areaCode: event.detail.values[2].code
+    })
+  },
+  onAreaCancel() {
+    this.setData({
+      showAreaPopup: false
+    })
+  },
+
+  onOptionChange({
+    currentTarget: {
+      dataset
+    },
+    detail
+  }) {
+    const {
+      name
+    } = dataset;
+    this.setData({
+      [name]: detail
+    });
+    console.log('onOptionChange', name, this.data[name])
+    if (name == 'categoryId')
+      app.getSpecsList(this);
+  },
+  onChange(event) {
+    // event.detail 为当前输入的值
+    console.log(event.detail);
+  },
+  onIsFreePostChange(event) {
+    // event.detail 为当前输入的值
+    console.log('onChange', event.detail);
+    this.setData({
+      radio: event.detail,
+      isFreePost: +event.detail
+    })
+    if (this.data.radio == '1')
+      this.setData({
+        pricePost: ''
+      })
+  },
+
   onPrice() {
     this.setData({
       show: true
@@ -49,39 +107,218 @@ Page({
     });
   },
 
-  afterRead(event) {
+  delete(event) {
+    const {
+      index,
+      name
+    } = event.detail;
+    const fileList = this.data[`fileList${name}`];
+    fileList.splice(index, 1);
+    this.setData({
+      [`fileList${name}`]: fileList
+    });
+  },
+
+
+
+  addGoods() {
+    var url = app.serverUrl + "/api/goods/addGoods";
+    var userId = app.globalData.userId;
+
+    const {
+      name,
+      describes,
+      categoryId,
+      specesId,
+      brandId,
+      qualityId,
+      statusId,
+      areaCode,
+      areaName,
+      priceOut,
+      priceIn,
+      pricePost,
+      isFreePost,
+      imgList1,
+      imgList2,
+      // imgList1: [{
+      //   type,
+      //   imgUrl,
+      // }],
+      // imgList2: [{
+      //   type,
+      //   imgUrl,
+      // }]
+    } = this.data;
+    const reqParams = {
+      userId,
+      name,
+      describes,
+      categoryId,
+      specesId,
+      brandId,
+      qualityId,
+      statusId,
+      areaCode,
+      areaName,
+      priceOut,
+      priceIn,
+      pricePost,
+      isFreePost,
+      imgList1: imgList1.map(i => {
+        return {
+          ...i,
+          type: 1
+        }
+      }),
+      imgList2: imgList2.map(i => {
+        return {
+          ...i,
+          type: 2
+        }
+      })
+    };
+    console.log('/api/goods/addGoods reqParams', reqParams);
+    wx.request({
+      url: url,
+      method: "POST",
+      data: reqParams,
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          wx.showToast({
+            icon: "success",
+            title: "提交成功",
+            duration: 1000
+          });
+          wx.switchTab({
+            url: "/pages/home/home"
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
+
+
+  afterRead1(event) {
     const {
       file
     } = event.detail;
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+    var url = app.serverUrl + "/api/uploadFile/upload";
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-      filePath: file.url,
       name: 'file',
-      formData: {
-        user: 'test'
-      },
-      success(res) {
-        // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
-        fileList.push({
-          ...file,
-          url: res.data
-        });
-        this.setData({
-          fileList
-        });
+      url,
+      fileName: "image",
+      filePath: file.url,
+      fileType: "image",
+      name: "image",
+      formData: {},
+      success: (res) => {
+        var obj = JSON.parse(res.data);
+        console.log(obj);
+        if (obj.code == 0) {
+          // 上传完成需要更新 fileList
+          const {
+            imgList1 = []
+          } = this.data;
+          imgList1.push({
+            ...file,
+            url: app.serverUrl + obj.data,
+            imgUrl: app.serverUrl + obj.data,
+          });
+          this.setData({
+            imgList1
+          });
+
+          wx.showToast({
+            title: "上传成功!",
+            icon: 'none'
+          });
+        } else {
+          wx.showToast({
+            title: "上传失败!",
+            icon: 'none'
+          });
+        }
       },
     });
   },
+  afterRead2(event) {
+    const {
+      file
+    } = event.detail;
+    // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+    var url = app.serverUrl + "/api/uploadFile/upload";
+    wx.uploadFile({
+      name: 'file',
+      url: url,
+      fileName: "image",
+      filePath: file.url,
+      fileType: "image",
+      name: "image",
+      formData: {},
+      success: (res) => {
+        var obj = JSON.parse(res.data);
+        console.log(obj);
+        if (obj.code == 0) {
+          // 上传完成需要更新 fileList
+          const {
+            imgList2 = []
+          } = this.data;
+          imgList2.push({
+            ...file,
+            url: app.serverUrl + obj.data,
+            imgUrl: app.serverUrl + obj.data,
+          });
+          this.setData({
+            imgList2
+          });
+
+          wx.showToast({
+            title: "上传成功!",
+            icon: 'none'
+          });
+        } else {
+          wx.showToast({
+            title: "上传失败!",
+            icon: 'none'
+          });
+        }
+      },
+    });
+  },
+
+  tapTag(e) {
+    const {
+      type,
+      value
+    } = e.currentTarget.dataset;
+    this.setData({
+      [type]: value
+    })
+    console.log([type], value)
+  },
+  tapAddBrand(){
+
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.getCategoryList(this);
+    app.getBrandList(this);
+    app.getQualityList(this);
+    app.getStateList(this);
   },
 
   /**

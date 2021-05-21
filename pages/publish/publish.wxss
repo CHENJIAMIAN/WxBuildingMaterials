@@ -22,3 +22,11 @@ page {
   background-size: 100% 50%;
   background-repeat: no-repeat;
 }
+
+.custom-van-radio {
+  margin-top: 5rpx;
+}
+
+.van-tag {
+  margin-right: 10rpx;
+}

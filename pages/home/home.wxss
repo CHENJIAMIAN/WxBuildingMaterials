@@ -2,7 +2,8 @@
 .van-search__content {
   border: 1px solid var(--primary-color);
 }
-.van-search{
+
+.van-search {
   width: 648rpx;
 }
 
@@ -12,3 +13,6 @@
   height: 47rpx;
 }
 
+.spinner {
+  padding-bottom: 150rpx;
+}

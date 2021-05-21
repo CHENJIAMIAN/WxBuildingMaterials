@@ -1,7 +1,6 @@
 // pages/loading.js
 var app = getApp();
 var intervalProcess;
-var isJoin = "";
 Page({
 
   /**
@@ -11,8 +10,19 @@ Page({
     title: '欢迎使用乐跑，正在登陆...',
     goBtnFlag: false,
     loginBtnFlag: false,
-    time: 3
+    time: 3,
+    show: false,
   },
+  getUserInfo(event) {
+    console.log(event.detail);
+  },
+
+  onClose() {
+    this.setData({
+      show: false
+    });
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -31,14 +41,14 @@ Page({
         // url: "/packageB/pages/sign-in-success/sign-in-success"      
         // url: "/packageB/pages/sign-up-success/sign-up-success"      
       });
-    setTimeout(() => {
-      wx.switchTab({
-        url: "/pages/home/home"
-        // url: "/pages/mine/mine"
-      });
-    }, 1 * 1000);
+    // setTimeout(() => {
+    //   wx.switchTab({
+    //     url: "/pages/home/home"
+    //     // url: "/pages/mine/mine"
+    //   });
+    // }, 1 * 1000);
 
-    // this.login();
+    this.login();
   },
 
   /**
@@ -67,7 +77,6 @@ Page({
    */
   onUnload: function () {
     clearInterval(intervalProcess);
-    isJoin = "";
   },
 
   /**
@@ -118,7 +127,7 @@ Page({
                     title: '登陆失败, 请重试！'
                   });
                 } else {
-                  app.rootImgPath = resdata.data.data.imgRoot;
+                  app.imgWebBase = resdata.data.data.imgWebBase;
                   if (resdata.data.data.openId) {
                     app.globalData.openId = resdata.data.data.openId;
                   }
@@ -126,14 +135,21 @@ Page({
                     app.globalData.sessionKey = resdata.data.data.sessionKey;
                   }
 
-                  isJoin = resdata.data.data.isJoin;
-                  app.globalData.userId = resdata.data.data.usrerId;
+                  app.globalData.userId = resdata.data.data.userId;
+
+                  app.globalData.phone = resdata.data.data.phone;
 
                   that.setData({
                     goBtnFlag: true,
                     title: '登陆成功, ' + that.data.time + '秒后进入'
                   });
-                  that.setTime();
+
+                  if (app.globalData.userId != '') {
+                    that.goIndex(); //已注册
+                  } else {
+                    // 未注册
+
+                  }
                 }
               } else {
                 that.setData({
@@ -156,59 +172,20 @@ Page({
 
   },
 
-  setTime() {
-    var that = this;
-    intervalProcess = setInterval(() => {
-      var t = that.data.time;
-      if (t > 0) {
-        t--;
-        this.setData({
-          time: t,
-          title: '登陆成功, ' + t + '秒后进入'
-        });
-      } else {
-        if (isJoin == 'yes' && app.globalData.userId != '') {
-          that.goIndex(); //已经报过名，直接去到主页
-        } else {
-          that.goToJoin(); //没有报过名，去到报名流程页面
-        }
-      }
-    }, 1000);
-  },
-
-  //马上进入
-  goIn() {
-    var that = this;
-    if (isJoin == 'yes' && app.globalData.userId != '') {
-      that.goIndex(); //已经报过名，直接去到主页
-    } else {
-      that.goToJoin(); //没有报过名，去到报名流程页面
-    }
-  },
-
   //已经报过名，直接去到主页
   goIndex() {
-    wx.redirectTo({
-      url: "/packageA/pages/sign-up-stastic/sign-up-stastic"
-    });
+    const bool = !true;
+    bool &&
+      wx.switchTab({
+        url: "/pages/mine/mine"
+        // url: "/pages/home/home"
+      });
+    !bool &&
+      wx.navigateTo({
+        url: "/pages/publish/publish"
+        // url: "/pages/mine/publish/publish"
+      })
   },
-
-  //去到报名流程页面
-  goToJoin() {
-    wx.redirectTo({
-      url: "/pages/index/index"
-    });
-  },
-
-  relogin() {
-    this.setData({
-      title: '欢迎使用乐跑，正在登陆...',
-      loginBtnFlag: false
-    });
-
-    this.login();
-  },
-
 
 
 })

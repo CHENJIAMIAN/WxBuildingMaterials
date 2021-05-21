@@ -77,3 +77,92 @@ page {
   gap: 20rpx;
   padding: 20rpx;
 }
+
+/* 加载中 s */
+
+.spinner {
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.spinner .bounce {
+  margin-top: 20rpx;
+  width: 13rpx;
+  height: 21rpx;
+  display: inline-block;
+  animation-fill-mode: both;
+  margin-left: 13rpx;
+  transform: skewX(-15deg);
+}
+
+.spinner .bounce1 {
+  background: #108ee9;
+  animation: bouncedelay1 2.1s infinite linear;
+}
+
+.spinner .bounce2 {
+  background: #9dcdef;
+  animation: bouncedelay2 2.1s infinite linear;
+}
+
+.spinner .bounce3 {
+  background: #eaecf3;
+  animation: bouncedelay3 2.1s infinite linear;
+}
+
+.spinner .spinner-word {
+  margin-top: 24rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #999999;
+}
+
+@keyframes bouncedelay1 {
+  0% {
+    background: #108ee9;
+  }
+
+  50% {
+    background: #9dcdef;
+  }
+
+  100% {
+    background: #eaecf3;
+  }
+}
+
+@keyframes bouncedelay2 {
+  0% {
+    background: #9dcdef;
+  }
+
+  50% {
+    background: #eaecf3;
+  }
+
+  100% {
+    background: #108ee9;
+  }
+}
+
+@keyframes bouncedelay3 {
+  0% {
+    background: #eaecf3;
+  }
+
+  50% {
+    background: #108ee9;
+  }
+
+  100% {
+    background: #9dcdef;
+  }
+}
+
+/* 加载中 e */

@@ -1,40 +1,44 @@
 <!--pages/commodity-detail/commodity-detail.wxml-->
 <view class="flex van-hairline--bottom" style="padding:30rpx;background:white;">
-  <van-image width="77rpx;" radius="2" height="77rpx" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+  <van-image width="77rpx;" radius="2" height="77rpx" fit="cover" src="" />
   <view class="flex-between-v" style="height:77rpx;margin-left:15rpx;">
-    <view style="font-size:26rpx;font-weight:bold;">撒旦反对</view>
-    <view style="color:gray;font-size:20rpx;">10分钟前来过 <text>发布于温州</text></view>
+    <view style="font-size:26rpx;font-weight:bold;">{{name}}</view>
+    <view style="color:gray;font-size:20rpx;">
+      <!-- -分钟前来过  -->
+      <text>发布于{{areaName}}</text>
+    </view>
   </view>
 </view>
 <view style="padding:30rpx;background:white;">
   <view style="color:red;font-size:36rpx;font-weight:bold;">￥115</view>
-  <view style="margin-top:10rpx;">家装五金建材冷热浴缸家装五金建材冷热浴缸家装五金建材冷热浴缸家装五金建材冷热浴缸</view>
+  <view style="margin-top:10rpx;">{{describes}}</view>
   <view style="margin:30rpx 0;">
     <view>
-      <text style="color:gray;font-size:26rpx;">品牌</text><text> 法沙恩</text>
+      <text style="color:gray;font-size:26rpx;">品牌</text><text> {{brandName}}</text>
     </view>
     <view>
-      <text style="color:gray;font-size:26rpx;">材料</text><text> 不锈钢</text>
+      <text style="color:gray;font-size:26rpx;">分类</text><text> {{categoryName}}</text>
     </view>
     <view>
-      <text style="color:gray;font-size:26rpx;">规格</text><text> </text>
+      <text style="color:gray;font-size:26rpx;">成色</text><text> {{qualityName}}</text>
     </view>
     <view>
-      <text style="color:gray;font-size:26rpx;">状态</text><text> 全新</text>
+      <text style="color:gray;font-size:26rpx;">状态</text><text> {{statusName}}</text>
     </view>
   </view>
-  <van-image width="100%" height="10rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+  <van-image wx:for="{{listImg}}" width="100%" height="10rem" fit="cover" src="{{serverUrl + item.imgUrl}}" />
 
   <view class="flex-between">
     <van-image width="118rpx" height="25rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/dbjy.png" />
     <view class="flex">
-      <view style="color:gray;font-size:24rpx;transform:translateY(-5rpx);margin:0 20rpx;">1人想要·浏览14</view>
+      <view style="color:gray;font-size:24rpx;transform:translateY(-5rpx);margin:0 20rpx;">
+        {{wantCount}}人想要·浏览{{browserCount}}</view>
       <van-image width="87rpx" height="35rpx" fit="fit"
         src="http://www.lemengsc.com:9901/jc/static/wx_imgs/jubao.png" />
     </view>
   </view>
 </view>
-<view style="margin-top:20rpx;padding:30rpx;background:white;">
+<!-- <view style="margin-top:20rpx;padding:30rpx;background:white;">
   <view style="font-weight:bold;padding-bottom:10rpx;">法唯沙卫浴</view>
   <view style="font-size:26rpx;">来闲鱼206天了,卖出xx件宝贝。现居浙江温州龙湾。80后巨蟹座句是...</view>
   <view class="flex" style="margin-top:30rpx;">
@@ -42,15 +46,16 @@
       src="http://www.lemengsc.com:9901/jc/static/wx_imgs/shiming.png" />
     <view style="margin-left:10rpx;color:gray;font-size:22rpx;transform:translateY(-2rpx);">实名认证已通过</view>
   </view>
-</view>
+</view> -->
 <van-submit-bar button-text="我想要" bind:submit="onClickButton" tip="{{ true }}">
   <view style="width:700rpx;" class="flex">
     <view class="flex-around-v">
       <van-image width="42rpx" height="40rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/chat.png" />
       <view style="font-size:20rpx;color:#332C2B;">留言</view>
     </view>
-    <view class="flex-around-v" style="margin-left:50rpx;">
-      <van-image width="42rpx" height="40rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/star.png" />
+    <view class="flex-around-v" style="margin-left:50rpx;" bindtap="addCollect">
+      <!-- <van-image width="42rpx" height="40rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/star.png" /> -->
+      <van-icon name="star" size="42rpx" color="{{isStar? 'red':'gray'}}" />
       <view style="font-size:20rpx;color:#332C2B;">收藏</view>
     </view>
   </view>
@@ -69,7 +74,9 @@
 </wxs> -->
 
 <van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
-  <view style="background:var(--primary-color);color:white;text-align:center;height:60rpx;line-height:60rpx;font-size:26rpx;">联系信息</view>
+  <view
+    style="background:var(--primary-color);color:white;text-align:center;height:60rpx;line-height:60rpx;font-size:26rpx;">
+    联系信息</view>
   <van-cell-group>
     <van-field value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" />
     <van-field value="{{ username2 }}" label="微信" placeholder="" clearable />

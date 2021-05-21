@@ -1,30 +1,78 @@
 <!--pages/home/home.wxml-->
-<van-tabs type="card" style="height:64rpx;">
+<van-tabs type="card">
   <van-tab title="推荐">
-    <view class="flex" style="padding-left:40rpx;">
-      <view class="icon-all"></view>
-      <navigator open-type="navigate" url="/pages/home/search/search">
-        <van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" use-action-slot>
-          <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
-        </van-search>
-      </navigator>
-    </view>
-    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{2000}}">
-      <block wx:for="[1,2,3]" wx:key="*this">
-        <swiper-item>
-          <image style="width:750rpx;" mode="scaleToFill" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
-          </image>
-        </swiper-item>
-      </block>
-    </swiper>
-    <view name='商品卡片滚动列表' class="card-list">
-      <navigator wx:for="[1,2]" open-type="navigate" url="/pages/commodity-detail/commodity-detail">
-        <my-card  img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
-          primary-title="流量卡斯克法律界圣诞快乐房价是独立空间" sub-title="产品说明" want-count="{{18}}" price="{{18.88}}">
-        </my-card>
-      </navigator>
-    </view>
+    <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+      <view class="flex" style="padding-left:40rpx;">
+        <view class="icon-all"></view>
+        <navigator open-type="navigate" url="/pages/home/search/search">
+          <van-search value="{{ searchName }}" shape="round" placeholder="请输入搜索关键词" use-action-slot>
+            <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
+          </van-search>
+        </navigator>
+      </view>
+
+      <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{2000}}">
+        <block wx:for="[1,2,3]" wx:key="*this">
+          <swiper-item>
+            <image style="width:750rpx;" mode="scaleToFill" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
+            </image>
+          </swiper-item>
+        </block>
+      </swiper>
+
+      <view name='商品卡片滚动列表' class="card-list">
+        <navigator wx:for="{{rows}}" open-type="navigate" url="/pages/commodity-detail/commodity-detail?id={{item.id}}">
+          <my-card img-src="{{serverUrl+item.img.imgUrl}}" primary-title="{{item.name}}" sub-title="{{item.describes}}"
+            want-count="{{item.wantCount}}" price="{{item.priceOut}}">
+          </my-card>
+        </navigator>
+      </view>
+      <!-- 加载中 -->
+      <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+        <view class='bounce1 bounce'>
+        </view>
+        <view class='bounce2 bounce'>
+        </view>
+        <view class='bounce3 bounce'>
+        </view>
+        <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+          加载中...
+        </view>
+      </view>
+      <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+        <view style='color:#666666;'>
+          -- 已经到底了，加不了咯 --
+        </view>
+      </view>
+    </scroll-view>
 
   </van-tab>
   <van-tab title="惠州">内容 2</van-tab>
 </van-tabs>
+<!-- 
+id
+name
+describes
+categoryId
+specesId
+brandId
+qualityId
+statusId
+areaCode
+areaName
+priceOut
+priceIn
+pricePost
+isFreePost
+state
+collectCount
+browserCount
+wantCount
+createTime
+categoryName
+specesName
+brandName
+qualityName
+statusName
+img
+ -->
