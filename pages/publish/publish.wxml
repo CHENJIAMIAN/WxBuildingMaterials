@@ -164,6 +164,6 @@
   <van-area bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
 </van-popup>
 
-<van-dialog use-slot title="" show="{{ true }}" show-cancel-button bind:confirm="onConfirm">
+<van-dialog use-slot title="" show="{{ showAddBrand }}" show-cancel-button bind:confirm="onConfirm">
   <van-field model:value="{{ brandName }}" label="品牌名称" placeholder="" clearable bind:change="onChange" />
 </van-dialog>

@@ -1,5 +1,5 @@
 // pages/home/search-result/search-result.js
-var app = getApp();
+let app = getApp();
 Page({
   /**
    * 页面的初始数据

@@ -23,7 +23,7 @@ App({
     console.log('===========openId:' + openId); // 获取手机号
     let encryptedData = e.detail.encryptedData;
     let iv = e.detail.iv;
-    var url = app.serverUrl + "/api/wxUser/phoneNumber";
+    let url = app.serverUrl + "/api/wxUser/phoneNumber";
 
     if (!e.detail.iv) {
       wx.showModal({
@@ -62,10 +62,6 @@ App({
           app.globalData.phone = resdata.data.data.phone;
           console.log("phone:", app.globalData.phone);
           console.log("avatar:", app.globalData.avatar);
-          pageInstance.setData({
-            isGotPhone: !!this.globalData.phone
-          });
-          pageInstance.addUser();
         } else {
           wx.showToast({
             icon: "fail",
@@ -82,7 +78,7 @@ App({
   },
 
   getCategoryList(page) {
-    var url = this.serverUrl + "/api/utils/getCategoryList";
+    let url = this.serverUrl + "/api/utils/getCategoryList";
     wx.request({
       url: url,
       method: "POST",
@@ -112,7 +108,7 @@ App({
   },
 
   getSpecsList(page) {
-    var url = this.serverUrl + "/api/utils/getSpecsList";
+    let url = this.serverUrl + "/api/utils/getSpecsList";
     wx.request({
       url: url,
       method: "POST",
@@ -144,7 +140,7 @@ App({
   },
 
   getBrandList(page) {
-    var url = this.serverUrl + "/api/utils/getBrandList";
+    let url = this.serverUrl + "/api/utils/getBrandList";
     wx.request({
       url: url,
       method: "POST",
@@ -176,7 +172,7 @@ App({
   },
 
   getQualityList(page) {
-    var url = this.serverUrl + "/api/utils/getQualityList";
+    let url = this.serverUrl + "/api/utils/getQualityList";
     wx.request({
       url: url,
       method: "POST",
@@ -208,7 +204,7 @@ App({
   },
 
   getStateList(page) {
-    var url = this.serverUrl + "/api/utils/getStateList";
+    let url = this.serverUrl + "/api/utils/getStateList";
     wx.request({
       url: url,
       method: "POST",

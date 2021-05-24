@@ -1,5 +1,5 @@
 // pages/mine/publish/publish.js
-var app = getApp();
+let app = getApp();
 Page({
 
   /**
@@ -52,13 +52,13 @@ Page({
     }
   },
   loadGoodsListByPageForUser() {
-    var url = app.serverUrl + "/api/goods/loadGoodsListByPageForUser";
+    let url = app.serverUrl + "/api/goods/loadGoodsListByPageForUser";
     const {
       state,
       pageNo,
       pageSize,
     } = this.data;
-    var userId = app.globalData.userId;
+    let userId = app.globalData.userId;
     const reqParams = {
       userId,
       state,
@@ -83,70 +83,7 @@ Page({
           lastVisitTime,
           rows,
         } = resdata.data.data;
-        rows = [{
-            "pricePost": 2,
-            "brandName": "卫龙",
-            "img": {
-              "imgUrl": "/upload/materials/file/20210513/1620889226196162088922619558.jpeg",
-              "createTime": "2021-05-13T07:08:54.000+0000",
-              "goodsId": 5,
-              "id": 8,
-              "type": 1
-            },
-            "collectCount": 1,
-            "categoryName": "水龙头",
-            "describes": "二手没有使用过的水龙头",
-            "browserCount": 1,
-            "areaCode": "525000",
-            "isFreePost": 2,
-            "statusId": 1,
-            "areaName": "茂名",
-            "createTime": "2021-05-13 15:08:54",
-            "qualityName": "轻微使用痕迹",
-            "priceIn": 10,
-            "brandId": 7,
-            "name": "工地水龙头",
-            "statusName": "功能完好无维修",
-            "wantCount": 0,
-            "id": 5,
-            "state": 2,
-            "priceOut": 33.5,
-            "categoryId": 3,
-            "qualityId": 3
-          },
-          {
-            "pricePost": 0,
-            "brandName": "卫龙",
-            "img": {
-              "imgUrl": "/upload/materials/file/20210513/1620889226196162088922619558.jpeg",
-              "createTime": "2021-05-13T07:07:25.000+0000",
-              "goodsId": 3,
-              "id": 4,
-              "type": 1
-            },
-            "collectCount": 0,
-            "categoryName": "水龙头",
-            "describes": "二手没有使用过的水龙头",
-            "browserCount": 1,
-            "areaCode": "525000",
-            "isFreePost": 1,
-            "statusId": 1,
-            "areaName": "茂名",
-            "createTime": "2021-05-13 15:07:25",
-            "qualityName": "轻微使用痕迹",
-            "priceIn": 10,
-            "brandId": 7,
-            "name": "二手水龙头",
-            "statusName": "功能完好无维修",
-            "wantCount": 0,
-            "id": 3,
-            "state": 2,
-            "priceOut": 33.5,
-            "categoryId": 3,
-            "qualityId": 3
-          }
-        ];
-
+      
         if (resdata.data.code == 0) {
           this.setData({
             pageNo,
@@ -186,7 +123,7 @@ Page({
   },
 
   callGoodsApiByOption(option) {
-    var url = app.serverUrl + `/api/goods/${option}`;
+    let url = app.serverUrl + `/api/goods/${option}`;
     const {
       id
     } = this.data;

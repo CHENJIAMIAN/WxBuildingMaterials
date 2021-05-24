@@ -1,6 +1,6 @@
 // pages/loading.js
-var app = getApp();
-var intervalProcess;
+let app = getApp();
+let intervalProcess;
 Page({
 
   /**
@@ -11,18 +11,7 @@ Page({
     goBtnFlag: false,
     loginBtnFlag: false,
     time: 3,
-    show: false,
   },
-  getUserInfo(event) {
-    console.log(event.detail);
-  },
-
-  onClose() {
-    this.setData({
-      show: false
-    });
-  },
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -103,14 +92,14 @@ Page({
 
   login() {
     // 页面加载
-    var that = this;
+    let that = this;
     wx.login({
       success: res => {
         if (res.code) {
           // console.log(app.serverUrl + '/login/' + res.authCode);
           // 调用自己的服务端接口，让服务端进行后端的授权认证
           console.log('=====code:' + res.code);
-          var url = app.serverUrl + "/api/wxUser/check";
+          let url = app.serverUrl + "/api/wxUser/check";
           wx.request({
             url: url,
             method: "POST",
@@ -174,11 +163,11 @@ Page({
 
   //已经报过名，直接去到主页
   goIndex() {
-    const bool = !true;
+    const bool = true;
     bool &&
       wx.switchTab({
-        url: "/pages/mine/mine"
-        // url: "/pages/home/home"
+        // url: "/pages/mine/mine"
+        url: "/pages/home/home"
       });
     !bool &&
       wx.navigateTo({

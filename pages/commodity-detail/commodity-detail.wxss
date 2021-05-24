@@ -1,4 +1,5 @@
 /* pages/commodity-detail/commodity-detail.wxss */
 page {
   background: #f7f8fa;
+  padding-bottom: 100rpx;
 }

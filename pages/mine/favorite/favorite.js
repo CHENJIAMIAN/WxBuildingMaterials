@@ -1,5 +1,5 @@
 // pages/mine/favorite/favorite.js
-var app = getApp();
+let app = getApp();
 Page({
 
   /**
@@ -19,7 +19,7 @@ Page({
     rows: [],
   },
   getMyCollect() {
-    var url = app.serverUrl + "/api/collect/myCollect";
+    let url = app.serverUrl + "/api/collect/myCollect";
     let userId = app.globalData.userId;
     wx.request({
       url: url,
@@ -65,8 +65,8 @@ Page({
   },
 
   delCollect(e) {
-    var url = app.serverUrl + "/api/collect/delCollect";
-    var userId = app.globalData.userId;
+    let url = app.serverUrl + "/api/collect/delCollect";
+    let userId = app.globalData.userId;
     const {
       id
     } = e.currentTarget.dataset;

@@ -1,5 +1,5 @@
 // pages/mine.js
-var app = getApp();
+let app = getApp();
 
 Component({
   data: {
@@ -47,15 +47,15 @@ Component({
         show: false
       });
     },
-    onComfirm() {
+    onConfirm() {
       this.setData({
         show: false
       });
       this.addUserInfo();
     },
     addUserInfo() {
-      var url = app.serverUrl + "/api/user/addUserInfo";
-      var id = app.globalData.userId;
+      let url = app.serverUrl + "/api/user/addUserInfo";
+      let id = app.globalData.userId;
       const {
         name,
         sex,
@@ -107,7 +107,7 @@ Component({
         file
       } = event.detail;
       // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-      var url = app.serverUrl + "/api/uploadFile/upload";
+      let url = app.serverUrl + "/api/uploadFile/upload";
       wx.uploadFile({
         name: 'file',
         url,
@@ -117,7 +117,7 @@ Component({
         name: "image",
         formData: {},
         success: (res) => {
-          var obj = JSON.parse(res.data);
+          let obj = JSON.parse(res.data);
           console.log(obj);
           if (obj.code == 0) {
             // 上传完成需要更新 fileList
@@ -152,8 +152,8 @@ Component({
     },
 
     getUser() {
-      var url = app.serverUrl + "/api/user/getUser";
-      var userId = app.globalData.userId;
+      let url = app.serverUrl + "/api/user/getUser";
+      let userId = app.globalData.userId;
       wx.request({
         url: url,
         method: "POST",
@@ -203,7 +203,7 @@ Component({
 
 
     addAvatar(avatar) {
-      var url = app.serverUrl + "/api/user/addAvatar";
+      let url = app.serverUrl + "/api/user/addAvatar";
       let id = app.globalData.userId;
       wx.showLoading();
       wx.request({

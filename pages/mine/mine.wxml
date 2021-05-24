@@ -83,6 +83,6 @@
       <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
         bind:change="onChange" />
     </block>
-    <van-button type="primary" block bindtap="onComfirm">确认</van-button>
+    <van-button type="primary" block bindtap="onConfirm">确认</van-button>
   </van-cell-group>
 </van-popup>

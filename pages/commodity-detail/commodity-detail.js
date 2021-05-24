@@ -1,5 +1,5 @@
 // pages/commodity-detail/commodity-detail.js
-var app = getApp();
+let app = getApp();
 Page({
 
   /**
@@ -40,19 +40,81 @@ Page({
       // type:''	
       // imgUrl:''	
     ],
+    // 
+    showGetPhoneNumberDialog: false,
+    // 
+    phone: '',
+    wechat: '',
+    qq: '',
+    email: '',
+    // 
+    showAddMsg: false,
+    msg: '',
+    // 留言
+    pageNo: '',
+    current_page: '',
+    pageSize: '',
+    per_page: '',
+    total: '',
+    totalPage: '',
+    last_page: '',
+    lastVisitTime: '',
+    rows: [],
   },
-  addBrowser() {
-    var url = app.serverUrl + "/api/browser/addBrowser";
-    var userId = app.globalData.userId;
+  addMsg() {
+    let url = app.serverUrl + "/api/message/addMsg";
+    let userId = app.globalData.userId;
     const {
-      id
+      id: goodsId,
+      msg,
     } = this.data;
     wx.request({
       url: url,
       method: "POST",
       data: {
         userId,
-        goodsId: id
+        goodsId,
+        msg,
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          wx.showToast({
+            icon: "success",
+            title: "提交成功",
+            duration: 1000
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
+  tapAddMsg() {
+    this.setData({
+      showAddMsg: true
+    })
+  },
+  getPhoneNumber(e) {
+    app.getPhoneNumber(e, this);
+  },
+  addBrowser() {
+    let url = app.serverUrl + "/api/browser/addBrowser";
+    let userId = app.globalData.userId;
+    const {
+      id: goodsId,
+    } = this.data;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId,
+        goodsId
       },
       success: (resdata) => {
         console.log(url, resdata.data);
@@ -68,17 +130,17 @@ Page({
     });
   },
   addCollect() {
-    var url = app.serverUrl + "/api/collect/addCollect";
-    var userId = app.globalData.userId;
+    let url = app.serverUrl + "/api/collect/addCollect";
+    let userId = app.globalData.userId;
     const {
-      id
+      id: goodsId,
     } = this.data;
     wx.request({
       url: url,
       method: "POST",
       data: {
         userId,
-        goodsId: id
+        goodsId
       },
       success: (resdata) => {
         console.log(url, resdata.data);
@@ -102,8 +164,55 @@ Page({
       fail: (resdata) => {}
     });
   },
+  getMsgByGoodsIdList() {
+    let url = app.serverUrl + "/api/message/getMsgByGoodsIdList";
+    const {
+      id: goodsId
+    } = this.data;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        goodsId
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          const {
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          } = resdata.data.data;
+          this.setData({
+            pageNo,
+            current_page,
+            pageSize,
+            per_page,
+            total,
+            totalPage,
+            last_page,
+            lastVisitTime,
+            rows,
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
   getGoods() {
-    var url = app.serverUrl + "/api/goods/getGoods";
+    let url = app.serverUrl + "/api/goods/getGoods";
     const {
       id
     } = this.data;
@@ -164,14 +273,59 @@ Page({
     this.setData({
       show: true
     });
+    if (!app.globalData.phone)
+      this.setData({
+        showGetPhoneNumberDialog: true
+      });
   },
-  onComfirm() {
+  onConfirm() {
     this.setData({
       show: false
     });
+    this.addWant();
     wx.navigateBack({
       delta: -1,
-    })
+    });
+  },
+  addWant() {
+    let url = app.serverUrl + "/api/want/addWant";
+    let userId = app.globalData.userId;
+    const {
+      id: goodsId,
+      phone,
+      wechat,
+      qq,
+      email,
+    } = this.data;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId,
+        goodsId,
+        phone,
+        wechat,
+        qq,
+        email,
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          wx.showToast({
+            icon: "success",
+            title: "提交成功",
+            duration: 1000
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
   },
   onClose() {
     this.setData({
@@ -187,9 +341,11 @@ Page({
       id
     } = options;
     this.setData({
-      id
+      id,
+      phone: app.globalData.phone
     });
     this.getGoods();
+    this.getMsgByGoodsIdList();
     this.addBrowser();
   },
 

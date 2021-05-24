@@ -3,14 +3,3 @@
   <image style="position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);width: 190rpx;height:190rpx;" mode="aspectFit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/icon-tjc1.png">
   </image>
 </view>
-<van-dialog
-  use-slot
-  title="标题"
-  show="{{ show }}"
-  show-cancel-button
-  confirm-button-open-type="getUserInfo"
-  bind:close="onClose"
-  bind:getuserinfo="getUserInfo"
->
-  <image src="https://img.yzcdn.cn/1.jpg" />
-</van-dialog>

@@ -47,9 +47,17 @@
     <view style="margin-left:10rpx;color:gray;font-size:22rpx;transform:translateY(-2rpx);">实名认证已通过</view>
   </view>
 </view> -->
+<!-- 留言板 -->
+<demo-block title="留言">
+  <van-cell-group>
+    <van-cell wx:for="{{rows}}" title="{{item.userName||'-'}}" value="" label="{{item.msg}}"
+      border="{{ index<rows.length-1 }}" />
+  </van-cell-group>
+</demo-block>
+
 <van-submit-bar button-text="我想要" bind:submit="onClickButton" tip="{{ true }}">
   <view style="width:700rpx;" class="flex">
-    <view class="flex-around-v">
+    <view class="flex-around-v" bindtap="tapAddMsg">
       <van-image width="42rpx" height="40rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/chat.png" />
       <view style="font-size:20rpx;color:#332C2B;">留言</view>
     </view>
@@ -78,11 +86,19 @@
     style="background:var(--primary-color);color:white;text-align:center;height:60rpx;line-height:60rpx;font-size:26rpx;">
     联系信息</view>
   <van-cell-group>
-    <van-field value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" />
-    <van-field value="{{ username2 }}" label="微信" placeholder="" clearable />
-    <van-field value="{{ username }}" label="QQ" placeholder="" clearable type="number" />
-    <van-field value="{{ username2 }}" label="邮箱" placeholder="" clearable border="{{ false }}"
+    <van-field model:value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" bind:change="onChange" />
+    <van-field model:value="{{ wechat }}" label="微信" placeholder="" clearable bind:change="onChange" />
+    <van-field model:value="{{ qq }}" label="QQ" placeholder="" clearable type="number" bind:change="onChange" />
+    <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
       bind:change="onChange" />
-    <van-button type="primary" block bindtap="onComfirm">确认</van-button>
+    <van-button type="primary" block bindtap="onConfirm">确认</van-button>
   </van-cell-group>
 </van-popup>
+
+<van-dialog use-slot title="是否同意获取手机号码 ?" show="{{ showGetPhoneNumberDialog }}" overlay="{{ false }}" show-cancel-button
+  confirm-button-open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">
+</van-dialog>
+
+<van-dialog use-slot title="" show="{{ showAddMsg }}" show-cancel-button bind:confirm="addMsg">
+  <van-field model:value="{{ msg }}" label="留言" placeholder="" clearable bind:change="onChange" />
+</van-dialog>

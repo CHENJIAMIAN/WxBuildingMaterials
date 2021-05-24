@@ -49,30 +49,13 @@
   </van-tab>
   <van-tab title="惠州">内容 2</van-tab>
 </van-tabs>
-<!-- 
-id
-name
-describes
-categoryId
-specesId
-brandId
-qualityId
-statusId
-areaCode
-areaName
-priceOut
-priceIn
-pricePost
-isFreePost
-state
-collectCount
-browserCount
-wantCount
-createTime
-categoryName
-specesName
-brandName
-qualityName
-statusName
-img
- -->
+<van-dialog
+  use-slot
+  title="是否同意获取手机号码 ?"
+  show="{{ true }}"
+  overlay="{{ false }}"
+  show-cancel-button
+  confirm-button-open-type="getPhoneNumber"
+  bind:getphonenumber="getPhoneNumber"
+>
+</van-dialog>

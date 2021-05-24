@@ -2,7 +2,7 @@ import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 import {
   areaList
 } from '../../miniprogram_npm/@vant/area-data/index.js';
-var app = getApp();
+let app = getApp();
 // pages/publish/publish.js
 
 Page({
@@ -27,18 +27,51 @@ Page({
     areaName: '', //
     priceOut: '', //
     priceIn: '', //
-    pricePost: '', //
-    isFreePost: '', //
+    pricePost: '0', //
+    isFreePost: '1', //
     imgList1: [
       //   {
       //   type,
       //   imgUrl,
       // }
     ],
-    imgList2: []
+    imgList2: [],
+    // 
+    brandName: '',
+    showAddBrand: false,
   },
-  onConfirm(){
-    
+  addBrand() {
+    let url = app.serverUrl + "/api/utils/addBrand";
+    const {
+      brandName
+    } = this.data;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        name: brandName
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          wx.showToast({
+            icon: "success",
+            title: "提交成功",
+            duration: 1000
+          });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
+  onConfirm() {
+    this.addBrand();
   },
   tapShowAreaPopup() {
     this.setData({
@@ -85,14 +118,14 @@ Page({
   },
   onIsFreePostChange(event) {
     // event.detail 为当前输入的值
-    console.log('onChange', event.detail);
+    console.log('onIsFreePostChange', event.detail);
     this.setData({
       radio: event.detail,
       isFreePost: +event.detail
     })
     if (this.data.radio == '1')
       this.setData({
-        pricePost: ''
+        pricePost: '0'
       })
   },
 
@@ -122,8 +155,8 @@ Page({
 
 
   addGoods() {
-    var url = app.serverUrl + "/api/goods/addGoods";
-    var userId = app.globalData.userId;
+    let url = app.serverUrl + "/api/goods/addGoods";
+    let userId = app.globalData.userId;
 
     const {
       name,
@@ -212,7 +245,7 @@ Page({
       file
     } = event.detail;
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-    var url = app.serverUrl + "/api/uploadFile/upload";
+    let url = app.serverUrl + "/api/uploadFile/upload";
     wx.uploadFile({
       name: 'file',
       url,
@@ -222,7 +255,7 @@ Page({
       name: "image",
       formData: {},
       success: (res) => {
-        var obj = JSON.parse(res.data);
+        let obj = JSON.parse(res.data);
         console.log(obj);
         if (obj.code == 0) {
           // 上传完成需要更新 fileList
@@ -232,7 +265,7 @@ Page({
           imgList1.push({
             ...file,
             url: app.serverUrl + obj.data,
-            imgUrl: app.serverUrl + obj.data,
+            imgUrl: obj.data,//用相对路径
           });
           this.setData({
             imgList1
@@ -256,7 +289,7 @@ Page({
       file
     } = event.detail;
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-    var url = app.serverUrl + "/api/uploadFile/upload";
+    let url = app.serverUrl + "/api/uploadFile/upload";
     wx.uploadFile({
       name: 'file',
       url: url,
@@ -266,7 +299,7 @@ Page({
       name: "image",
       formData: {},
       success: (res) => {
-        var obj = JSON.parse(res.data);
+        let obj = JSON.parse(res.data);
         console.log(obj);
         if (obj.code == 0) {
           // 上传完成需要更新 fileList
@@ -276,7 +309,7 @@ Page({
           imgList2.push({
             ...file,
             url: app.serverUrl + obj.data,
-            imgUrl: app.serverUrl + obj.data,
+            imgUrl: obj.data,//用相对路径
           });
           this.setData({
             imgList2
@@ -306,10 +339,11 @@ Page({
     })
     console.log([type], value)
   },
-  tapAddBrand(){
-
+  tapAddBrand() {
+    this.setData({
+      showAddBrand: true
+    })
   },
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -346,14 +380,32 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    // const {
+    //   name,
+    //   describes,
+    //   categoryId,
+    //   specesId,
+    //   brandId,
+    //   qualityId,
+    //   statusId,
+    //   areaCode,
+    //   areaName,
+    //   priceOut,
+    //   priceIn,
+    //   pricePost,
+    //   isFreePost,
+    //   imgList1,
+    //   imgList2,
+    // } = this.data;
+
     wx.showModal({
       title: '提示',
       content: '是否保存修改信息？',
       success: function (res) {
         if (res.confirm) {
-          var pages = getCurrentPages(); //当前页面栈
+          let pages = getCurrentPages(); //当前页面栈
           if (pages.length > 0) {
-            var beforePage = pages[pages.length - 1]; //获取上一个页面实例对象                      
+            let beforePage = pages[pages.length - 1]; //获取上一个页面实例对象                      
             // beforePage.reloadData(); //触发父页面中的方法                        
           }
         } else if (res.cancel) {

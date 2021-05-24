@@ -1,5 +1,5 @@
 // pages/mine/history/history.js
-var app = getApp();
+let app = getApp();
 Page({
 
   /**
@@ -19,7 +19,7 @@ Page({
     rows: [],
   },
   getMyBrowser() {
-    var url = app.serverUrl + "/api/browser/myBrowser";
+    let url = app.serverUrl + "/api/browser/myBrowser";
     let userId = app.globalData.userId;
     wx.request({
       url: url,

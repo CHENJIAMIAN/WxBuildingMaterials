@@ -1,5 +1,5 @@
 // pages/home/home.js
-var app = getApp();
+let app = getApp();
 Component({
   data: {
     showLoading: false,
@@ -24,6 +24,9 @@ Component({
     rows: [],
   },
   methods: {
+    getPhoneNumber(e) {
+      app.getPhoneNumber(e, this);
+    },
     scrollMytrip() {
       console.log("scrollMytrip");
       const nextPageNo = this.data.pageNo + 1;
@@ -36,7 +39,7 @@ Component({
       }
     },
     loadGoodsListByPage() {
-      var url = app.serverUrl + "/api/goods/loadGoodsListByPage";
+      let url = app.serverUrl + "/api/goods/loadGoodsListByPage";
       const {
         searchName,
         categoryId,

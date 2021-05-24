@@ -4,7 +4,7 @@
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view>
         <van-card wx:for="{{rows}}" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
-          thumb="{{serverUrl+item.img.imgUrl}}">
+          thumb="{{item.img.imgUrl}}">
           <view slot="footer">
             <van-button size="mini">降价</van-button>
             <van-button size="mini">编辑</van-button>
