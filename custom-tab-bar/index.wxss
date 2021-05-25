@@ -40,12 +40,3 @@
 .tab2{
   transform: translate(30rpx,15rpx);
 }
-
-.tab-bar-item cover-image {
-  width: 27px;
-  height: 27px;
-}
-
-.tab-bar-item cover-view {
-  font-size: 10px;
-}

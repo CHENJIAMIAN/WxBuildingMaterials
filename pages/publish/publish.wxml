@@ -60,7 +60,7 @@
     <text class="green-arrow-tag">品牌</text>
     <van-tag data-type="brandId" data-value="{{item.value}}" round
       color="{{brandId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
-      text-color="{{brandId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{brandOption}}" bindtap="tapTag">
+      text-color="{{brandId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{brandOption}}" wx:key="id" bindtap="tapTag">
       {{item.text}}
     </van-tag>
     <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" bindtap="tapAddBrand">
@@ -71,7 +71,7 @@
     <text class="green-arrow-tag">成色</text>
     <van-tag data-type="qualityId" data-value="{{item.value}}" round
       color="{{qualityId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
-      text-color="{{qualityId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{qualityOption}}"
+      text-color="{{qualityId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{qualityOption}}" wx:key="id"
       bindtap="tapTag">
       {{item.text}}
     </van-tag>
@@ -80,7 +80,7 @@
     <text class="green-arrow-tag">状态</text>
     <van-tag data-type="statusId" data-value="{{item.value}}" round
       color="{{statusId!=item.value ? '#EEEEEF':'var(--primary-color)'}}"
-      text-color="{{statusId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{stateOption}}" bindtap="tapTag">
+      text-color="{{statusId!=item.value ? '#A2A2A2':'white'}}" size="medium" wx:for="{{stateOption}}" wx:key="id" bindtap="tapTag">
       {{item.text}}
     </van-tag>
   </view>

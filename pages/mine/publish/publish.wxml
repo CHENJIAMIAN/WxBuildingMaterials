@@ -3,7 +3,7 @@
   <van-tab title="我的发布">
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view>
-        <van-card wx:for="{{rows}}" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
+        <van-card wx:for="{{rows}}" wx:key="id" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
           thumb="{{item.img.imgUrl}}">
           <view slot="footer">
             <van-button size="mini">降价</van-button>

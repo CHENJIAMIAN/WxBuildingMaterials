@@ -13,7 +13,7 @@
   <van-dropdown-item data-name='stateId' value="{{ stateId }}" options="{{ stateOption }}" title="状态" bind:change="onOptionChange" />
 </van-dropdown-menu>
 <view name='商品卡片滚动列表' class="card-list">
-  <my-card wx:for="[1,2]" img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
+  <my-card wx:for="[1,2]" wx:key="*this" img-src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png"
     primary-title="流量卡斯克法律界圣诞快乐房价是独立空间" sub-title="产品说明" want-count="{{18}}" price="{{18.88}}">
   </my-card>
 </view>
