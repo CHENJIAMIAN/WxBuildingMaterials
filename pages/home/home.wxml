@@ -21,7 +21,8 @@
       </swiper>
 
       <view name='商品卡片滚动列表' class="card-list">
-        <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate" url="/pages/commodity-detail/commodity-detail?id={{item.id}}">
+        <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate"
+          url="/pages/commodity-detail/commodity-detail?id={{item.id}}">
           <my-card img-src="{{serverUrl+item.img.imgUrl}}" primary-title="{{item.name}}" sub-title="{{item.describes}}"
             want-count="{{item.wantCount}}" price="{{item.priceOut}}">
           </my-card>
@@ -47,15 +48,12 @@
     </scroll-view>
 
   </van-tab>
-  <van-tab title="惠州">内容 2</van-tab>
+  <van-tab title="惠州" icon="location-o">
+    <view slot="title-right">
+      title-right</view>
+    内容 2
+  </van-tab>
 </van-tabs>
-<van-dialog
-  use-slot
-  title="是否同意获取手机号码 ?"
-  show="{{ true }}"
-  overlay="{{ false }}"
-  show-cancel-button
-  confirm-button-open-type="getPhoneNumber"
-  bind:getphonenumber="getPhoneNumber"
->
-</van-dialog>
+<!-- <van-dialog use-slot title="是否同意获取手机号码?" show="{{ !phone }}" overlay="{{ false }}" show-cancel-button
+  confirm-button-open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">
+</van-dialog> -->

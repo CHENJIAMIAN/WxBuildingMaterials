@@ -2,6 +2,8 @@
 let app = getApp();
 Component({
   data: {
+    phone: app.globalData.phone,
+    // 
     showLoading: false,
     // 
     serverUrl: app.serverUrl,

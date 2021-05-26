@@ -21,7 +21,6 @@ Component({
   },
   methods: {
     tapAdd(){
-      console.log('123123')
       wx.navigateTo({
         url: '/pages/publish/publish',
       })

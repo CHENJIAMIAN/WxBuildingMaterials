@@ -265,7 +265,7 @@ Page({
           imgList1.push({
             ...file,
             url: app.serverUrl + obj.data,
-            imgUrl: obj.data,//用相对路径
+            imgUrl: obj.data, //用相对路径
           });
           this.setData({
             imgList1
@@ -309,7 +309,7 @@ Page({
           imgList2.push({
             ...file,
             url: app.serverUrl + obj.data,
-            imgUrl: obj.data,//用相对路径
+            imgUrl: obj.data, //用相对路径
           });
           this.setData({
             imgList2
@@ -353,6 +353,31 @@ Page({
     app.getBrandList(this);
     app.getQualityList(this);
     app.getStateList(this);
+    wx.getStorage({
+      key: 'publish_data',
+      success: (res) => {
+        // console.log(res.data)
+        this.setData(Object.assign(this.data, JSON.parse(res.data)));
+      }
+    })
+
+    wx.enableAlertBeforeUnload({
+      message: "是否保存更改?",
+      success: function (res) {
+        console.log("方法注册成功：", res);
+      },
+      fail: function (errMsg) {
+        console.log("方法注册失败：", errMsg);
+      },
+    });
+    // wx.disableAlertBeforeUnload({
+    //   success: function (res) {
+    //     console.log(res)
+    //   },
+    //   fail: function (e) {
+    //     console.log(e)
+    //   }
+    // });
   },
 
   /**
@@ -373,7 +398,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('onHide')
   },
 
   /**
@@ -397,22 +422,28 @@ Page({
     //   imgList1,
     //   imgList2,
     // } = this.data;
-
-    wx.showModal({
-      title: '提示',
-      content: '是否保存修改信息？',
-      success: function (res) {
-        if (res.confirm) {
-          let pages = getCurrentPages(); //当前页面栈
-          if (pages.length > 0) {
-            let beforePage = pages[pages.length - 1]; //获取上一个页面实例对象                      
-            // beforePage.reloadData(); //触发父页面中的方法                        
-          }
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
+    console.log('onUnload')
+    wx.setStorage({
+      key: "publish_data",
+      data: JSON.stringify(this.data)
     })
+
+
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '是否保存修改信息？',
+    //   success: function (res) {
+    //     if (res.confirm) {
+    //       let pages = getCurrentPages(); //当前页面栈
+    //       if (pages.length > 0) {
+    //         let beforePage = pages[pages.length - 1]; //获取上一个页面实例对象                      
+    //         // beforePage.reloadData(); //触发父页面中的方法                        
+    //       }
+    //     } else if (res.cancel) {
+    //       console.log('用户点击取消')
+    //     }
+    //   }
+    // })
   },
 
   /**
