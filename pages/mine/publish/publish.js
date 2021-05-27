@@ -28,7 +28,7 @@ Page({
     showLoading: false,
     // 
     serverUrl: app.serverUrl,
-    state: 2,
+    state: 2, //发布状态，1是未发布，2已发布(审核通过) 3是成交,4是下架,5审核不通过
     // 
     pageNo: '',
     current_page: '',
@@ -50,6 +50,26 @@ Page({
       });
       this.loadGoodsListByPageForUser();
     }
+  },
+  tabsChange(e) {
+    const {
+      index,
+      name,
+      title,
+    } = e.detail;
+    switch (index) {
+      case 0:
+        this.setData({
+          state: 2, //发布状态，1是未发布，2已发布(审核通过) 3是成交,4是下架,5审核不通过
+        })
+        break;
+      case 1:
+        this.setData({
+          state: 4,
+        })
+        break;
+    }
+    this.loadGoodsListByPageForUser();
   },
   loadGoodsListByPageForUser() {
     let url = app.serverUrl + "/api/goods/loadGoodsListByPageForUser";
@@ -83,7 +103,7 @@ Page({
           lastVisitTime,
           rows,
         } = resdata.data.data;
-      
+
         if (resdata.data.code == 0) {
           this.setData({
             pageNo,

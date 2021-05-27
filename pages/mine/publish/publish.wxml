@@ -1,5 +1,5 @@
 <!--pages/mine/publish/publish.wxml-->
-<van-tabs type="card" style="height:64rpx;">
+<van-tabs type="card" style="height:64rpx;" bind:change="tabsChange">
   <van-tab title="我的发布">
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view>
@@ -39,8 +39,44 @@
     </scroll-view>
   </van-tab>
   <van-tab title="下架宝贝">
-    <van-empty class="custom-image" image="http://www.lemengsc.com:9901/jc/static/wx_imgs/gwc.png"
-      description="你没有下架的宝贝哦" />
+    <van-empty wx:if="{{rows.length<1}}" class="custom-image"
+      image="http://www.lemengsc.com:9901/jc/static/wx_imgs/gwc.png" description="你没有下架的宝贝哦" />
+    <scroll-view wx:else style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+      <view>
+        <van-card wx:for="{{rows}}" wx:key="id" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
+          thumb="{{item.img.imgUrl}}">
+          <view slot="footer">
+            <!-- <van-button size="mini">降价</van-button> -->
+            <van-button size="mini">编辑</van-button>
+            <!-- <van-button size="mini" bindtap="moreAction" data-id="{{item.id}}">···</van-button> -->
+          </view>
+          <view slot="origin-price">
+            <text decode="{{true}}">&ensp;</text>
+          </view>
+          <view slot="bottom" style="color:gray;">
+            收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+          </view>
+        </van-card>
+        <van-divider />
+      </view>
+      <!-- 加载中 -->
+      <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+        <view class='bounce1 bounce'>
+        </view>
+        <view class='bounce2 bounce'>
+        </view>
+        <view class='bounce3 bounce'>
+        </view>
+        <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+          加载中...
+        </view>
+      </view>
+      <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+        <view style='color:#666666;'>
+          -- 已经到底了，加不了咯 --
+        </view>
+      </view>
+    </scroll-view>
   </van-tab>
 </van-tabs>
 <van-action-sheet show="{{ showAction }}" actions="{{ actions }}" cancel-text="取消" bind:close="onClose"
