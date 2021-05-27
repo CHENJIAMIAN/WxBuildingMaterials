@@ -1,1 +1,4 @@
 /* pages/home/search/search.wxss */
+page{
+  --button-default-height:68rpx;
+}

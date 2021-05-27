@@ -1,5 +1,11 @@
 /* pages/commodity-detail/commodity-detail.wxss */
 page {
   background: #f7f8fa;
-  padding-bottom: 100rpx;
+  padding-bottom: 200rpx;
+}
+
+.custom-input-class {
+  background: #EEEEEF !important;
+  border-radius: 20rpx;
+  padding: 0 30rpx !important;
 }

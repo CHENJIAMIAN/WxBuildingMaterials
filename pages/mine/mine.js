@@ -40,7 +40,8 @@ Component({
     },
     onChange(event) {
       // event.detail 为当前输入的值
-      console.log(event.detail);
+      // console.log(event.detail);
+      this.onConfirm();
     },
     onClose() {
       this.setData({
@@ -85,11 +86,11 @@ Component({
         success: (resdata) => {
           console.log(url, resdata.data);
           if (resdata.data.code == 0) {
-            wx.showToast({
-              icon: "success",
-              title: "提交成功",
-              duration: 1000
-            });
+            // wx.showToast({
+            //   icon: "success",
+            //   title: "提交成功",
+            //   duration: 1000
+            // });
             this.getUser();
           } else {
             wx.showToast({

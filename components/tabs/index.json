@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-info": "../../miniprogram_npm/@vant/weapp/info/index",
+    "van-sticky": "../../miniprogram_npm/@vant/weapp/sticky/index",
+    "van-icon": "../../miniprogram_npm/@vant/weapp/icon/index"
+  }
+}

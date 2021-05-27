@@ -1,4 +1,7 @@
 /* pages/home/home.wxss */
+page{
+  --button-default-height:68rpx;
+}
 .van-search__content {
   border: 1px solid var(--primary-color);
 }

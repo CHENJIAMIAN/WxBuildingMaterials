@@ -84,6 +84,11 @@ Page({
             title: "提交成功",
             duration: 1000
           });
+          this.setData({
+            msg: ''
+          })
+          this.getMsgByGoodsIdList();
+
         } else {
           wx.showToast({
             icon: "none",

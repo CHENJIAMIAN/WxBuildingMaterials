@@ -37,34 +37,30 @@
   <view class="card">
     <view class="card-head">基本信息</view>
     <view class="card-content" data-name="1" bindtap="showPopup">
-      <view>会员名</view>
-      <view>{{name}}</view>
-      <view>性别</view>
-      <view>{{sex}}</view>
-      <view>常住</view>
-      <view>{{addr}}</view>
-      <view>职位</view>
-      <view>{{jobPosition}}</view>
-      <view>公司</view>
-      <view>{{company}}</view>
+      <van-cell-group>
+        <van-field model:value="{{ name }}" label="会员名" placeholder="" clearable bind:change="onChange" />
+        <van-field model:value="{{ sex }}" label="性别" placeholder="" clearable bind:change="onChange" />
+        <van-field model:value="{{ addr }}" label="常住" placeholder="" clearable bind:change="onChange" />
+        <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
+        <van-field model:value="{{ company }}" label="公司" placeholder="" clearable bind:change="onChange" />
+      </van-cell-group>
     </view>
   </view>
   <view class="card">
     <view class="card-head">联系信息</view>
     <view class="card-content" data-name="2" bindtap="showPopup">
-      <view>手机</view>
-      <view>{{phone}}</view>
-      <view>微信</view>
-      <view>{{wechat}}</view>
-      <view>QQ</view>
-      <view>{{qq}}</view>
-      <view>邮箱</view>
-      <view>{{email}}</view>
+      <van-cell-group>
+        <van-field model:value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" bind:change="onChange" />
+        <van-field model:value="{{ wechat }}" label="微信" placeholder="" clearable bind:change="onChange" />
+        <van-field model:value="{{ qq }}" label="QQ" placeholder="" clearable type="number" bind:change="onChange" />
+        <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
+          bind:change="onChange" />
+      </van-cell-group>
     </view>
   </view>
 </view>
 
-<van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
+<!-- <van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
   <view
     style="background:var(--primary-color);color:white;text-align:center;height:60rpx;line-height:60rpx;font-size:26rpx;">
     {{isBaseInfo? '基本信息':'联系信息'}}</view>
@@ -85,4 +81,4 @@
     </block>
     <van-button type="primary" block bindtap="onConfirm">确认</van-button>
   </van-cell-group>
-</van-popup>
+</van-popup> -->

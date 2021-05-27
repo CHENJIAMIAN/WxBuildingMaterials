@@ -11,7 +11,12 @@ App({
     publicOpenId: "",
     sessionKey: "",
     phone: "", //手机号码
-    avatar: "" //头像
+    avatar: "", //头像
+    // 
+    longitude: "",
+    latitude: "",
+    cityName: "",
+    district: ""
   },
 
   // .js

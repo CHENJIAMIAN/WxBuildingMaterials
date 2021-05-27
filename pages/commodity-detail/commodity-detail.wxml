@@ -26,7 +26,8 @@
       <text style="color:gray;font-size:26rpx;">状态</text><text> {{statusName}}</text>
     </view>
   </view>
-  <van-image wx:for="{{listImg}}" wx:key="id" width="100%" height="10rem" fit="cover" src="{{serverUrl + item.imgUrl}}" />
+  <van-image wx:for="{{listImg}}" wx:key="id" width="100%" height="10rem" fit="cover"
+    src="{{serverUrl + item.imgUrl}}" />
 
   <view class="flex-between">
     <van-image width="118rpx" height="25rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/dbjy.png" />
@@ -47,15 +48,25 @@
     <view style="margin-left:10rpx;color:gray;font-size:22rpx;transform:translateY(-2rpx);">实名认证已通过</view>
   </view>
 </view> -->
-<!-- 留言板 -->
-<demo-block title="留言">
-  <van-cell-group>
-    <van-cell wx:for="{{rows}}" wx:key="id" title="{{item.userName||'-'}}" value="" label="{{item.msg}}"
-      border="{{ index<rows.length-1 }}" />
-  </van-cell-group>
-</demo-block>
 
-<van-submit-bar button-text="我想要" bind:submit="onClickButton" tip="{{ true }}">
+<!-- 留言板 -->
+<van-cell-group title="留言">
+  <van-cell wx:for="{{rows}}" wx:key="id" title="{{item.userName||'-'}}" value="{{item.createTime}}"
+    label="{{item.msg}}" border="{{ index<rows.length-1 }}" />
+</van-cell-group>
+
+<!-- <van-dialog use-slot title="" show="{{ showAddMsg }}" show-cancel-button bind:confirm="addMsg">
+</van-dialog> -->
+
+<van-submit-bar button-text="我想要" bind:submit="onClickButton" tip="{{ true }}" button-type="primary">
+  <view slot="top" class="van-hairline--surround">
+    <van-field input-class="custom-input-class" model:value="{{ msg }}" label="" placeholder="" clearable
+      bind:change="onChange">
+      <van-button slot="button" size="small" type="primary" bindtap="addMsg">
+        发送
+      </van-button>
+    </van-field>
+  </view>
   <view style="width:700rpx;" class="flex">
     <view class="flex-around-v" bindtap="tapAddMsg">
       <van-image width="42rpx" height="40rpx" fit="fit" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/chat.png" />
@@ -97,8 +108,4 @@
 
 <van-dialog use-slot title="是否同意获取手机号码 ?" show="{{ showGetPhoneNumberDialog }}" overlay="{{ false }}" show-cancel-button
   confirm-button-open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">
-</van-dialog>
-
-<van-dialog use-slot title="" show="{{ showAddMsg }}" show-cancel-button bind:confirm="addMsg">
-  <van-field model:value="{{ msg }}" label="留言" placeholder="" clearable bind:change="onChange" />
 </van-dialog>

@@ -80,7 +80,4 @@ page {
 
 .card-content {
   padding: 20rpx 30rpx 20rpx 50rpx;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rpx 0;
 }

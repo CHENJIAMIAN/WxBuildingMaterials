@@ -1,12 +1,17 @@
 <!--pages/home/search/search.wxml-->
-<van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" use-action-slot clearable>
-  <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
+<van-search value="{{ searchName }}" shape="round" placeholder="请输入搜索关键词" use-action-slot clearable
+  bind:change="onChange" bind:search="searchSubmitFn" show-action>
+  <van-button round type="primary" slot="action" bindtap="searchSubmitFn">搜索</van-button>
 </van-search>
+
+
+
+
 <van-cell-group>
-  <navigator open-type="redirect" url="/pages/home/search-result/search-result">
-    <van-cell title="瓷砖地砖" value="" />
+  <navigator wx:for="{{searchRecord}}" wx:key='{{item}}' open-type="redirect"
+    url="/pages/home/search-result/search-result?searchName={{item.value}}">
+    <van-cell title="{{item.value}}" value="" />
   </navigator>
-  <navigator open-type="redirect" url="/pages/home/search-result/search-result">
-    <van-cell title="瓷砖贴纸" value="" />
-  </navigator>
+  <view style="text-align:center;" wx:if="{{searchRecord.length==0}}">你还没有搜索记录</view>
+  <view style="text-align:center;" wx:else bindtap="historyDelFn">清空搜索记录</view>
 </van-cell-group>
