@@ -13,6 +13,10 @@
 
       <scroll-view scroll-x="true" style="text-align:center;white-space: nowrap;width: 100%">
         <view
+          style="display: inline-block;margin:10rpx 50rpx;font-size:26rpx;color:{{!categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
+          bindtap="tapCategory">全部
+        </view>
+        <view
           style="display: inline-block;margin:10rpx 50rpx;font-size:26rpx;color:{{item.value==categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
           wx:for="{{categoryOption}}" wx:key="value" data-value="{{item.value}}" bindtap="tapCategory">{{item.text}}
         </view>

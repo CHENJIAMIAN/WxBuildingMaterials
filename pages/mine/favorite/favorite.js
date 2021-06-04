@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showLoading: false,
+    // 
     serverUrl: app.serverUrl,
     // 
     pageNo: '',
@@ -18,14 +20,31 @@ Page({
     lastVisitTime: '',
     rows: [],
   },
+  scrollMytrip() {
+    console.log("scrollMytrip");
+    const nextPageNo = this.data.pageNo + 1;
+    if (nextPageNo <= this.data.totalPage) {
+      this.setData({
+        showLoading: true,
+        pageNo: nextPageNo
+      });
+      this.getMyCollect();
+    }
+  },
   getMyCollect() {
     let url = app.serverUrl + "/api/collect/myCollect";
     let userId = app.globalData.userId;
+    const {
+      pageNo,
+      pageSize
+    } = this.data;
     wx.request({
       url: url,
       method: "POST",
       data: {
-        userId
+        userId,
+        pageNo,
+        pageSize
       },
       success: (resdata) => {
         console.log(url, resdata.data.data)
@@ -50,7 +69,7 @@ Page({
             totalPage,
             last_page,
             lastVisitTime,
-            rows,
+            rows: this.data.rows.concat(rows),
           });
         } else {
           wx.showToast({
@@ -60,7 +79,14 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {
+        console.error(resdata);
+      },
+      complete: (resdata) => {
+        this.setData({
+          showLoading: false
+        });
+      },
     });
   },
 

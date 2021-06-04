@@ -6,6 +6,8 @@ Page({
    */
   data: {
     // 
+    serverUrl: app.serverUrl,
+    // 
     showLoading: false,
     // option1: [{
     //     text: '区域',
@@ -124,7 +126,7 @@ Page({
             totalPage,
             last_page,
             lastVisitTime,
-            rows,
+            rows: this.data.rows.concat(rows),
           });
         } else {
           wx.showToast({
@@ -135,11 +137,13 @@ Page({
         }
       },
       fail: (resdata) => {
+        console.error(resdata);
+      },
+      complete: (resdata) => {
         this.setData({
           showLoading: false
         });
-        console.log(resdata);
-      }
+      },
     });
 
   },

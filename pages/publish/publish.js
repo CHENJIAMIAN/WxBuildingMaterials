@@ -6,26 +6,33 @@ let app = getApp();
 // pages/publish/publish.js
 
 Page({
+  id: 'publish',
   data: {
+    showUserInfoPopup: false,
     showAreaPopup: false,
+    showPriceActionSheet: false,
+    showAddBrand: false,
     areaList,
+    // 
+    categoryOptionKeyIdValueName: {},
+    specsOptionKeyIdValueName: {},
+    // 
     categoryOption: [],
     brandOption: [],
     specsOption: [],
     qualityOption: [],
     stateOption: [],
-    show: false,
     radio: '1',
     name: '', //
     describes: '', //
     categoryId: '', //
     brandId: '', //
-    specesId: '', //
+    specesId: 0, //
     qualityId: '', //
     statusId: '', //
     areaCode: '', //
     areaName: '', //
-    priceOut: '', //
+    priceOut: '0', //
     priceIn: '', //
     pricePost: '0', //
     isFreePost: '1', //
@@ -38,13 +45,38 @@ Page({
     imgList2: [],
     // 
     brandName: '',
-    showAddBrand: false,
+    // 
+    totalPrice: 0,
+    // 
+    beforeAddBrandClose: function (action) {
+      return new Promise((resolve) => {
+        if (action === 'confirm') {
+          const thisPage = getCurrentPages().find(i => i.id === 'publish');
+          thisPage.addBrand(resolve);
+        } else if (action === 'cancel') {
+          resolve(true);
+        }
+      })
+    },
+    // 
+    phone: '',
+    wechat: '',
+    qq: '',
+    email: '',
   },
-  addBrand() {
+  addBrand(resolve) {
     let url = app.serverUrl + "/api/utils/addBrand";
     const {
       brandName
     } = this.data;
+    if (!brandName) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入品牌`,
+      });
+      resolve(false);
+      return;
+    }
     wx.request({
       url: url,
       method: "POST",
@@ -59,19 +91,20 @@ Page({
             title: "提交成功",
             duration: 1000
           });
+          resolve(true);
         } else {
           wx.showToast({
             icon: "none",
             title: resdata.data.msg || '',
             duration: 1000
           });
+          resolve(false);
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {
+        resolve(false);
+      }
     });
-  },
-  onConfirm() {
-    this.addBrand();
   },
   tapShowAreaPopup() {
     this.setData({
@@ -115,6 +148,9 @@ Page({
   onChange(event) {
     // event.detail 为当前输入的值
     console.log(event.detail);
+    this.setData({
+      totalPrice: Number(this.data.priceOut) + Number(this.data.pricePost)
+    })
   },
   onIsFreePostChange(event) {
     // event.detail 为当前输入的值
@@ -131,15 +167,96 @@ Page({
 
   onPrice() {
     this.setData({
-      show: true
+      showPriceActionSheet: true
     });
   },
-  onClose() {
+  onPriceActionSheetClose() {
     this.setData({
-      show: false
+      showPriceActionSheet: false
     });
   },
-
+  onUserInfoPopupClose() {
+    this.setData({
+      showUserInfoPopup: false
+    });
+  },
+  onUserInfoPopupConfirm() {
+    this.addUserInfo();
+    this.onUserInfoPopupClose();
+  },
+  addUserInfo() {
+    let url = app.serverUrl + "/api/user/addUserInfo";
+    let id = app.globalData.userId;
+    const {
+      phone,
+      wechat,
+      qq,
+      email
+    } = this.data;
+    if (!id) {
+      wx.showToast({
+        icon: "none",
+        title: `用户id为${id}`,
+      });
+      return;
+    }
+    if (!phone) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入电话`,
+      });
+      return;
+    }
+    if (!wechat) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入微信`,
+      });
+      return;
+    }
+    if (!qq) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入QQ`,
+      });
+      return;
+    }
+    if (!email) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入邮箱`,
+      });
+      return;
+    }
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        id,
+        phone,
+        wechat,
+        qq,
+        email
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          // wx.showToast({
+          //   icon: "success",
+          //   title: "提交成功",
+          //   duration: 1000
+          // });
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
   delete(event) {
     const {
       index,
@@ -152,6 +269,19 @@ Page({
     });
   },
 
+  onClickPublishButton() {
+    this.setData({
+      showUserInfoPopup: true
+    });
+    const {
+      phone,
+      wechat,
+      qq,
+      email
+    } = this.data;
+    if (phone && wechat && qq && email)
+      this.addGoods();
+  },
 
 
   addGoods() {
@@ -183,6 +313,109 @@ Page({
       //   imgUrl,
       // }]
     } = this.data;
+    if (!name) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入名称`,
+      });
+      return;
+    }
+    if (!describes) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入描述`,
+      });
+      return;
+    }
+    if (!categoryId) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择类型`,
+      });
+      return;
+    }
+    // if (!specesId) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请选择规格`,
+    //   });
+    //   return;
+    // }
+    if (!brandId) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择品牌`,
+      });
+      return;
+    }
+    if (!qualityId) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择成色`,
+      });
+      return;
+    }
+    if (!statusId) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择状态`,
+      });
+      return;
+    }
+    if (!areaCode) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择地区`,
+      });
+      return;
+    }
+    if (!areaName) {
+      wx.showToast({
+        icon: "none",
+        title: `请选择地区`,
+      });
+      return;
+    }
+    if (!priceOut) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入出货价`,
+      });
+      return;
+    }
+    if (!priceIn) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入进货价`,
+      });
+      return;
+    }
+    // if (!pricePost) {
+    //   wx.showToast({
+    //     title: `请输入邮费`,
+    //   });
+    //   return;
+    // }
+    // if (!isFreePost) {
+    //   wx.showToast({
+    //     title: `请输入`,
+    //   });
+    //   return;
+    // }
+    if (imgList1.length < 1) {
+      wx.showToast({
+        icon: "none",
+        title: `请上传商品图片`,
+      });
+      return;
+    }
+    if (imgList2.length < 1) {
+      wx.showToast({
+        icon: "none",
+        title: `请上传供货证明/合格证/质量检测报告`,
+      });
+      return;
+    }
     const reqParams = {
       userId,
       name,
@@ -211,7 +444,7 @@ Page({
         }
       })
     };
-    console.log('/api/goods/addGoods reqParams', reqParams);
+    console.log(url, ' reqParams', reqParams);
     wx.request({
       url: url,
       method: "POST",
@@ -353,11 +586,18 @@ Page({
     app.getBrandList(this);
     app.getQualityList(this);
     app.getStateList(this);
+    app.getUser(this);
+
     wx.getStorage({
       key: 'publish_data',
       success: (res) => {
         // console.log(res.data)
-        this.setData(Object.assign(this.data, JSON.parse(res.data)));
+        this.setData(Object.assign(this.data, JSON.parse(res.data), {
+          showUserInfoPopup: false,
+          showAreaPopup: false,
+          showPriceActionSheet: false,
+          showAddBrand: false,
+        }));
       }
     })
 

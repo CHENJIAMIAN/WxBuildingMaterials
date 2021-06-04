@@ -92,13 +92,17 @@ App({
         console.log(url, resdata.data)
         if (resdata.data.code == 0) {
           const categoryOption = [];
-          for (let i of resdata.data.data)
+          const categoryOptionKeyIdValueName = {};
+          for (let i of resdata.data.data) {
             categoryOption.push({
               text: i.name,
               value: i.id
             })
+            categoryOptionKeyIdValueName[i.id] = i.name;
+          }
           page.setData({
-            categoryOption
+            categoryOption,
+            categoryOptionKeyIdValueName
           })
         } else {
           wx.showToast({
@@ -124,13 +128,17 @@ App({
         console.log(url, resdata.data)
         if (resdata.data.code == 0) {
           const specsOption = [];
-          for (let i of resdata.data.data)
+          const specsOptionKeyIdValueName = {};
+          for (let i of resdata.data.data) {
             specsOption.push({
               text: i.name,
               value: i.id
             })
+            specsOptionKeyIdValueName[i.id] = i.name;
+          }
           page.setData({
-            specsOption
+            specsOption,
+            specsOptionKeyIdValueName
           })
         } else {
           wx.showToast({
@@ -238,5 +246,56 @@ App({
       },
       fail: (resdata) => {}
     });
+  },
+
+
+  getUser(page) {
+    let url = this.serverUrl + "/api/user/getUser";
+    let userId = this.globalData.userId;
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        id: userId
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data.data)
+        const {
+          id,
+          openId,
+          name,
+          sex,
+          addr,
+          jobPosition,
+          company,
+          phone,
+          wechat,
+          qq,
+          email,
+          avatar,
+        } = resdata.data.data;
+
+        if (resdata.data.code == 0) {
+          page.setData({
+            id,
+            openId,
+            name,
+            sex,
+            addr,
+            jobPosition,
+            company,
+            phone,
+            wechat,
+            qq,
+            email,
+            avatar,
+          });
+        }
+      },
+      fail: (resdata) => {
+        console.log(resdata);
+      }
+    });
+
   },
 })

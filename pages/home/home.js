@@ -36,11 +36,21 @@ Component({
   },
   methods: {
     tapCategory(e) {
-      const {
+      let {
         value: categoryId
       } = e.currentTarget.dataset;
+      if (!categoryId) categoryId = '';
       this.setData({
-        categoryId
+        categoryId,
+        searchName: '',
+        specesId: '',
+        brandId: '',
+        qualityId: '',
+        statusId: '',
+        areaCode: '',
+        pageNo: '',
+        pageSize: '',
+        rows: [],
       })
       this.loadGoodsListByPage();
     },
@@ -109,7 +119,7 @@ Component({
               totalPage,
               last_page,
               lastVisitTime,
-              rows,
+              rows: this.data.rows.concat(rows),
             });
           } else {
             wx.showToast({
@@ -120,11 +130,13 @@ Component({
           }
         },
         fail: (resdata) => {
+          console.error(resdata);
+        },
+        complete: (resdata) => {
           this.setData({
             showLoading: false
           });
-          console.log(resdata);
-        }
+        },
       });
 
     },
@@ -143,6 +155,15 @@ Component({
         case 1:
           this.setData({
             areaCode: this.data.areaCodeReal,
+            rows: [],
+            searchName: '',
+            categoryId: '',
+            specesId: '',
+            brandId: '',
+            qualityId: '',
+            statusId: '',
+            pageNo: '',
+            pageSize: '',
           })
           break;
       }

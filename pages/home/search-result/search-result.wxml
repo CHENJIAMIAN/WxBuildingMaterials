@@ -24,7 +24,7 @@
   </view>
 </view>
 
-<scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+<scroll-view style="height:calc(100vh - 210.75rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
   <view name='商品卡片滚动列表' class="card-list">
     <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate"
       url="/pages/commodity-detail/commodity-detail?id={{item.id}}">

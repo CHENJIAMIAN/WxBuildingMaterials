@@ -15,6 +15,7 @@ page {
   top: 536rpx;
   height: 100%;
   transform: translateY(-100rpx);
+  padding-bottom: 200rpx;
 }
 
 .setting {

@@ -68,6 +68,76 @@ Component({
         qq,
         email
       } = this.data;
+      if (!id) {
+        wx.showToast({
+          icon: "none",
+          title: `用户id为${id}`,
+        });
+        return;
+      }
+      if (!name) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入昵称`,
+        });
+        return;
+      }
+      if (!sex) {
+        wx.showToast({
+          icon: "none",
+          title: `请选择性别`,
+        });
+        return;
+      }
+      if (!addr) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入地址`,
+        });
+        return;
+      }
+      if (!jobPosition) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入职位`,
+        });
+        return;
+      }
+      if (!company) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入公司`,
+        });
+        return;
+      }
+      if (!phone) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入电话`,
+        });
+        return;
+      }
+      if (!wechat) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入微信`,
+        });
+        return;
+      }
+      if (!qq) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入QQ`,
+        });
+        return;
+      }
+      if (!email) {
+        wx.showToast({
+          icon: "none",
+          title: `请输入邮箱`,
+        });
+        return;
+      }
       wx.request({
         url: url,
         method: "POST",
@@ -91,7 +161,7 @@ Component({
             //   title: "提交成功",
             //   duration: 1000
             // });
-            this.getUser();
+            app.getUser(this);
           } else {
             wx.showToast({
               icon: "none",
@@ -152,60 +222,25 @@ Component({
       });
     },
 
-    getUser() {
-      let url = app.serverUrl + "/api/user/getUser";
-      let userId = app.globalData.userId;
-      wx.request({
-        url: url,
-        method: "POST",
-        data: {
-          id: userId
-        },
-        success: (resdata) => {
-          console.log(url, resdata.data.data)
-          const {
-            id,
-            openId,
-            name,
-            sex,
-            addr,
-            jobPosition,
-            company,
-            phone,
-            wechat,
-            qq,
-            email,
-            avatar,
-          } = resdata.data.data;
-
-          if (resdata.data.code == 0) {
-            this.setData({
-              id,
-              openId,
-              name,
-              sex,
-              addr,
-              jobPosition,
-              company,
-              phone,
-              wechat,
-              qq,
-              email,
-              avatar,
-            });
-          }
-        },
-        fail: (resdata) => {
-          console.log(resdata);
-        }
-      });
-
-    },
 
 
     addAvatar(avatar) {
       let url = app.serverUrl + "/api/user/addAvatar";
       let id = app.globalData.userId;
+      if (!id) {
+        wx.showToast({
+          icon: "none",
+          title: `用户id为${id}`,
+        });
+        return;
+      }
+      if (!avatar) {
+        wx.showToast({
+          icon: "none",
+          title: `请选择头像`,
+        });
+        return;
+      }
       wx.showLoading();
       wx.request({
         url: url,
@@ -246,7 +281,7 @@ Component({
         })
       }
 
-      this.getUser();
+      app.getUser(this);
     }
   }
 })

@@ -66,6 +66,8 @@ Page({
       case 1:
         this.setData({
           state: 4,
+          rows: [],
+          pageNo: ''
         })
         break;
     }
@@ -114,16 +116,18 @@ Page({
             totalPage,
             last_page,
             lastVisitTime,
-            rows,
+            rows: this.data.rows.concat(rows),
           });
         }
       },
       fail: (resdata) => {
+        console.error(resdata);
+      },
+      complete: (resdata) => {
         this.setData({
           showLoading: false
         });
-        console.log(resdata);
-      }
+      },
     });
 
   },

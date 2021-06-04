@@ -17,26 +17,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    false &&
-      wx.navigateTo({
-        // url: "/packageB/pages/finish-certificate/finish-certificate"
-        // url: "/packageA/pages/sign-up-stastic/sign-up-stastic"
-        // url: "/packageA/pages/sign-up-group-add/sign-up-group-add"
-        // url: "/packageA/pages/sign-up-individual/sign-up-individual"
-        // url: "/packageA/pages/sign-up-group/sign-up-group"
-        // url: "/packageA/pages/sign-up-commit/sign-up-commit"
-        // url: "/pages/index/index"
-        // url: "/packageA/pages/sign-up-answer/sign-up-answer"
-        // url: "/packageB/pages/sign-in-success/sign-in-success"      
-        // url: "/packageB/pages/sign-up-success/sign-up-success"      
-      });
-    // setTimeout(() => {
-    //   wx.switchTab({
-    //     url: "/pages/home/home"
-    //     // url: "/pages/mine/mine"
-    //   });
-    // }, 1 * 1000);
-
+    wx.showToast({
+      icon: "none",
+      title: resdata.data.data,
+    });
+    
     this.login();
   },
 
@@ -92,7 +77,6 @@ Page({
 
   login() {
     // 页面加载
-    let that = this;
     wx.login({
       success: res => {
         if (res.code) {
@@ -106,12 +90,16 @@ Page({
             data: {
               authCode: res.code
             },
-            success: function (resdata) {
+            success: (resdata) => {
+              wx.showToast({
+                icon: "none",
+                title: resdata.data.data,
+              });
               console.log('wxUser/check', resdata.data.data);
               if (resdata.data.data) {
                 console.log('resdata.data.code:', resdata.data.code);
                 if (resdata.data.code != 0) {
-                  that.setData({
+                  this.setData({
                     loginBtnFlag: true,
                     title: '登陆失败, 请重试！'
                   });
@@ -128,28 +116,31 @@ Page({
 
                   app.globalData.phone = resdata.data.data.phone;
 
-                  that.setData({
+                  this.setData({
                     goBtnFlag: true,
-                    title: '登陆成功, ' + that.data.time + '秒后进入'
+                    title: '登陆成功, ' + this.data.time + '秒后进入'
                   });
 
                   if (app.globalData.userId != '') {
-                    that.goIndex(); //已注册
+                    this.goIndex(); //已注册
                   } else {
                     // 未注册
 
                   }
                 }
               } else {
-                that.setData({
+                this.setData({
                   loginBtnFlag: true,
                   title: '登陆失败, 请重试！'
                 });
               }
-
             },
-            fail: function (resdata) {
-              that.setData({
+            fail: (resdata) => {
+              wx.showToast({
+                icon: "none",
+                title: resdata.data.data,
+              });
+              this.setData({
                 loginBtnFlag: true,
                 title: '登陆失败, 请重试！'
               });

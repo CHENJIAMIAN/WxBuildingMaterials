@@ -29,4 +29,5 @@ page {
 
 .van-tag {
   margin-right: 10rpx;
+  margin-top: 10rpx;
 }

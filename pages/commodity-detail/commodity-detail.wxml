@@ -54,11 +54,13 @@
   <van-cell wx:for="{{rows}}" wx:key="id" title="{{item.userName||'-'}}" value="{{item.createTime}}"
     label="{{item.msg}}" border="{{ index<rows.length-1 }}" />
 </van-cell-group>
+<view wx:if="{{pageNo < last_page}}" style="text-align:center;background:white;font-size:30rpx;color:gray;"
+  bindtap="loadMore">查看更多</view>
 
 <!-- <van-dialog use-slot title="" show="{{ showAddMsg }}" show-cancel-button bind:confirm="addMsg">
 </van-dialog> -->
 
-<van-submit-bar button-text="我想要" bind:submit="onClickButton" tip="{{ true }}" button-type="primary">
+<van-submit-bar button-text="我想要" bind:submit="onClickIWantButton" tip="{{ true }}" button-type="primary">
   <view slot="top" class="van-hairline--surround">
     <van-field input-class="custom-input-class" model:value="{{ msg }}" label="" placeholder="" clearable
       bind:change="onChange">
@@ -92,7 +94,8 @@
       }
 </wxs> -->
 
-<van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
+<van-popup show="{{ showUserInfoPopup }}" bind:close="onUserInfoPopupClose"
+  custom-style="width:60%;background:transparent;border-radius:30rpx">
   <view
     style="background:var(--primary-color);color:white;text-align:center;height:60rpx;line-height:60rpx;font-size:26rpx;">
     联系信息</view>
@@ -102,7 +105,7 @@
     <van-field model:value="{{ qq }}" label="QQ" placeholder="" clearable type="number" bind:change="onChange" />
     <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
       bind:change="onChange" />
-    <van-button type="primary" block bindtap="onConfirm">确认</van-button>
+    <van-button type="primary" block bindtap="onUserInfoPopupConfirm">确认</van-button>
   </van-cell-group>
 </van-popup>
 

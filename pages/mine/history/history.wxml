@@ -20,9 +20,10 @@
   <view class="circlewhite">+</view>
   <view class="bar-bg-2">2021年5月17日</view>
 </view> -->
-<view wx:for="{{rows}}" wx:key="id">
-  <van-card tag="" title="{{item.goodsName}}" price="{{item.priceOut}}" desc="" thumb="{{serverUrl+item.img}}">
-    <!-- <view slot="title" class="flex">
+<scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+  <view wx:for="{{rows}}" wx:key="id">
+    <van-card tag="" title="{{item.goodsName}}" price="{{item.priceOut}}" desc="" thumb="{{serverUrl+item.img}}">
+      <!-- <view slot="title" class="flex">
       <van-image width="60rpx;" radius="2" height="60rpx" fit="cover" src="{{serverUrl+item.img}}" slot="icon" />
       <view class="flex-between-v" style="height:60rpx;margin-left:15rpx;">
         <view style="font-size:26rpx;font-weight:bold;">{{item.goodsName}}</view>
@@ -32,15 +33,34 @@
         </view>
       </view>
     </view> -->
-    <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
-      收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
-    </view>
-    <view slot="footer" style="margin-top:10rpx;">
-      <!-- <van-button size="mini">取消收藏</van-button> -->
-    </view>
-    <!-- <view slot="origin-price">
+      <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
+        收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+      </view>
+      <view slot="footer" style="margin-top:10rpx;">
+        <!-- <van-button size="mini">取消收藏</van-button> -->
+      </view>
+      <!-- <view slot="origin-price">
       <text decode="{{true}}">&ensp;</text>
     </view> -->
-  </van-card>
-  <van-divider />
-</view>
+    </van-card>
+    <van-divider />
+  </view>
+
+  <!-- 加载中 -->
+  <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+    <view class='bounce1 bounce'>
+    </view>
+    <view class='bounce2 bounce'>
+    </view>
+    <view class='bounce3 bounce'>
+    </view>
+    <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+      加载中...
+    </view>
+  </view>
+  <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+    <view style='color:#666666;'>
+      -- 已经到底了，加不了咯 --
+    </view>
+  </view>
+</scroll-view>

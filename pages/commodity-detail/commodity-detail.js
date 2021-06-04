@@ -7,7 +7,7 @@ Page({
    */
   data: {
     serverUrl: app.serverUrl,
-    show: false,
+    showUserInfoPopup: false,
     isStar: false,
     goodsId: '',
     // 
@@ -61,6 +61,18 @@ Page({
     lastVisitTime: '',
     rows: [],
   },
+  loadMore() {
+    let {
+      pageNo,
+      last_page
+    } = this.data;
+    if (pageNo < last_page) {
+      this.setData({
+        pageNo: pageNo + 1
+      });
+      this.getMsgByGoodsIdList();
+    }
+  },
   addMsg() {
     let url = app.serverUrl + "/api/message/addMsg";
     let userId = app.globalData.userId;
@@ -68,6 +80,27 @@ Page({
       id: goodsId,
       msg,
     } = this.data;
+    if (!userId) {
+      wx.showToast({
+        icon: "none",
+        title: `用户id为${userId}`,
+      });
+      return;
+    }
+    if (!goodsId) {
+      wx.showToast({
+        icon: "none",
+        title: `商品id为${goodsId}`,
+      });
+      return;
+    }
+    if (!msg) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入留言`,
+      });
+      return;
+    }
     wx.request({
       url: url,
       method: "POST",
@@ -114,6 +147,20 @@ Page({
     const {
       id: goodsId,
     } = this.data;
+    if (!userId) {
+      wx.showToast({
+        icon: "none",
+        title: `用户id为${userId}`,
+      });
+      return;
+    }
+    if (!goodsId) {
+      wx.showToast({
+        icon: "none",
+        title: `商品id为${goodsId}`,
+      });
+      return;
+    }
     wx.request({
       url: url,
       method: "POST",
@@ -140,6 +187,20 @@ Page({
     const {
       id: goodsId,
     } = this.data;
+    if (!userId) {
+      wx.showToast({
+        icon: "none",
+        title: `用户id为${userId}`,
+      });
+      return;
+    }
+    if (!goodsId) {
+      wx.showToast({
+        icon: "none",
+        title: `商品id为${goodsId}`,
+      });
+      return;
+    }
     wx.request({
       url: url,
       method: "POST",
@@ -151,9 +212,8 @@ Page({
         console.log(url, resdata.data);
         if (resdata.data.code == 0) {
           wx.showToast({
-            icon: "success",
-            title: "提交成功",
-            duration: 1000
+            icon: "none",
+            title: "收藏成功"
           });
           this.setData({
             isStar: true
@@ -172,13 +232,17 @@ Page({
   getMsgByGoodsIdList() {
     let url = app.serverUrl + "/api/message/getMsgByGoodsIdList";
     const {
-      id: goodsId
+      id: goodsId,
+      pageNo,
+      pageSize,
     } = this.data;
     wx.request({
       url: url,
       method: "POST",
       data: {
-        goodsId
+        goodsId,
+        pageNo,
+        pageSize
       },
       success: (resdata) => {
         console.log(url, resdata.data);
@@ -203,7 +267,7 @@ Page({
             totalPage,
             last_page,
             lastVisitTime,
-            rows,
+            rows: this.data.rows.concat(rows),
           });
         } else {
           wx.showToast({
@@ -274,23 +338,17 @@ Page({
     // event.detail 为当前输入的值
     console.log(event.detail);
   },
-  onClickButton() {
+  onClickIWantButton() {
     this.setData({
-      show: true
+      showUserInfoPopup: true
     });
     if (!app.globalData.phone)
       this.setData({
         showGetPhoneNumberDialog: true
       });
   },
-  onConfirm() {
-    this.setData({
-      show: false
-    });
+  onUserInfoPopupConfirm() {
     this.addWant();
-    wx.navigateBack({
-      delta: -1,
-    });
   },
   addWant() {
     let url = app.serverUrl + "/api/want/addWant";
@@ -302,6 +360,48 @@ Page({
       qq,
       email,
     } = this.data;
+    if (!userId) {
+      wx.showToast({
+        icon: "none",
+        title: `用户id为${userId}`,
+      });
+      return;
+    }
+    if (!goodsId) {
+      wx.showToast({
+        icon: "none",
+        title: `商品id为${goodsId}`,
+      });
+      return;
+    }
+    if (!phone) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入电话`,
+      });
+      return;
+    }
+    if (!wechat) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入微信`,
+      });
+      return;
+    }
+    if (!qq) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入QQ`,
+      });
+      return;
+    }
+    if (!email) {
+      wx.showToast({
+        icon: "none",
+        title: `请输入邮箱`,
+      });
+      return;
+    }
     wx.request({
       url: url,
       method: "POST",
@@ -321,6 +421,12 @@ Page({
             title: "提交成功",
             duration: 1000
           });
+          this.setData({
+            showUserInfoPopup: false
+          });
+          wx.navigateBack({
+            delta: -1,
+          });
         } else {
           wx.showToast({
             icon: "none",
@@ -332,9 +438,9 @@ Page({
       fail: (resdata) => {}
     });
   },
-  onClose() {
+  onUserInfoPopupClose() {
     this.setData({
-      show: false
+      showUserInfoPopup: false
     });
   },
 
