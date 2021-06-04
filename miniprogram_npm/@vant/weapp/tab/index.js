@@ -13,10 +13,6 @@ component_1.VantComponent({
       type: null,
       observer: 'update',
     },
-    icon: {
-      type: String,
-      observer: 'update',
-    },
     title: {
       type: String,
       observer: 'update',

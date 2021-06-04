@@ -1,8 +1,15 @@
 // pages/mine.js
+import {
+  areaList
+} from '../../miniprogram_npm/@vant/area-data/index.js';
 let app = getApp();
 
 Component({
   data: {
+    // 
+    showAreaPopup: false,
+    // 
+    areaList,
     fileList1: [],
     avatar: '',
     show: false,
@@ -15,7 +22,10 @@ Component({
     phone: '',
     wechat: '',
     qq: '',
-    email: ''
+    email: '',
+    // 
+    areaName: '',
+    areaCode: '',
   },
   methods: {
     showPopup(e) {
@@ -41,7 +51,6 @@ Component({
     onChange(event) {
       // event.detail 为当前输入的值
       // console.log(event.detail);
-      this.onConfirm();
     },
     onClose() {
       this.setData({
@@ -54,13 +63,37 @@ Component({
       });
       this.addUserInfo();
     },
+    tapShowAreaPopup() {
+      this.setData({
+        showAreaPopup: true
+      })
+    },
+    onAreaConfirm(event) {
+      let areaName = ''
+      for (let i of event.detail.values) {
+        areaName += i.name;
+      }
+
+      this.setData({
+        showAreaPopup: false,
+        areaName,
+        addr: areaName,
+        areaCode: event.detail.values[1].code
+      })
+    },
+    onAreaCancel() {
+      this.setData({
+        showAreaPopup: false
+      })
+    },
+
     addUserInfo() {
       let url = app.serverUrl + "/api/user/addUserInfo";
       let id = app.globalData.userId;
       const {
         name,
         sex,
-        addr,
+        areaName: addr,
         jobPosition,
         company,
         phone,
@@ -89,13 +122,13 @@ Component({
         });
         return;
       }
-      if (!addr) {
-        wx.showToast({
-          icon: "none",
-          title: `请输入地址`,
-        });
-        return;
-      }
+      // if (!addr) {
+      //   wx.showToast({
+      //     icon: "none",
+      //     title: `请输入地址`,
+      //   });
+      //   return;
+      // }
       if (!jobPosition) {
         wx.showToast({
           icon: "none",
@@ -156,11 +189,10 @@ Component({
         success: (resdata) => {
           console.log(url, resdata.data);
           if (resdata.data.code == 0) {
-            // wx.showToast({
-            //   icon: "success",
-            //   title: "提交成功",
-            //   duration: 1000
-            // });
+            wx.showToast({
+              icon: "success",
+              title: "提交成功"
+            });
             app.getUser(this);
           } else {
             wx.showToast({
@@ -222,6 +254,13 @@ Component({
       });
     },
 
+    onRadioChange(event) {
+      // event.detail 为当前输入的值
+      console.log('onRadioChange', event.detail);
+      this.setData({
+        sex: event.detail,
+      })
+    },
 
 
     addAvatar(avatar) {

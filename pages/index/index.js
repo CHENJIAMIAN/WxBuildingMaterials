@@ -17,11 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showToast({
-      icon: "none",
-      title: resdata.data.data,
-    });
-    
     this.login();
   },
 
@@ -91,10 +86,6 @@ Page({
               authCode: res.code
             },
             success: (resdata) => {
-              wx.showToast({
-                icon: "none",
-                title: resdata.data.data,
-              });
               console.log('wxUser/check', resdata.data.data);
               if (resdata.data.data) {
                 console.log('resdata.data.code:', resdata.data.code);
@@ -138,12 +129,17 @@ Page({
             fail: (resdata) => {
               wx.showToast({
                 icon: "none",
-                title: resdata.data.data,
+                title: JSON.stringify(resdata),
+                duration: 10000
+
               });
               this.setData({
                 loginBtnFlag: true,
                 title: '登陆失败, 请重试！'
               });
+            },
+            complete: (resdata) => {
+
             }
           });
         }
