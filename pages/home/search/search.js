@@ -1,4 +1,5 @@
 // pages/home/search/search.js
+let app = getApp();
 Page({
 
   /**
@@ -78,6 +79,7 @@ Page({
       searchRecord
     } = this.data;
     if (searchName == '') {
+      app.showTip('请输入搜索关键词');
       //输入为空时的处理
     } else {
       if (!searchRecord.some(i => i.value == searchName)) {

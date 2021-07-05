@@ -36,6 +36,7 @@ Page({
     brandName: '',
     qualityName: '',
     statusName: '',
+    showSend: false,
     listImg: [
       // type:''	
       // imgUrl:''	
@@ -134,9 +135,17 @@ Page({
     });
   },
   tapAddMsg() {
-    this.setData({
-      showAddMsg: true
-    })
+    console.log('===========' + this.data.showSend);
+    if (this.data.showSend){
+      this.setData({
+        showSend: false
+      })
+    }else{
+      this.setData({
+        showSend: true
+      })
+    }
+    
   },
   getPhoneNumber(e) {
     app.getPhoneNumber(e, this);

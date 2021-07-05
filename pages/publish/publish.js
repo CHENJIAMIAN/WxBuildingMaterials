@@ -270,16 +270,16 @@ Page({
   },
 
   onClickPublishButton() {
-    this.setData({
-      showUserInfoPopup: true
-    });
-    const {
-      phone,
-      wechat,
-      qq,
-      email
-    } = this.data;
-    if (phone && wechat && qq && email)
+    // this.setData({
+    //   showUserInfoPopup: true
+    // });
+    // const {
+    //   phone,
+    //   wechat,
+    //   qq,
+    //   email
+    // } = this.data;
+    // if (phone && wechat && qq && email)
       this.addGoods();
   },
 

@@ -6,7 +6,6 @@
 </navigator>
 
 <view style="display:flex;background:#EEEEEF;">
-  <view style="color:gray;padding:25rpx 20rpx;">筛选</view>
   <view style="flex-grow:1;">
     <van-dropdown-menu active-color="#85C464">
       <!-- <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" title="区域" bind:change="onOptionChange"/> -->

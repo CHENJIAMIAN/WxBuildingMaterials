@@ -7,7 +7,7 @@ Component({
       pagePath: "/pages/home/home",
       iconPath: "/image/home2.png",
       selectedIconPath: "/image/home1.png",
-      text: "找材料",
+      text: "建材广场",
       id: 'tab1'
     }, {
       pagePath: "/pages/mine/mine",

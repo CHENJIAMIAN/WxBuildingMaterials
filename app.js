@@ -1,5 +1,5 @@
 App({
-  serverUrl: "http://www.lemengsc.com:9901/jc/",
+  serverUrl: "http://www.lemengsc.com/jc/",
   imgWebBase: "",
   onLaunch() {
 
@@ -298,4 +298,13 @@ App({
     });
 
   },
+
+
+  showTip(title){
+    wx.showToast({
+      title: title,
+      icon: 'none',
+      duration: 2000
+    })
+  }
 })

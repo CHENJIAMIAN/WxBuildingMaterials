@@ -11,13 +11,13 @@
         </navigator>
       </view>
 
-      <scroll-view scroll-x="true" style="text-align:center;white-space: nowrap;width: 100%">
+      <scroll-view scroll-x="true" style="text-align:center;white-space: nowrap;height:80rpx;width: 100%">
         <view
-          style="display: inline-block;margin:10rpx 50rpx;font-size:26rpx;color:{{!categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
+          style="display: inline-block;margin:10rpx 50rpx;font-size:35rpx;color:{{!categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
           bindtap="tapCategory">全部
         </view>
         <view
-          style="display: inline-block;margin:10rpx 50rpx;font-size:26rpx;color:{{item.value==categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
+          style="display: inline-block;margin:10rpx 50rpx;font-size:35rpx;color:{{item.value==categoryId ? 'var(--primary-color)':'#8D8D8E'}}"
           wx:for="{{categoryOption}}" wx:key="value" data-value="{{item.value}}" bindtap="tapCategory">{{item.text}}
         </view>
       </scroll-view>
@@ -60,7 +60,7 @@
     </scroll-view>
 
   </van-tab>
-  <van-tab title="{{city+district}}" icon="location-o">
+  <van-tab title="{{city}}" icon="location-o">
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view name='商品卡片滚动列表' class="card-list">
         <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate"

@@ -9,7 +9,6 @@
       </view>
     </van-uploader>
     <view class="nickname">{{name}}</view>
-    <view class="membername">会员名:{{name}}</view>
   </view>
 </view>
 <view class="bg-1">
@@ -37,7 +36,6 @@
   <view class="card">
     <view class="card-head">
       基本信息
-      <van-button size="mini" style="float:right;" bindtap="onConfirm">保存</van-button>
     </view>
     <view class="card-content" data-name="1" bindtap="showPopup">
       <van-cell-group>
@@ -58,7 +56,6 @@
   </view>
   <view class="card">
     <view class="card-head">联系信息
-      <van-button size="mini" style="float:right;" bindtap="onConfirm">保存</van-button>
     </view>
     <view class="card-content" data-name="2" bindtap="showPopup">
       <van-cell-group>
@@ -70,6 +67,8 @@
       </van-cell-group>
     </view>
   </view>
+
+  <view style="height:100rpx"> </view>
 </view>
 
 <!-- <van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
