@@ -32,6 +32,7 @@ Page({
     statusId: '', //
     areaCode: '', //
     areaName: '', //
+    region: ['广东省', '广州市', '海珠区'],
     priceOut: '0', //
     priceIn: '', //
     pricePost: '0', //
@@ -67,7 +68,8 @@ Page({
   addBrand(resolve) {
     let url = app.serverUrl + "/api/utils/addBrand";
     const {
-      brandName
+      brandName,
+      categoryId
     } = this.data;
     if (!brandName) {
       wx.showToast({
@@ -81,7 +83,8 @@ Page({
       url: url,
       method: "POST",
       data: {
-        name: brandName
+        name: brandName,
+        categoryId
       },
       success: (resdata) => {
         console.log(url, resdata.data);
@@ -123,6 +126,18 @@ Page({
       areaCode: event.detail.values[2].code
     })
   },
+  bindRegionChange: function (e) {
+    let areaName = ''
+    for (let i of e.detail.value) {
+      areaName += i;
+    }
+
+    this.setData({
+      region: e.detail.value,
+      areaName,
+      code: e.detail.code[2]
+    })
+  },
   onAreaCancel() {
     this.setData({
       showAreaPopup: false
@@ -142,8 +157,10 @@ Page({
       [name]: detail
     });
     console.log('onOptionChange', name, this.data[name])
-    if (name == 'categoryId')
+    if (name == 'categoryId') {
       app.getSpecsList(this);
+      app.getBrandList(this);
+    }
   },
   onChange(event) {
     // event.detail 为当前输入的值
@@ -280,7 +297,7 @@ Page({
     //   email
     // } = this.data;
     // if (phone && wechat && qq && email)
-      this.addGoods();
+    this.addGoods();
   },
 
 
@@ -583,7 +600,6 @@ Page({
    */
   onLoad: function (options) {
     app.getCategoryList(this);
-    app.getBrandList(this);
     app.getQualityList(this);
     app.getStateList(this);
     app.getUser(this);

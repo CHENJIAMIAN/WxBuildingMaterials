@@ -129,7 +129,7 @@ Page({
             fail: (resdata) => {
               wx.showToast({
                 icon: "none",
-                title: JSON.stringify(resdata),
+                title: url + JSON.stringify(resdata),
                 duration: 10000
 
               });

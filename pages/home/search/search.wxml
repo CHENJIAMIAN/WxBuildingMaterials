@@ -1,17 +1,69 @@
-<!--pages/home/search/search.wxml-->
 <van-search value="{{ searchName }}" shape="round" placeholder="请输入搜索关键词" use-action-slot clearable
   bind:change="onChange" bind:search="searchSubmitFn" show-action>
   <van-button round type="primary" slot="action" bindtap="searchSubmitFn">搜索</van-button>
 </van-search>
 
+<!--pages/home/search/search.wxml-->
+<block wx:if="{{!showSearchResult}}">
+  <van-cell-group>
+    <block wx:for="{{searchRecord}}" wx:key='{{item}}'>
+      <van-cell title="{{item.value}}" value="" data-searchName="{{item.value}}" bindtap="gotToSearchResult" />
+    </block>
+    <view style="text-align:center;" wx:if="{{searchRecord.length==0}}">你还没有搜索记录</view>
+    <view style="text-align:center;" wx:else bindtap="historyDelFn">清空搜索记录</view>
+  </van-cell-group>
+</block>
 
+<!--pages/home/search-result/search-result.wxml-->
+<block wx:else>
+  <view style="display:flex;background:#EEEEEF;">
+    <view style="flex-grow:1;">
+      <van-dropdown-menu active-color="#85C464">
+        <!-- <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" title="区域" bind:change="onOptionChange"/> -->
+        <van-dropdown-item title-class="custom-item-title" data-name='categoryId' value="{{ categoryId }}"
+          title="{{categoryOptionKeyIdValueName[categoryId] || '分类'}}" options="{{ categoryOption }}"
+          bind:change="onOptionChange" />
+        <van-dropdown-item title-class="custom-item-title" data-name='specesId' value="{{ specesId }}"
+          title="{{specsOptionKeyIdValueName[specesId] || '规格'}}" options="{{ specsOption }}"
+          bind:change="onOptionChange" />
+        <van-dropdown-item title-class="custom-item-title" data-name='brandId' value="{{ brandId }}"
+          title="{{brandOptionKeyIdValueName[brandId] || '品牌'}}" options="{{ brandOption }}"
+          bind:change="onOptionChange" />
+        <van-dropdown-item title-class="custom-item-title" data-name='qualityId' value="{{ qualityId }}"
+          title="{{qualityOptionKeyIdValueName[qualityId] || '成色'}}" options="{{ qualityOption }}"
+          bind:change="onOptionChange" />
+        <van-dropdown-item title-class="custom-item-title" data-name='statusId' value="{{ statusId }}"
+          title="{{stateOptionKeyIdValueName[statusId] || '状态'}}" options="{{ stateOption }}"
+          bind:change="onOptionChange" />
+      </van-dropdown-menu>
+    </view>
+  </view>
 
-
-<van-cell-group>
-  <navigator wx:for="{{searchRecord}}" wx:key='{{item}}' open-type="redirect"
-    url="/pages/home/search-result/search-result?searchName={{item.value}}">
-    <van-cell title="{{item.value}}" value="" />
-  </navigator>
-  <view style="text-align:center;" wx:if="{{searchRecord.length==0}}">你还没有搜索记录</view>
-  <view style="text-align:center;" wx:else bindtap="historyDelFn">清空搜索记录</view>
-</van-cell-group>
+  <scroll-view style="height:calc(100vh - 210.75rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+    <view name='商品卡片滚动列表' class="card-list">
+      <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate"
+        url="/pages/commodity-detail/commodity-detail?id={{item.id}}">
+        <my-card img-src="{{serverUrl+item.img.imgUrl}}" primary-title="{{item.name}}" sub-title="{{item.describes}}"
+          want-count="{{item.wantCount}}" price="{{item.priceOut}}">
+        </my-card>
+      </navigator>
+    </view>
+    <!-- 加载中 -->
+    <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+      <view class='bounce1 bounce'>
+      </view>
+      <view class='bounce2 bounce'>
+      </view>
+      <view class='bounce3 bounce'>
+      </view>
+      <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+        加载中...
+      </view>
+    </view>
+    <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+      <view style='color:#666666;'>
+        -- 已经到底了，加不了咯 --
+      </view>
+    </view>
+  </scroll-view>
+</block>

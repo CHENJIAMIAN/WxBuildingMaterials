@@ -1,5 +1,5 @@
 App({
-  serverUrl: "http://www.lemengsc.com/jc/",
+  serverUrl: "https://www.lemengsc.com/jc/",
   imgWebBase: "",
   onLaunch() {
 
@@ -164,13 +164,17 @@ App({
         console.log(url, resdata.data)
         if (resdata.data.code == 0) {
           const brandOption = [];
-          for (let i of resdata.data.data)
+          const brandOptionKeyIdValueName = {};
+          for (let i of resdata.data.data) {
             brandOption.push({
               text: i.name,
               value: i.id
             })
+            brandOptionKeyIdValueName[i.id] = i.name;
+          }
           page.setData({
-            brandOption
+            brandOption,
+            brandOptionKeyIdValueName
           })
         } else {
           wx.showToast({
@@ -196,13 +200,17 @@ App({
         console.log(url, resdata.data)
         if (resdata.data.code == 0) {
           const qualityOption = [];
-          for (let i of resdata.data.data)
+          const qualityOptionKeyIdValueName = {};
+          for (let i of resdata.data.data) {
             qualityOption.push({
               text: i.name,
               value: i.id
             })
+            qualityOptionKeyIdValueName[i.id] = i.name;
+          }
           page.setData({
-            qualityOption
+            qualityOption,
+            qualityOptionKeyIdValueName
           })
         } else {
           wx.showToast({
@@ -228,13 +236,17 @@ App({
         console.log(url, resdata.data)
         if (resdata.data.code == 0) {
           const stateOption = [];
-          for (let i of resdata.data.data)
+          const stateOptionKeyIdValueName = {};
+          for (let i of resdata.data.data) {
             stateOption.push({
               text: i.name,
               value: i.id
             })
+            stateOptionKeyIdValueName[i.id] = i.name;
+          }
           page.setData({
-            stateOption
+            stateOption,
+            stateOptionKeyIdValueName
           })
         } else {
           wx.showToast({
@@ -300,7 +312,7 @@ App({
   },
 
 
-  showTip(title){
+  showTip(title) {
     wx.showToast({
       title: title,
       icon: 'none',
