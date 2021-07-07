@@ -43,7 +43,7 @@ page {
   background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/circlegreen.png) 0 0/ 100% 100% no-repeat;
   width: 29rpx;
   height: 29rpx;
-  line-height: 26rpx;
+  line-height: 30rpx;
   text-align: center;
   color: white;
 }

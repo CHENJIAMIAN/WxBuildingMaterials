@@ -4,11 +4,11 @@
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view>
         <van-card wx:for="{{rows}}" wx:key="id" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
-          thumb="{{serverUrl+item.img.imgUrl}}">
-          <view slot="footer">
-            <van-button size="mini">降价</van-button>
-            <van-button size="mini">编辑</van-button>
-            <van-button size="mini" bindtap="moreAction" data-id="{{item.id}}">···</van-button>
+          thumb="{{serverUrl+item.img.imgUrl}}"  thumb-mode="scaleToFill">
+          <view style="display: inline-grid;transform: translate(0px, -80px);height: 0;" slot="footer">
+            <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">降价</van-button>
+            <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">编辑</van-button>
+            <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small" bindtap="moreAction" data-id="{{item.id}}">···</van-button>
           </view>
           <view slot="origin-price">
             <text decode="{{true}}">&ensp;</text>
@@ -44,7 +44,7 @@
     <scroll-view wx:else style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view>
         <van-card wx:for="{{rows}}" wx:key="id" num="" tag="" price="{{item.priceOut}}" title="{{item.name}}"
-          thumb="{{serverUrl+item.img.imgUrl}}">
+          thumb="{{serverUrl+item.img.imgUrl}}"  thumb-mode="scaleToFill">
           <view slot="footer">
             <!-- <van-button size="mini">降价</van-button> -->
             <van-button size="mini">编辑</van-button>

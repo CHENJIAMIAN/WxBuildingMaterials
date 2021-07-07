@@ -153,8 +153,8 @@ Page({
     const bool = true;
     bool &&
       wx.switchTab({
-        // url: "/pages/mine/mine"
-        url: "/pages/home/home"
+        url: "/pages/mine/mine"
+        // url: "/pages/home/home"
       });
     !bool &&
       wx.navigateTo({

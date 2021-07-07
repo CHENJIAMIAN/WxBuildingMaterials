@@ -1,7 +1,7 @@
 <!--pages/mine/favorite/favorite.wxml-->
 <scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
   <view wx:for="{{rows}}" wx:key="id">
-    <van-card tag="" title="{{item.goodsName}}" price="{{item.priceOut}}" desc="" thumb="{{serverUrl+item.img}}">
+    <van-card tag="" title="{{item.goodsName}}" price="{{item.priceOut}}" desc="" thumb="{{serverUrl+item.img}}" thumb-mode="scaleToFill">
       <!-- <view slot="title" class="flex">
       <van-image width="60rpx;" radius="2" height="60rpx" fit="cover" src="{{serverUrl+item.img}}" slot="icon" />
       <view class="flex-between-v" style="height:60rpx;margin-left:15rpx;">

@@ -33,6 +33,8 @@ Component({
     // 
     city: '',
     district: '',
+    // 
+    bannerList: [],
   },
   methods: {
     tapCategory(e) {
@@ -168,10 +170,34 @@ Component({
           break;
       }
       this.loadGoodsListByPage();
-    }
+    },
+    getBannerList() {
+      let url = app.serverUrl + "/api/utils/getBannerList";
+      wx.request({
+        url: url,
+        method: "POST",
+        data: {},
+        success: (resdata) => {
+          console.log(url, resdata.data)
+          if (resdata.data.code == 0) {
+            this.setData({
+              bannerList: resdata.data.data
+            })
+          } else {
+            wx.showToast({
+              icon: "fail",
+              title: resdata.data.msg,
+              duration: 1000
+            });
+          }
+        },
+        fail: (resdata) => {}
+      });
+    },
   },
   attached() {
     this.loadGoodsListByPage();
+    this.getBannerList();
     app.getCategoryList(this);
     qqmapsdk = new QQMapWX({
       key: 'MUQBZ-FHWKR-V5UW2-W6S2S-YKUXF-GQFVR' //这里自己的key秘钥进行填充

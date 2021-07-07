@@ -19,6 +19,8 @@ Page({
     last_page: '',
     lastVisitTime: '',
     rows: [],
+    theDays: [],
+    theDayRowsMap: {},
   },
   scrollMytrip() {
     console.log("scrollMytrip");
@@ -60,6 +62,8 @@ Page({
             lastVisitTime,
             rows,
           } = resdata.data.data;
+
+
           this.setData({
             pageNo,
             current_page,
@@ -71,6 +75,23 @@ Page({
             lastVisitTime,
             rows: this.data.rows.concat(rows),
           });
+
+
+          // (2) [1625587200000, 1622736000000]
+          const theDays = Array.from(new Set(this.data.rows.map(i => i.theDay = (new Date(i.createTime)).setHours(0, 0, 0, 0))))
+          const theDayRowsMap = {};
+          theDays.forEach(theDay => {
+            const date = new Date(theDay);
+            theDayRowsMap[theDay] = {
+              dayFormated: `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`,
+              rows: this.data.rows.filter(i => i.theDay === theDay)
+            }
+          })
+          this.setData({
+            theDays,
+            theDayRowsMap
+          })
+
         } else {
           wx.showToast({
             icon: "none",

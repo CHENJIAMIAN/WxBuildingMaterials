@@ -1,7 +1,7 @@
 <!--pages/commodity-detail/commodity-detail.wxml-->
 <view class="flex van-hairline--bottom" style="padding:30rpx;background:white;">
-  <!-- <van-image width="120rpx;" radius="2" height="120rpx" fit="cover" src="" /> -->
-  <view class="flex-between-v" style="height:77rpx;margin-left:0rpx;">
+  <van-image width="120rpx;" radius="2" height="120rpx" fit="cover" src="{{avatar}}" />
+  <view class="flex-between-v" style="height:77rpx;margin-left:30rpx;">
     <view style="font-size:35rpx;font-weight:bold;">{{name}}</view>
     <view style="color:gray;font-size:30rpx;">
       <!-- -分钟前来过  -->

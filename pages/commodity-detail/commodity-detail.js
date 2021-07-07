@@ -13,6 +13,7 @@ Page({
     // 
     id: '',
     userId: '',
+    avatar:'',
     name: '',
     describes: '',
     categoryId: '',
@@ -306,6 +307,7 @@ Page({
           const {
             id,
             userId,
+            avatar,
             name,
             describes,
             categoryId,

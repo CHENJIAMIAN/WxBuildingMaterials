@@ -617,15 +617,15 @@ Page({
       }
     })
 
-    wx.enableAlertBeforeUnload({
-      message: "是否保存更改?",
-      success: function (res) {
-        console.log("方法注册成功：", res);
-      },
-      fail: function (errMsg) {
-        console.log("方法注册失败：", errMsg);
-      },
-    });
+    // wx.enableAlertBeforeUnload({
+    //   message: "是否保存更改?",
+    //   success: function (res) {
+    //     console.log("方法注册成功：", res);
+    //   },
+    //   fail: function (errMsg) {
+    //     console.log("方法注册失败：", errMsg);
+    //   },
+    // });
     // wx.disableAlertBeforeUnload({
     //   success: function (res) {
     //     console.log(res)

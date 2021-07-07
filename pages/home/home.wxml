@@ -24,9 +24,9 @@
 
 
       <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{2000}}">
-        <block wx:for="[1,2,3]" wx:key="*this">
+        <block wx:for="{{bannerList}}" wx:key="id">
           <swiper-item>
-            <image style="width:750rpx;" mode="scaleToFill" src="http://www.lemengsc.com:9901/jc/static/wx_imgs/t1.png">
+            <image style="width:750rpx;" mode="scaleToFill" src="{{item.imgUrl}}">
             </image>
           </swiper-item>
         </block>
