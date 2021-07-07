@@ -21,9 +21,9 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#85C464",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "淘建材",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "custom": true,
