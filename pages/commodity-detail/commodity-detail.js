@@ -292,6 +292,7 @@ Page({
   },
   getGoods() {
     let url = app.serverUrl + "/api/goods/getGoods";
+    let userId = app.globalData.userId;
     const {
       id
     } = this.data;
@@ -299,7 +300,8 @@ Page({
       url: url,
       method: "POST",
       data: {
-        id
+        id,
+        userId
       },
       success: (resdata) => {
         console.log(url, resdata.data);
