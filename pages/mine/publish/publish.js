@@ -40,6 +40,14 @@ Page({
     lastVisitTime: '',
     rows: [],
   },
+  navigateToCommodityDetail(e) {
+    let {
+      id
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/commodity-detail/commodity-detail?id=${id}`,
+    })
+  },
   scrollMytrip() {
     console.log("scrollMytrip");
     const nextPageNo = this.data.pageNo + 1;
@@ -61,13 +69,45 @@ Page({
       case 0:
         this.setData({
           state: 2, //发布状态，1是未发布，2已发布(审核通过) 3是成交,4是下架,5审核不通过
+          actions: [{
+              id: 1,
+              option: 'done',
+              name: '成交',
+            },
+            {
+              id: 2,
+              option: 'takeOff',
+              name: '下架',
+            },
+            {
+              id: 3,
+              option: 'delete',
+              name: '删除',
+            },
+          ],
         })
         break;
       case 1:
         this.setData({
           state: 4,
           rows: [],
-          pageNo: ''
+          pageNo: '',
+          actions: [{
+              id: 1,
+              option: 'done',
+              name: '成交',
+            },
+            {
+              id: 2,
+              option: 'takeOn',
+              name: '上架',
+            },
+            {
+              id: 3,
+              option: 'delete',
+              name: '删除',
+            },
+          ],
         })
         break;
     }
@@ -88,6 +128,7 @@ Page({
       pageSize,
     }
     console.log(url, 'reqParams', reqParams)
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -127,6 +168,7 @@ Page({
         this.setData({
           showLoading: false
         });
+        wx.hideLoading();
       },
     });
 
@@ -164,6 +206,17 @@ Page({
             icon: "success",
             title: "提交成功",
             duration: 1000
+          });
+          this.setData({
+            pageNo: "",
+            current_page: "",
+            pageSize: "",
+            per_page: "",
+            total: "",
+            totalPage: "",
+            last_page: "",
+            lastVisitTime: "",
+            rows: [],
           });
           this.loadGoodsListByPageForUser();
         } else {

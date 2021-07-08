@@ -112,6 +112,7 @@ Page({
       pageNo,
       pageSize,
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -156,6 +157,7 @@ Page({
         this.setData({
           showLoading: false
         });
+        wx.hideLoading();
       },
     });
 

@@ -8,12 +8,11 @@ Page({
   data: {
     serverUrl: app.serverUrl,
     showUserInfoPopup: false,
-    isStar: false,
     goodsId: '',
     // 
     id: '',
     userId: '',
-    avatar:'',
+    avatar: '',
     name: '',
     describes: '',
     categoryId: '',
@@ -27,6 +26,7 @@ Page({
     priceIn: '',
     pricePost: '',
     isFreePost: '',
+    isStar: '',
     state: '',
     collectCount: '',
     browserCount: '',
@@ -103,6 +103,7 @@ Page({
       });
       return;
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -132,21 +133,24 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   tapAddMsg() {
     console.log('===========' + this.data.showSend);
-    if (this.data.showSend){
+    if (this.data.showSend) {
       this.setData({
         showSend: false
       })
-    }else{
+    } else {
       this.setData({
         showSend: true
       })
     }
-    
+
   },
   getPhoneNumber(e) {
     app.getPhoneNumber(e, this);
@@ -171,6 +175,7 @@ Page({
       });
       return;
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -188,11 +193,15 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
-  addCollect() {
-    let url = app.serverUrl + "/api/collect/addCollect";
+  addOrDelCollect() {
+    const addOrDel = this.data.isStar ? "del" : "add";
+    let url = app.serverUrl + `/api/collect/${addOrDel}Collect`;
     let userId = app.globalData.userId;
     const {
       id: goodsId,
@@ -211,6 +220,7 @@ Page({
       });
       return;
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -221,12 +231,12 @@ Page({
       success: (resdata) => {
         console.log(url, resdata.data);
         if (resdata.data.code == 0) {
-          wx.showToast({
-            icon: "none",
-            title: "收藏成功"
-          });
+          // wx.showToast({
+          //   icon: "none",
+          //   title: "收藏成功"
+          // });
           this.setData({
-            isStar: true
+            isStar: addOrDel === "add"
           })
         } else {
           wx.showToast({
@@ -236,7 +246,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   getMsgByGoodsIdList() {
@@ -246,6 +259,7 @@ Page({
       pageNo,
       pageSize,
     } = this.data;
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -287,7 +301,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   getGoods() {
@@ -295,6 +312,7 @@ Page({
     const {
       id
     } = this.data;
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -321,6 +339,7 @@ Page({
             priceIn,
             pricePost,
             isFreePost,
+            isStar,
             state,
             collectCount,
             browserCount,
@@ -332,8 +351,10 @@ Page({
             qualityName,
             statusName,
             listImg,
-          } = resdata.data;
-          this.setData(Object.assign(this.data, resdata.data.data))
+          } = resdata.data.data;
+          this.setData(Object.assign(this.data, resdata.data.data, {
+            createTime: (new Date(createTime)).toLocaleString()
+          }))
         } else {
           wx.showToast({
             icon: "none",
@@ -342,7 +363,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   onChange(event) {
@@ -413,6 +437,7 @@ Page({
       });
       return;
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -446,7 +471,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   onUserInfoPopupClose() {

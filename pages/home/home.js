@@ -94,6 +94,7 @@ Component({
         pageNo,
         pageSize,
       }
+      wx.showLoading();
       wx.request({
         url: url,
         method: "POST",
@@ -138,6 +139,8 @@ Component({
           this.setData({
             showLoading: false
           });
+          wx.hideLoading();
+
         },
       });
 
@@ -173,6 +176,7 @@ Component({
     },
     getBannerList() {
       let url = app.serverUrl + "/api/utils/getBannerList";
+      wx.showLoading();
       wx.request({
         url: url,
         method: "POST",
@@ -191,7 +195,10 @@ Component({
             });
           }
         },
-        fail: (resdata) => {}
+        fail: (resdata) => {},
+        complete: (resdata) => {
+          wx.hideLoading();
+        }
       });
     },
   },

@@ -3,7 +3,7 @@
   <van-tab title="推荐">
     <scroll-view style="height:calc(100vh - 60rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
       <view class="flex" style="padding-left:40rpx;">
-        <view class="icon-all"></view>
+        <view class="icon-all" bindtap="tapCategory"></view>
         <navigator open-type="navigate" url="/pages/home/search/search">
           <van-search value="{{ searchName }}" shape="round" placeholder="请输入搜索关键词" use-action-slot>
             <van-button round type="primary" slot="action" bind:tap="onClick">搜索</van-button>
@@ -71,22 +71,23 @@
         </navigator>
       </view>
       <!-- 加载中 -->
-      <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
-        <view class='bounce1 bounce'>
-        </view>
-        <view class='bounce2 bounce'>
-        </view>
-        <view class='bounce3 bounce'>
-        </view>
-        <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
-          加载中...
-        </view>
-      </view>
-      <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
-        <view style='color:#666666;'>
+      <view wx:if="{{row.length>0}}" class='spinner'>
+        <block wx:if="{{showLoading}}">
+          <view class='bounce1 bounce'>
+          </view>
+          <view class='bounce2 bounce'>
+          </view>
+          <view class='bounce3 bounce'>
+          </view>
+          <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+            加载中...
+          </view>
+        </block>
+        <view wx:else style='color:#666666;'>
           -- 已经到底了，加不了咯 --
         </view>
       </view>
+      <view wx:else class='spinner'>该地区暂无商品</view>
     </scroll-view>
   </van-tab>
 </van-tabs>

@@ -22,6 +22,14 @@ Page({
     theDays: [],
     theDayRowsMap: {},
   },
+  navigateToCommodityDetail(e) {
+    let {
+      id
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/commodity-detail/commodity-detail?id=${id}`,
+    })
+  },
   scrollMytrip() {
     console.log("scrollMytrip");
     const nextPageNo = this.data.pageNo + 1;
@@ -33,6 +41,44 @@ Page({
       this.getMyBrowser();
     }
   },
+  delBrowser() {
+    wx.showModal({
+      title: '提示',
+      content: `确定要清空吗？`,
+      success: (sm) => {
+        if (sm.confirm) {
+          // 用户点击了确定 可以调用删除方法了
+          let url = app.serverUrl + "/api/browser/delBrowser";
+          let userId = app.globalData.userId;
+          wx.showLoading();
+          wx.request({
+            url: url,
+            method: "POST",
+            data: {
+              userId
+            },
+            success: (resdata) => {
+              console.log(url, resdata.data);
+              if (resdata.data.code == 0) {} else {
+                wx.showToast({
+                  icon: "none",
+                  title: resdata.data.msg || '',
+                  duration: 1000
+                });
+              }
+            },
+            fail: (resdata) => {},
+            complete: (resdata) => {
+              wx.hideLoading();
+            }
+          });
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  },
   getMyBrowser() {
     let url = app.serverUrl + "/api/browser/myBrowser";
     let userId = app.globalData.userId;
@@ -40,6 +86,7 @@ Page({
       pageNo,
       pageSize
     } = this.data;
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -64,6 +111,10 @@ Page({
           } = resdata.data.data;
 
 
+          // (2) [1625587200000, 1622736000000] 接上rows
+          let theDays = Array.from(new Set(rows.map(i => i.theDay = (new Date(i.createTime)).setHours(0, 0, 0, 0))))
+          // 修改了rows,先setData
+
           this.setData({
             pageNo,
             current_page,
@@ -76,10 +127,11 @@ Page({
             rows: this.data.rows.concat(rows),
           });
 
-
-          // (2) [1625587200000, 1622736000000]
-          const theDays = Array.from(new Set(this.data.rows.map(i => i.theDay = (new Date(i.createTime)).setHours(0, 0, 0, 0))))
-          const theDayRowsMap = {};
+          theDays = this.data.theDays.concat(theDays);
+          theDays = Array.from(new Set(theDays));
+          theDays.sort((a, b) => b - a)
+          // 覆盖this.data.theDayRowsMap
+          const theDayRowsMap = this.data.theDayRowsMap;
           theDays.forEach(theDay => {
             const date = new Date(theDay);
             theDayRowsMap[theDay] = {
@@ -91,6 +143,8 @@ Page({
             theDays,
             theDayRowsMap
           })
+          console.log(theDays,
+            theDayRowsMap)
 
         } else {
           wx.showToast({
@@ -107,6 +161,7 @@ Page({
         this.setData({
           showLoading: false
         });
+        wx.hideLoading();
       },
     });
   },

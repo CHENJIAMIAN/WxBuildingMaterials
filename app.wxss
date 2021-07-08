@@ -15,6 +15,7 @@ page {
   --primary-color: #85C464;
   --button-primary-background-color: #85C464;
   --button-primary-border-color: #85C464;
+  --divider-margin:0;
 }
 
 

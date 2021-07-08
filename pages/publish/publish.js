@@ -245,6 +245,7 @@ Page({
       });
       return;
     }
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -271,7 +272,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
   delete(event) {
@@ -462,6 +466,7 @@ Page({
       })
     };
     console.log(url, ' reqParams', reqParams);
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -485,7 +490,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
 

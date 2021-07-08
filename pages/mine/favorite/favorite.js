@@ -20,6 +20,14 @@ Page({
     lastVisitTime: '',
     rows: [],
   },
+  navigateToCommodityDetail(e) {
+    let {
+      id
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/commodity-detail/commodity-detail?id=${id}`,
+    })
+  },
   scrollMytrip() {
     console.log("scrollMytrip");
     const nextPageNo = this.data.pageNo + 1;
@@ -38,6 +46,7 @@ Page({
       pageNo,
       pageSize
     } = this.data;
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -86,6 +95,7 @@ Page({
         this.setData({
           showLoading: false
         });
+        wx.hideLoading();
       },
     });
   },
@@ -96,6 +106,7 @@ Page({
     const {
       id
     } = e.currentTarget.dataset;
+    wx.showLoading();
     wx.request({
       url: url,
       method: "POST",
@@ -111,6 +122,17 @@ Page({
             title: "提交成功",
             duration: 1000
           });
+          this.setData({
+            pageNo: "",
+            current_page: "",
+            pageSize: "",
+            per_page: "",
+            total: "",
+            totalPage: "",
+            last_page: "",
+            lastVisitTime: "",
+            rows: [],
+          });
           this.getMyCollect();
         } else {
           wx.showToast({
@@ -120,7 +142,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {}
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
     });
   },
 

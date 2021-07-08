@@ -6,3 +6,7 @@ page {
 .custom-van-cell-group {
   --cell-background-color: #F7F7F7;
 }
+
+.van-card__footer {
+  height: 0;
+}

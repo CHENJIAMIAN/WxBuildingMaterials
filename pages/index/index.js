@@ -79,6 +79,7 @@ Page({
           // 调用自己的服务端接口，让服务端进行后端的授权认证
           console.log('=====code:' + res.code);
           let url = app.serverUrl + "/api/wxUser/check";
+          wx.showLoading();
           wx.request({
             url: url,
             method: "POST",
@@ -139,7 +140,7 @@ Page({
               });
             },
             complete: (resdata) => {
-
+              wx.hideLoading();
             }
           });
         }
@@ -153,8 +154,8 @@ Page({
     const bool = true;
     bool &&
       wx.switchTab({
-        url: "/pages/mine/mine"
-        // url: "/pages/home/home"
+        // url: "/pages/mine/mine"
+        url: "/pages/home/home"
       });
     !bool &&
       wx.navigateTo({

@@ -2,3 +2,6 @@
 page {
   background: #fafafa;
 }
+.van-card__footer {
+  height: 0;
+}

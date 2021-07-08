@@ -1,26 +1,49 @@
 <!--pages/mine/history/history.wxml-->
-<view style="text-align:right;padding:10rpx 30rpx;">
-  <van-button type="primary" size="mini" round>清空</van-button>
-</view>
-
-<view class="dash-line"></view>
-
-<block wx:for="{{theDays}}" wx:for-item="theDay" wx:key="*this">
-  <view class="flex">
-    <view class="circlegreen">+</view>
-    <view class="bar-bg-1">{{theDayRowsMap[theDay].dayFormated}}</view>
+<scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+  <view style="text-align:right;padding:10rpx 30rpx;">
+    <van-button type="primary" size="mini" round bindtap="delBrowser">清空</van-button>
   </view>
 
-  <demo-block padding>
-    <van-row gutter="5" custom-class="custom-van-col">
-      <van-col wx:for="{{theDayRowsMap[theDay].rows}}" wx:key="id" span="8">
-        <van-image fit="{{ fit }}" width="100%" height="30vw" src="{{serverUrl+item.img}}" />
-        <view class="text" style="color:red;">￥{{ item.priceOut }}</view>
-      </van-col>
-    </van-row>
-  </demo-block>
-</block>
+  <view class="dash-line"></view>
 
+  <block wx:for="{{theDays}}" wx:for-item="theDay" wx:key="*this">
+    <view class="flex">
+      <view class="circlegreen">+</view>
+      <view class="bar-bg-1">{{theDayRowsMap[theDay].dayFormated}}</view>
+    </view>
+
+    <demo-block padding>
+      <van-row gutter="5" custom-class="custom-van-col">
+        <van-col wx:for="{{theDayRowsMap[theDay].rows}}" wx:key="id" span="8">
+          <!-- <navigator wx:for="{{rows}}" wx:key="id" open-type="navigate"
+          url="/pages/commodity-detail/commodity-detail?id={{item.id}}"> -->
+          <van-image fit="{{ fit }}" width="100%" height="30vw" src="{{serverUrl+item.img}}"
+            bindtap="navigateToCommodityDetail" data-id="{{item.id}}" />
+          <!-- </navigator> -->
+          <!-- {{item.goodsName}} -->
+          <view class="text" style="color:red;">￥{{ item.priceOut }}</view>
+        </van-col>
+      </van-row>
+    </demo-block>
+  </block>
+
+  <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+    <view class='bounce1 bounce'>
+    </view>
+    <view class='bounce2 bounce'>
+    </view>
+    <view class='bounce3 bounce'>
+    </view>
+    <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+      加载中...
+    </view>
+  </view>
+  <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+    <view style='color:#666666;'>
+      -- 已经到底了，加不了咯 --
+    </view>
+  </view>
+</scroll-view>
 
 <!-- <scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
   <view wx:for="{{rows}}" wx:key="id">

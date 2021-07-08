@@ -171,6 +171,7 @@ Component({
         });
         return;
       }
+      wx.showLoading();
       wx.request({
         url: url,
         method: "POST",
@@ -202,7 +203,10 @@ Component({
             });
           }
         },
-        fail: (resdata) => {}
+        fail: (resdata) => {},
+        complete: (resdata) => {
+          wx.hideLoading();
+        }
       });
     },
     afterRead1(event) {
