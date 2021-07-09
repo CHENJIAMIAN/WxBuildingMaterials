@@ -1,2 +1,41 @@
 <!--pages/setting/setting.wxml-->
-<text>pages/setting/setting.wxml</text>
+<view class="card">
+  <view class="card-head">
+    基本信息
+  </view>
+  <view class="card-content" data-name="1" bindtap="showPopup">
+    <van-cell-group>
+      <van-field model:value="{{ name }}" label="会员名" placeholder="" clearable bind:change="onChange" />
+      <van-field label="性别" placeholder="">
+        <van-radio-group slot="input" value="{{ sex }}" bind:change="onRadioChange" direction="horizontal">
+          <van-radio icon-size="15px" name="{{1}}" checked-color="var(--primary-color)">男</van-radio>
+          <van-radio icon-size="15px" name="{{2}}" checked-color="var(--primary-color)">女</van-radio>
+        </van-radio-group>
+      </van-field>
+      <van-field label="常住" bindtap="tapShowAreaPopup" placeholder="" clearable bind:change="onChange">
+        <view slot="input">{{ addr }}</view>
+      </van-field>
+      <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
+      <van-field model:value="{{ company }}" label="公司" placeholder="" clearable bind:change="onChange" />
+    </van-cell-group>
+  </view>
+</view>
+<view class="card">
+  <view class="card-head">联系信息
+  </view>
+  <view class="card-content" data-name="2" bindtap="showPopup">
+    <van-cell-group>
+      <van-field model:value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" bind:change="onChange" />
+      <van-field model:value="{{ wechat }}" label="微信" placeholder="" clearable bind:change="onChange" />
+      <van-field model:value="{{ qq }}" label="QQ" placeholder="" clearable type="number" bind:change="onChange" />
+      <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
+        bind:change="onChange" />
+    </van-cell-group>
+  </view>
+</view>
+<van-button type="primary" style="margin:0;" block bindtap="onConfirm">确认</van-button>
+
+
+<van-popup show="{{ showAreaPopup }}" custom-style="height: 30%;width:80%;" bind:close="onAreaCancel">
+  <van-area columns-num="{{ 2 }}" bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
+</van-popup>

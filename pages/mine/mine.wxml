@@ -1,5 +1,5 @@
 <!--pages/mine.wxml-->
-<!-- <navigator open-type="navigate" class="setting" url="/pages/setting/setting"></navigator> -->
+<navigator open-type="navigate" class="setting" url="/pages/setting/setting"></navigator>
 <view class="bg-tx flex-content">
   <view class="flex-content-v">
     <van-uploader name="1" preview-size="199rpx" file-list="{{ fileList1 }}" accept="image" bind:after-read="afterRead1"
@@ -11,7 +11,7 @@
     <view class="nickname">{{name}}</view>
   </view>
 </view>
-<view class="bg-1">
+<view class="bg-12">
   <view class="flex-around" style="padding:10rpx 60rpx;color:white;font-size:28rpx;">
     <navigator open-type="navigate" class="flex-content-v" url="/pages/mine/publish/publish">
       <view class="a-xiaoxi">
@@ -32,43 +32,6 @@
         历史浏览</view>
     </navigator>
   </view>
-
-  <view class="card">
-    <view class="card-head">
-      基本信息
-    </view>
-    <view class="card-content" data-name="1" bindtap="showPopup">
-      <van-cell-group>
-        <van-field model:value="{{ name }}" label="会员名" placeholder="" clearable bind:change="onChange" />
-        <van-field label="性别" placeholder="">
-          <van-radio-group slot="input" value="{{ sex }}" bind:change="onRadioChange" direction="horizontal">
-            <van-radio icon-size="15px" name="{{1}}" checked-color="var(--primary-color)">男</van-radio>
-            <van-radio icon-size="15px" name="{{2}}" checked-color="var(--primary-color)">女</van-radio>
-          </van-radio-group>
-        </van-field>
-        <van-field label="常住" bindtap="tapShowAreaPopup" placeholder="" clearable bind:change="onChange">
-          <view slot="input">{{ addr }}</view>
-        </van-field>
-        <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
-        <van-field model:value="{{ company }}" label="公司" placeholder="" clearable bind:change="onChange" />
-      </van-cell-group>
-    </view>
-  </view>
-  <view class="card">
-    <view class="card-head">联系信息
-    </view>
-    <view class="card-content" data-name="2" bindtap="showPopup">
-      <van-cell-group>
-        <van-field model:value="{{ phone }}" label="手机号" placeholder="" clearable type="digit" bind:change="onChange" />
-        <van-field model:value="{{ wechat }}" label="微信" placeholder="" clearable bind:change="onChange" />
-        <van-field model:value="{{ qq }}" label="QQ" placeholder="" clearable type="number" bind:change="onChange" />
-        <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
-          bind:change="onChange" />
-      </van-cell-group>
-    </view>
-  </view>
-
-  <view style="height:100rpx"> </view>
 </view>
 
 <!-- <van-popup show="{{ show }}" bind:close="onClose" custom-style="width:60%;background:transparent;border-radius:30rpx">
@@ -90,10 +53,5 @@
       <van-field model:value="{{ email }}" label="邮箱" placeholder="" clearable border="{{ false }}"
         bind:change="onChange" />
     </block>
-    <van-button type="primary" block bindtap="onConfirm">确认</van-button>
   </van-cell-group>
 </van-popup> -->
-
-<van-popup show="{{ showAreaPopup }}" custom-style="height: 30%;width:80%;" bind:close="onAreaCancel">
-  <van-area columns-num="{{ 2 }}" bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
-</van-popup>

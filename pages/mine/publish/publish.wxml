@@ -10,7 +10,9 @@
           </image>
           <view style="display: inline-grid;transform: translate(0px, -80px);height: 0;" slot="footer">
             <!-- <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">降价</van-button> -->
-            <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">编辑</van-button>
+            <navigator open-type="navigate" url="/pages/publish/publish?id={{item.id}}">
+              <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">编辑</van-button>
+            </navigator>
             <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small"
               bindtap="moreAction" data-id="{{item.id}}">···</van-button>
           </view>
@@ -54,7 +56,9 @@
           </image>
           <view style="display: inline-grid;transform: translate(0px, -80px);height: 0;" slot="footer">
             <!-- <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">降价</van-button> -->
-            <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">编辑</van-button>
+            <navigator open-type="navigate" url="/pages/publish/publish?id={{item.id}}">
+              <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small">编辑</van-button>
+            </navigator>
             <van-button color="#DCDDDD" custom-style="color:#8B8B8C;border-color: white;" size="small"
               bindtap="moreAction" data-id="{{item.id}}">···</van-button>
           </view>

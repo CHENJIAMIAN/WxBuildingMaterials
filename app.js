@@ -289,7 +289,7 @@ App({
 
         if (resdata.data.code == 0) {
           page.setData({
-            id,
+            userId:id,
             openId,
             name,
             sex,

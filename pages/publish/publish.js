@@ -23,6 +23,7 @@ Page({
     qualityOption: [],
     stateOption: [],
     radio: '1',
+    id: undefined,
     name: '', //
     describes: '', //
     categoryId: '', //
@@ -201,6 +202,47 @@ Page({
     this.addUserInfo();
     this.onUserInfoPopupClose();
   },
+  checkUserInfo() {
+    let url = app.serverUrl + "/api/user/checkUserInfo";
+    let userId = app.globalData.userId;
+    wx.showLoading();
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        userId,
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {} else if (resdata.data.code == 2) {
+          wx.showModal({
+            title: '提示',
+            content: `用户信息不完善, 是否去完善用户信息？`,
+            success: (sm) => {
+              if (sm.confirm) {
+                // 用户点击了确定 可以调用删除方法了
+                wx.navigateTo({
+                  url: "/pages/setting/setting"
+                })
+              } else if (sm.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
+    });
+  },
   addUserInfo() {
     let url = app.serverUrl + "/api/user/addUserInfo";
     let id = app.globalData.userId;
@@ -301,15 +343,13 @@ Page({
     //   email
     // } = this.data;
     // if (phone && wechat && qq && email)
-    this.addGoods();
+    this.addOrEditGoods();
   },
 
 
-  addGoods() {
-    let url = app.serverUrl + "/api/goods/addGoods";
-    let userId = app.globalData.userId;
-
+  addOrEditGoods() {
     const {
+      id,
       name,
       describes,
       categoryId,
@@ -334,6 +374,15 @@ Page({
       //   imgUrl,
       // }]
     } = this.data;
+
+    let url = '';
+    if (id)
+      url = app.serverUrl + "/api/goods/editGoods";
+    else
+      url = app.serverUrl + "/api/goods/addGoods";
+
+    let userId = app.globalData.userId;
+
     if (!name) {
       wx.showToast({
         icon: "none",
@@ -438,6 +487,7 @@ Page({
       return;
     }
     const reqParams = {
+      id,
       userId,
       name,
       describes,
@@ -452,6 +502,7 @@ Page({
       priceIn,
       pricePost,
       isFreePost,
+      // imgList1只需要, 1.type 1/2   2.imgUrl图片相对路径
       imgList1: imgList1.map(i => {
         return {
           ...i,
@@ -479,9 +530,14 @@ Page({
             title: "提交成功",
             duration: 1000
           });
-          wx.switchTab({
-            url: "/pages/home/home"
-          });
+          if (id)
+            wx.navigateBack({
+              delta: -1,
+            })
+          else
+            wx.switchTab({
+              url: "/pages/home/home"
+            });
         } else {
           wx.showToast({
             icon: "none",
@@ -496,7 +552,53 @@ Page({
       }
     });
   },
+  queryGoods() {
+    let url = app.serverUrl + "/api/goods/queryGoods";
 
+    const {
+      id
+    } = this.data;
+    wx.showLoading();
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        id
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data);
+        if (resdata.data.code == 0) {
+          this.setData(Object.assign(this.data, resdata.data.data));
+          const {
+            imgList1,
+            imgList2,
+          } = resdata.data.data;
+          [imgList1, imgList2].forEach(ii => ii.map(i => {
+            i = Object.assign(i, {
+              url: app.serverUrl + i.imgUrl,
+              type: 'image'
+            })
+          }));
+
+          this.setData({
+            imgList1,
+            imgList2
+          });
+
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: resdata.data.msg || '',
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {},
+      complete: (resdata) => {
+        wx.hideLoading();
+      }
+    });
+  },
 
   afterRead1(event) {
     const {
@@ -528,6 +630,7 @@ Page({
           this.setData({
             imgList1
           });
+          console.log('imgList1', imgList1)
 
           wx.showToast({
             title: "上传成功!",
@@ -607,6 +710,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.checkUserInfo();
+
     app.getCategoryList(this);
     app.getQualityList(this);
     app.getStateList(this);
@@ -621,9 +726,21 @@ Page({
           showAreaPopup: false,
           showPriceActionSheet: false,
           showAddBrand: false,
+          id: undefined,
         }));
       }
     })
+    // 覆盖getStorage的
+    const {
+      id
+    } = options;
+    this.setData({
+      id,
+    });
+    if (id) {
+      this.queryGoods();
+    }
+
 
     // wx.enableAlertBeforeUnload({
     //   message: "是否保存更改?",

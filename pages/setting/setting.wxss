@@ -1,1 +1,31 @@
 /* pages/setting/setting.wxss */
+page {
+  background: #1b3333 0 0 / 100% 100% no-repeat;
+  height: 100vh;
+  position: relative;
+}
+
+.bg-tx {
+  background: url(http://www.lemengsc.com:9901/jc/static/wx_imgs/bg-tx.png) 0 0 / 100% 100% no-repeat;
+  height: 628rpx;
+}
+
+.card {
+  border-radius: 40rpx;
+  background: white;
+  margin: 30rpx;
+  font-size: 30rpx;
+  color: #332C2B;
+}
+
+.card-head {
+  color: #8B8B8C;
+  background: #F7F7F7;
+  border-bottom: 1px solid #C3C3C3;
+  border-radius: 40rpx 40rpx 0 0;
+  padding: 10rpx 30rpx;
+}
+
+.card-content {
+  padding: 20rpx 30rpx 20rpx 50rpx;
+}

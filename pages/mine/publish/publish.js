@@ -85,13 +85,20 @@ Page({
               name: '删除',
             },
           ],
+          pageNo: '',
+          current_page: '',
+          pageSize: '',
+          per_page: '',
+          total: '',
+          totalPage: '',
+          last_page: '',
+          lastVisitTime: '',
+          rows: [],
         })
         break;
       case 1:
         this.setData({
           state: 4,
-          rows: [],
-          pageNo: '',
           actions: [{
               id: 1,
               option: 'done',
@@ -108,6 +115,15 @@ Page({
               name: '删除',
             },
           ],
+          pageNo: '',
+          current_page: '',
+          pageSize: '',
+          per_page: '',
+          total: '',
+          totalPage: '',
+          last_page: '',
+          lastVisitTime: '',
+          rows: [],
         })
         break;
     }
