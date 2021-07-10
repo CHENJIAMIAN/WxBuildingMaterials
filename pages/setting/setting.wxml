@@ -17,8 +17,8 @@
       </van-field>
       <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
       <van-field label="公司" bind:change="onChange">
-        <view slot="input" class="flex-between">
-          <picker bindchange="bindCompanyPickerChange" style="width:300rpx;" value="{{companyIndex}}" range="{{companyArray}}"
+        <view slot="input" class="flex-between" style="width: 100%;">
+          <picker bindchange="bindCompanyPickerChange" value="{{companyIndex}}" range="{{companyArray}}"
             range-key="name">
             {{companyArray[companyIndex].name}}
           </picker>

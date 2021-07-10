@@ -110,23 +110,23 @@ Page({
       }
     });
   },
-  tapShowAreaPopup() {
-    this.setData({
-      showAreaPopup: true
-    })
-  },
-  onAreaConfirm(event) {
-    let areaName = ''
-    for (let i of event.detail.values) {
-      areaName += i.name;
-    }
+  // tapShowAreaPopup() {
+  //   this.setData({
+  //     showAreaPopup: true
+  //   })
+  // },
+  // onAreaConfirm(event) {
+  //   let areaName = ''
+  //   for (let i of event.detail.values) {
+  //     areaName += i.name;
+  //   }
 
-    this.setData({
-      showAreaPopup: false,
-      areaName,
-      areaCode: event.detail.values[2].code
-    })
-  },
+  //   this.setData({
+  //     showAreaPopup: false,
+  //     areaName,
+  //     areaCode: event.detail.values[2].code
+  //   })
+  // },
   bindRegionChange: function (e) {
     let areaName = ''
     for (let i of e.detail.value) {
@@ -136,7 +136,8 @@ Page({
     this.setData({
       region: e.detail.value,
       areaName,
-      code: e.detail.code[2]
+      areaCode: e.detail.code[2],
+
     })
   },
   onAreaCancel() {
@@ -432,14 +433,7 @@ Page({
       });
       return;
     }
-    if (!areaCode) {
-      wx.showToast({
-        icon: "none",
-        title: `请选择地区`,
-      });
-      return;
-    }
-    if (!areaName) {
+    if (!areaCode || !areaName) {
       wx.showToast({
         icon: "none",
         title: `请选择地区`,

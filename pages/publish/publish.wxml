@@ -166,9 +166,9 @@
 </van-action-sheet>
 <van-dialog id="van-dialog" confirm-button-color="var(--primary-color)" />
 
-<van-popup show="{{ showAreaPopup }}" position="bottom" custom-style="height: 30%;" bind:close="onAreaCancel">
+<!-- <van-popup show="{{ showAreaPopup }}" position="bottom" custom-style="height: 30%;" bind:close="onAreaCancel">
   <van-area bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
-</van-popup>
+</van-popup> -->
 
 <van-dialog use-slot title="" show="{{ showAddBrand }}" before-close="{{beforeAddBrandClose}}" show-cancel-button
   confirm-button-color="var(--primary-color)">
