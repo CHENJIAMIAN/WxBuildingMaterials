@@ -260,6 +260,35 @@ App({
     });
   },
 
+  // 给微信原生组件使用
+  getCompanyList(page) {
+    let url = this.serverUrl + "/api/utils/getCompanyList";
+    wx.request({
+      url: url,
+      method: "POST",
+      data: {
+        categoryId: page.data.categoryId
+      },
+      success: (resdata) => {
+        console.log(url, resdata.data)
+        if (resdata.data.code == 0) {
+          page.setData({
+            companyArray: resdata.data.data,
+          })
+        } else {
+          wx.showToast({
+            icon: "fail",
+            title: resdata.data.msg,
+            duration: 1000
+          });
+        }
+      },
+      fail: (resdata) => {}
+    });
+  },
+
+
+
 
   getUser(page) {
     let url = this.serverUrl + "/api/user/getUser";
@@ -279,7 +308,7 @@ App({
           sex,
           addr,
           jobPosition,
-          company,
+          companyId,
           phone,
           wechat,
           qq,
@@ -288,14 +317,16 @@ App({
         } = resdata.data.data;
 
         if (resdata.data.code == 0) {
+          const companyIndex = page.data.companyArray ? page.data.companyArray.findIndex(i => i.id == companyId) : -1;
           page.setData({
-            userId:id,
+            userId: id,
             openId,
             name,
             sex,
             addr,
             jobPosition,
-            company,
+            companyId,
+            companyIndex,
             phone,
             wechat,
             qq,

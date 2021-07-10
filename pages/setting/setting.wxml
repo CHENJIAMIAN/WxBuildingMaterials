@@ -16,7 +16,17 @@
         <view slot="input">{{ addr }}</view>
       </van-field>
       <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
-      <van-field model:value="{{ company }}" label="公司" placeholder="" clearable bind:change="onChange" />
+      <van-field label="公司" bind:change="onChange">
+        <view slot="input" class="flex-between">
+          <picker bindchange="bindCompanyPickerChange" style="width:300rpx;" value="{{companyIndex}}" range="{{companyArray}}"
+            range-key="name">
+            {{companyArray[companyIndex].name}}
+          </picker>
+          <van-tag round color="#EEEEEF" text-color="#A2A2A2" size="medium" bindtap="tapAddCompany">
+            +
+          </van-tag>
+        </view>
+      </van-field>
     </van-cell-group>
   </view>
 </view>
@@ -39,3 +49,8 @@
 <van-popup show="{{ showAreaPopup }}" custom-style="height: 30%;width:80%;" bind:close="onAreaCancel">
   <van-area columns-num="{{ 2 }}" bind:confirm="onAreaConfirm" bind:cancel="onAreaCancel" area-list="{{ areaList }}" />
 </van-popup>
+
+<van-dialog use-slot title="" show="{{ showAddCompany }}" before-close="{{beforeAddCompanyClose}}" show-cancel-button
+  confirm-button-color="var(--primary-color)">
+  <van-field model:value="{{ companyName }}" label="公司名称" placeholder="" clearable bind:change="onChange" />
+</van-dialog>

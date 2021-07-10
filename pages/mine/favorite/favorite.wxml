@@ -1,7 +1,7 @@
 <!--pages/mine/favorite/favorite.wxml-->
 <scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
   <view wx:for="{{rows}}" wx:key="id">
-    <van-card tag="" price="{{item.priceOut}}" desc="{{item.describes}}">
+    <van-card tag="" price="{{item.priceOut}}">
       <image slot="thumb" style="width:100%;height:100%;border-radius: var(--border-radius-lg,8px);" mode="scaleToFill"
         src="{{serverUrl+item.img}}" data-id="{{item.id}}" bindtap="navigateToCommodityDetail">
       </image>
@@ -11,15 +11,18 @@
           <view style="font-size:26rpx;font-weight:bold;">{{item.goodsName}}</view>
           <view style="color:gray;font-size:20rpx;">
             {{item.lastLogin}}前来过
-            <text>发布于温州</text>
           </view>
         </view>
       </view>
-      <!-- <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
+      <view slot="desc">
+        <view>{{item.describes}}</view>
+        <view style="color:gray;font-size:25rpx;">收藏时间:{{item.createTime}}</view>
+      </view>
+      <view slot="num" style="color:gray;flex-direction:row-reverse;padding-right:60rpx;" class="flex">
         收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
-      </view> -->
-      <view slot="footer" style="display: inline-grid;transform: translate(0px, -20px);height: 0;" >
-        <van-icon name="star" data-id="{{item.goodsId}}" size="42rpx" color="{{'red'}}" bindtap="delCollect" />
+      </view>
+      <view slot="footer" style="display: inline-grid;transform: translate(0px, -20px);height: 0;">
+        <van-icon name="star" data-id="{{item.goodsId}}" size="42rpx" color="{{'red'}}" bindtap="deleteConfirm" />
         <!-- <van-button size="mini" data-id="{{item.goodsId}}" bindtap="delCollect">取消收藏</van-button> -->
       </view>
       <!-- <view slot="origin-price">

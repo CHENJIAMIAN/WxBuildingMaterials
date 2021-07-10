@@ -31,6 +31,12 @@
       <view>
         历史浏览</view>
     </navigator>
+    <navigator open-type="navigate" class="flex-content-v" url="/pages/mine/company-commodity/company-commodity">
+      <view class="a-shoucang">
+      </view>
+      <view>
+        公司商品</view>
+    </navigator>
   </view>
 </view>
 

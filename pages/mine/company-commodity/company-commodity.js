@@ -1,4 +1,4 @@
-// pages/mine/favorite/favorite.js
+// pages/mine/history/history.js
 let app = getApp();
 Page({
 
@@ -36,11 +36,57 @@ Page({
         showLoading: true,
         pageNo: nextPageNo
       });
-      this.getMyCollect();
+      this.loadGoodsListByPageForCompany();
     }
   },
-  getMyCollect() {
-    let url = app.serverUrl + "/api/collect/myCollect";
+  navigateToCommodityDetail(e) {
+    let {
+      id
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/commodity-detail/commodity-detail?id=${id}`,
+    })
+  },
+  delBrowser() {
+    wx.showModal({
+      title: '提示',
+      content: `确定要清空吗？`,
+      success: (sm) => {
+        if (sm.confirm) {
+          // 用户点击了确定 可以调用删除方法了
+          let url = app.serverUrl + "/api/browser/delBrowser";
+          let userId = app.globalData.userId;
+          wx.showLoading();
+          wx.request({
+            url: url,
+            method: "POST",
+            data: {
+              userId
+            },
+            success: (resdata) => {
+              console.log(url, resdata.data);
+              if (resdata.data.code == 0) {} else {
+                wx.showToast({
+                  icon: "none",
+                  title: resdata.data.msg || '',
+                  duration: 1000
+                });
+              }
+            },
+            fail: (resdata) => {},
+            complete: (resdata) => {
+              wx.hideLoading();
+            }
+          });
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  },
+  loadGoodsListByPageForCompany() {
+    let url = app.serverUrl + "/api/goods/loadGoodsListByPageForCompany";
     let userId = app.globalData.userId;
     const {
       pageNo,
@@ -69,6 +115,8 @@ Page({
             lastVisitTime,
             rows,
           } = resdata.data.data;
+
+
           this.setData({
             pageNo,
             current_page,
@@ -78,8 +126,10 @@ Page({
             totalPage,
             last_page,
             lastVisitTime,
-            rows: this.data.rows.concat(rows),            
+            rows: this.data.rows.concat(rows),
           });
+
+
         } else {
           wx.showToast({
             icon: "none",
@@ -99,75 +149,13 @@ Page({
       },
     });
   },
-  deleteConfirm(e) {
-    wx.showModal({
-      title: '提示',
-      content: `确定要取消收藏吗？`,
-      success: (sm) => {
-        if (sm.confirm) {
-          // 用户点击了确定 可以调用删除方法了
-          this.delCollect(e)
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  },
 
-  delCollect(e) {
-    let url = app.serverUrl + "/api/collect/delCollect";
-    let userId = app.globalData.userId;
-    const {
-      id
-    } = e.currentTarget.dataset;
-    wx.showLoading();
-    wx.request({
-      url: url,
-      method: "POST",
-      data: {
-        userId,
-        goodsId: id
-      },
-      success: (resdata) => {
-        console.log(url, resdata.data);
-        if (resdata.data.code == 0) {
-          wx.showToast({
-            icon: "success",
-            title: "提交成功",
-            duration: 1000
-          });
-          this.setData({
-            pageNo: "",
-            current_page: "",
-            pageSize: "",
-            per_page: "",
-            total: "",
-            totalPage: "",
-            last_page: "",
-            lastVisitTime: "",
-            rows: [],
-          });
-          this.getMyCollect();
-        } else {
-          wx.showToast({
-            icon: "none",
-            title: resdata.data.msg || '',
-            duration: 1000
-          });
-        }
-      },
-      fail: (resdata) => {},
-      complete: (resdata) => {
-        wx.hideLoading();
-      }
-    });
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMyCollect();
+    this.loadGoodsListByPageForCompany();
   },
 
   /**

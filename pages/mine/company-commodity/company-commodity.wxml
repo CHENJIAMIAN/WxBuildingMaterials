@@ -1,0 +1,45 @@
+<scroll-view style="height:calc(100vh - 0rpx);" scroll-y="{{true}}" bindscrolltolower='scrollMytrip'>
+  <view wx:for="{{rows}}" wx:key="id">
+    <van-card tag="" price="{{item.priceOut}}">
+      <view slot="desc">
+        <view style="color:gray;font-size:20rpx;">
+          发布于{{item.areaName}}
+        </view>
+        <view>{{item.describes}}</view>
+        <view style="color:gray;font-size:20rpx;">
+          {{item.qualityName}}-{{item.brandName}}-{{item.categoryName}}-{{item.statusName}} </view>
+        <view style="color:gray;font-size:20rpx;">{{item.specesName}} </view>
+      </view>
+      <image slot="thumb" style="width:100%;height:100%;border-radius: var(--border-radius-lg,8px);" mode="scaleToFill"
+        src="{{serverUrl+item.img.imgUrl}}" data-id="{{item.id}}" bindtap="navigateToCommodityDetail">
+      </image>
+      <view slot="title" class="flex">
+        <view style="font-size:26rpx;font-weight:bold;">{{item.name}}</view>
+      </view>
+      <view slot="num" style="color:gray;flex-direction:row-reverse;" class="flex">
+        收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+      </view>
+      <view slot="origin-price">
+        <text decode="{{true}}">&ensp;</text>
+      </view>
+    </van-card>
+    <van-divider />
+  </view>
+
+  <view class='spinner' style="{{showLoading ? '' : 'display:none'}}">
+    <view class='bounce1 bounce'>
+    </view>
+    <view class='bounce2 bounce'>
+    </view>
+    <view class='bounce3 bounce'>
+    </view>
+    <view style='margin:20rpx 0 0 20rpx;color:#666666;'>
+      加载中...
+    </view>
+  </view>
+  <view class='spinner' style="{{!showLoading? '' : 'display:none'}}">
+    <view style='color:#666666;'>
+      -- 已经到底了，加不了咯 --
+    </view>
+  </view>
+</scroll-view>

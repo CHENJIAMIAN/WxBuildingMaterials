@@ -24,7 +24,7 @@ Page({
     stateOption: [],
     radio: '1',
     id: undefined,
-    name: '', //
+    goodsName: '', //
     describes: '', //
     categoryId: '', //
     brandId: '', //
@@ -325,10 +325,10 @@ Page({
       index,
       name
     } = event.detail;
-    const fileList = this.data[`fileList${name}`];
-    fileList.splice(index, 1);
+    const imgList = this.data[`imgList${name}`];
+    imgList.splice(index, 1);
     this.setData({
-      [`fileList${name}`]: fileList
+      [`imgList${name}`]: imgList
     });
   },
 
@@ -350,7 +350,7 @@ Page({
   addOrEditGoods() {
     const {
       id,
-      name,
+      goodsName,
       describes,
       categoryId,
       specesId,
@@ -383,7 +383,7 @@ Page({
 
     let userId = app.globalData.userId;
 
-    if (!name) {
+    if (!goodsName) {
       wx.showToast({
         icon: "none",
         title: `请输入名称`,
@@ -489,7 +489,7 @@ Page({
     const reqParams = {
       id,
       userId,
-      name,
+      name: goodsName,
       describes,
       categoryId,
       specesId,
@@ -607,7 +607,6 @@ Page({
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     let url = app.serverUrl + "/api/uploadFile/upload";
     wx.uploadFile({
-      name: 'file',
       url,
       fileName: "image",
       filePath: file.url,
@@ -652,7 +651,6 @@ Page({
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     let url = app.serverUrl + "/api/uploadFile/upload";
     wx.uploadFile({
-      name: 'file',
       url: url,
       fileName: "image",
       filePath: file.url,

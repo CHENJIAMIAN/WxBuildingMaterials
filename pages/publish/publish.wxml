@@ -7,7 +7,7 @@
 </van-sticky>
 
 <demo-block title="" padding card margin="15">
-  <van-field model:value="{{ name }}" placeholder="产品名称" bind:change="onChange"></van-field>
+  <van-field model:value="{{ goodsName }}" placeholder="产品名称" bind:change="onChange"></van-field>
 </demo-block>
 <demo-block title="" padding card margin="15">
   <van-field model:value="{{ describes }}" type="textarea" placeholder="说受你的使用感受,进货渠道,转手原因..."

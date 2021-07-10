@@ -9,6 +9,7 @@
     "pages/publish/publish",
     "pages/mine/publish/publish",
     "pages/mine/history/history",
+    "pages/mine/company-commodity/company-commodity",
     "pages/mine/favorite/favorite",
     "pages/setting/setting",
     "pages/mine/removed/removed",
@@ -31,8 +32,7 @@
     "selectedColor": "#3cc51f",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/home",
         "iconPath": "image/home2.png",
         "selectedIconPath": "image/home1.png",
