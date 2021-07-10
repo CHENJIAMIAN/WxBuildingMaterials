@@ -13,7 +13,8 @@
     "pages/mine/favorite/favorite",
     "pages/setting/setting",
     "pages/mine/removed/removed",
-    "pages/publish/price/price"
+    "pages/publish/price/price",
+    "pages/setting/apply-join-company/apply-join-company"
   ],
   "permission": {
     "scope.userLocation": {
@@ -32,7 +33,8 @@
     "selectedColor": "#3cc51f",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/home/home",
         "iconPath": "image/home2.png",
         "selectedIconPath": "image/home1.png",

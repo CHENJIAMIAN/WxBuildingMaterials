@@ -3,9 +3,21 @@ let app = getApp();
 
 Component({
   data: {
-
+    companyState: '',
   },
   methods: {
+    tapCompanyCommodity() {
+      if (this.data.companyState != 1) {
+        wx.showToast({
+          icon: "none",
+          title: '申请加入公司审核中，审核完成才能浏览',
+          duration: 1000
+        })
+      } else
+        wx.navigateTo({
+          url: '/pages/mine/company-commodity/company-commodity',
+        })
+    },
     afterRead1(event) {
       const {
         file

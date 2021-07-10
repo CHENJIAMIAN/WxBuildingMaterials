@@ -20,7 +20,8 @@ Page({
     sex: '',
     addr: '',
     jobPosition: '',
-    companyId: '',
+    // companyId: '',
+    company:'',
     phone: '',
     wechat: '',
     qq: '',
@@ -31,7 +32,6 @@ Page({
     // 
     companyIndex: 0,
     companyArray: [],
-    // 
     companyName: '',
     // 
     showAddCompany: false,
@@ -52,60 +52,60 @@ Page({
       showAddCompany: true
     })
   },
-  addCompany(resolve) {
-    let url = app.serverUrl + "/api/utils/addCompany";
-    const {
-      companyName,
-    } = this.data;
-    if (!companyName) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入公司名称`,
-      });
-      resolve(false);
-      return;
-    }
-    wx.showLoading();
-    wx.request({
-      url: url,
-      method: "POST",
-      data: {
-        name: companyName,
-      },
-      success: (resdata) => {
-        console.log(url, resdata.data);
-        if (resdata.data.code == 0) {
-          wx.showToast({
-            icon: "success",
-            title: "提交成功",
-            duration: 1000
-          });
-          app.getCompanyList(this);
-          resolve(true);
-        } else {
-          wx.showToast({
-            icon: "none",
-            title: resdata.data.msg || '',
-            duration: 1000
-          });
-          resolve(false);
-        }
-      },
-      fail: (resdata) => {
-        resolve(false);
-      },
-      complete: (resdata) => {
-        wx.hideLoading();
-      }
-    });
-  },
-  bindCompanyPickerChange: function (e) {
-    console.log('bindCompanyPickerChange发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      companyIndex: e.detail.value,
-      companyId: this.data.companyArray[e.detail.value].id
-    })
-  },
+  // addCompany(resolve) {
+  //   let url = app.serverUrl + "/api/utils/addCompany";
+  //   const {
+  //     companyName,
+  //   } = this.data;
+  //   if (!companyName) {
+  //     wx.showToast({
+  //       icon: "none",
+  //       title: `请输入公司名称`,
+  //     });
+  //     resolve(false);
+  //     return;
+  //   }
+  //   wx.showLoading();
+  //   wx.request({
+  //     url: url,
+  //     method: "POST",
+  //     data: {
+  //       name: companyName,
+  //     },
+  //     success: (resdata) => {
+  //       console.log(url, resdata.data);
+  //       if (resdata.data.code == 0) {
+  //         wx.showToast({
+  //           icon: "success",
+  //           title: "提交成功",
+  //           duration: 1000
+  //         });
+  //         app.getCompanyList(this);
+  //         resolve(true);
+  //       } else {
+  //         wx.showToast({
+  //           icon: "none",
+  //           title: resdata.data.msg || '',
+  //           duration: 1000
+  //         });
+  //         resolve(false);
+  //       }
+  //     },
+  //     fail: (resdata) => {
+  //       resolve(false);
+  //     },
+  //     complete: (resdata) => {
+  //       wx.hideLoading();
+  //     }
+  //   });
+  // },
+  // bindCompanyPickerChange: function (e) {
+  //   console.log('bindCompanyPickerChange发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     companyIndex: e.detail.value,
+  //     companyId: this.data.companyArray[e.detail.value].id
+  //   })
+  // },
   showPopup(e) {
     const {
       name
@@ -173,7 +173,7 @@ Page({
       sex,
       areaName: addr,
       jobPosition,
-      companyId,
+      // companyId,
       phone,
       wechat,
       qq,
@@ -214,13 +214,13 @@ Page({
       });
       return;
     }
-    if (!companyId) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入公司`,
-      });
-      return;
-    }
+    // if (!companyId) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入公司`,
+    //   });
+    //   return;
+    // }
     if (!phone) {
       wx.showToast({
         icon: "none",
@@ -259,7 +259,7 @@ Page({
         sex,
         addr,
         jobPosition,
-        companyId,
+        // companyId,
         phone,
         wechat,
         qq,
@@ -393,7 +393,7 @@ Page({
     });
   },
   onLoad: function (options) {
-    app.getCompanyList(this);
+    // app.getCompanyList(this);
     app.getUser(this);
   }
 })

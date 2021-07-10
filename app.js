@@ -274,6 +274,7 @@ App({
         if (resdata.data.code == 0) {
           page.setData({
             companyArray: resdata.data.data,
+            companyId: page.data.companyId ? page.data.companyId : resdata.data.data[0].id
           })
         } else {
           wx.showToast({
@@ -309,6 +310,8 @@ App({
           addr,
           jobPosition,
           companyId,
+          company,
+          companyState,
           phone,
           wechat,
           qq,
@@ -326,6 +329,8 @@ App({
             addr,
             jobPosition,
             companyId,
+            company,
+            companyState,
             companyIndex,
             phone,
             wechat,
