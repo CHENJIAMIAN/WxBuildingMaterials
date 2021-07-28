@@ -186,20 +186,20 @@ Page({
       });
       return;
     }
-    if (!name) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入昵称`,
-      });
-      return;
-    }
-    if (!sex) {
-      wx.showToast({
-        icon: "none",
-        title: `请选择性别`,
-      });
-      return;
-    }
+    // if (!name) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入昵称`,
+    //   });
+    //   return;
+    // }
+    // if (!sex) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请选择性别`,
+    //   });
+    //   return;
+    // }
     // if (!addr) {
     //   wx.showToast({
     //     icon: "none",
@@ -207,13 +207,13 @@ Page({
     //   });
     //   return;
     // }
-    if (!jobPosition) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入职位`,
-      });
-      return;
-    }
+    // if (!jobPosition) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入职位`,
+    //   });
+    //   return;
+    // }
     // if (!companyId) {
     //   wx.showToast({
     //     icon: "none",
@@ -221,34 +221,34 @@ Page({
     //   });
     //   return;
     // }
-    if (!phone) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入电话`,
-      });
-      return;
-    }
-    if (!wechat) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入微信`,
-      });
-      return;
-    }
-    if (!qq) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入QQ`,
-      });
-      return;
-    }
-    if (!email) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入邮箱`,
-      });
-      return;
-    }
+    // if (!phone) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入电话`,
+    //   });
+    //   return;
+    // }
+    // if (!wechat) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入微信`,
+    //   });
+    //   return;
+    // }
+    // if (!qq) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入QQ`,
+    //   });
+    //   return;
+    // }
+    // if (!email) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入邮箱`,
+    //   });
+    //   return;
+    // }
     wx.showLoading();
     wx.request({
       url: url,

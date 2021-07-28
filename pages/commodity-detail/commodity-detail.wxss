@@ -9,3 +9,12 @@ page {
   border-radius: 20rpx;
   padding: 0 30rpx !important;
 }
+
+
+.van-cell__title {
+  min-width: 30%;
+}
+
+.van-cell__value {
+  min-width: 70%;
+}

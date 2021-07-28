@@ -1,4 +1,6 @@
 <!--pages/setting/apply-join-company/apply-join-company.wxml-->
+
+<view style="height:100rpx"></view>
 <van-field label="公司">
   <view slot="input" class="flex-between" style="width: 100%;">
     <picker bindchange="bindCompanyPickerChange" value="{{companyIndex}}" range="{{companyArray}}" range-key="name">
@@ -14,5 +16,5 @@
   confirm-button-color="var(--primary-color)">
   <van-field model:value="{{ companyName }}" label="公司名称" placeholder="" clearable bind:change="onChange" />
 </van-dialog>
-
-<van-button type="primary" style="margin:0;" block bindtap="joinCompany">申请加入</van-button>
+<view style="height:50rpx"></view>
+<van-button type="primary" block bindtap="joinCompany">申请加入</van-button>

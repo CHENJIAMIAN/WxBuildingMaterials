@@ -412,13 +412,14 @@ Page({
     //   });
     //   return;
     // }
-    if (!brandId) {
-      wx.showToast({
-        icon: "none",
-        title: `请选择品牌`,
-      });
-      return;
-    }
+    // if (!brandId) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请选择品牌`,
+    //   });
+    //   return;
+    // }
+
     if (!qualityId) {
       wx.showToast({
         icon: "none",
@@ -447,13 +448,13 @@ Page({
       });
       return;
     }
-    if (!priceIn) {
-      wx.showToast({
-        icon: "none",
-        title: `请输入进货价`,
-      });
-      return;
-    }
+    // if (!priceIn) {
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: `请输入进货价`,
+    //   });
+    //   return;
+    // }
     // if (!pricePost) {
     //   wx.showToast({
     //     title: `请输入邮费`,

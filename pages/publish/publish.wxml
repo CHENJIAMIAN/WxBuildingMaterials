@@ -34,8 +34,8 @@
       <image style="width:22rpx;height:30rpx;border-radius:15rpx;" mode="scaleToFill"
         src="http://www.lemengsc.com:9901/jc/static/wx_imgs/dw1.png">
       </image>
-      <text style="margin-left:15rpx;font-size:26rpx;color:#757475;">发货地:</text>
-      <text style="margin-left:15rpx;font-size:26rpx;">{{areaName}}</text>
+      <text style="margin-left:15rpx;font-size:33rpx;color:#757475;">发货地:</text>
+      <text style="margin-left:15rpx;font-size:33rpx;">{{areaName}}</text>
     </view>
   </picker>
 </demo-block>
@@ -44,7 +44,7 @@
     <image style="width:26rpx;height:26rpx;border-radius:15rpx;" mode="scaleToFill"
       src="http://www.lemengsc.com:9901/jc/static/wx_imgs/gengduo.png">
     </image>
-    <text style="margin-left:15rpx;font-size:26rpx;">分类/品牌/成色等</text>
+    <text style="margin-left:15rpx;font-size:33rpx;">分类/品牌/成色等</text>
   </view>
   <van-dropdown-menu active-color="#85C464">
     <van-dropdown-item data-name='categoryId' value="{{ categoryId }}" options="{{ categoryOption }}"
@@ -113,10 +113,10 @@
       <image style="width:26rpx;height:26rpx;border-radius:15rpx;" mode="scaleToFill"
         src="http://www.lemengsc.com:9901/jc/static/wx_imgs/jinbi.png">
       </image>
-      <text style="margin-left:15rpx;font-size:26rpx;">价格</text>
+      <text style="margin-left:15rpx;font-size:33rpx;">价格</text>
     </view>
     <view>
-      <text style="margin-left:15rpx;font-size:26rpx;color:red;margin:0 30rpx;">
+      <text style="margin-left:15rpx;font-size:33rpx;color:red;margin:0 30rpx;">
         ￥{{totalPrice}}</text>
       <van-button icon="arrow" type="primary" bindtap="onPrice"></van-button>
     </view>

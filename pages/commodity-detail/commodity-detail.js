@@ -326,6 +326,10 @@ Page({
         if (resdata.data.code == 0) {
           const {
             id,
+            phone,
+            wechat,
+            qq,
+            email,
             userId,
             avatar,
             name,
@@ -379,13 +383,16 @@ Page({
     this.setData({
       showUserInfoPopup: true
     });
-    if (!app.globalData.phone)
-      this.setData({
-        showGetPhoneNumberDialog: true
-      });
+    // if (!app.globalData.phone)
+    //   this.setData({
+    //     showGetPhoneNumberDialog: true
+    //   });
   },
   onUserInfoPopupConfirm() {
-    this.addWant();
+    // this.addWant();
+    this.setData({
+      showUserInfoPopup: false
+    });
   },
   addWant() {
     let url = app.serverUrl + "/api/want/addWant";
@@ -493,8 +500,7 @@ Page({
       id
     } = options;
     this.setData({
-      id,
-      phone: app.globalData.phone
+      id
     });
     this.getGoods();
     this.getMsgByGoodsIdList();
