@@ -212,6 +212,12 @@ Component({
     wx.getLocation({
       type: 'wgs84',
       success: (res) => {
+        // wx.showToast({
+        //   icon: "none",
+        //   title: `getLocation${JSON.stringify(res)}`,
+        //   duration: 10000
+        // });
+
         const {
           latitude,
           longitude
@@ -223,6 +229,10 @@ Component({
           },
           success: (locRes) => {
             console.log('reverseGeocoder', locRes);
+            // wx.showToast({
+            //   icon: "none",
+            //   title: `reverseGeocoder${JSON.stringify(locRes.result.ad_info)}`,
+            // });
             // let province = locRes.result.ad_info.province;
             let {
               city,
@@ -254,6 +264,10 @@ Component({
           },
           fail: (locRes) => {
             console.log("reverseGeocoder fail:", locRes);
+            // wx.showToast({
+            //   icon: "none",
+            //   title: `reverseGeocoder fail${JSON.stringify(locRes.result.ad_info)}`,
+            // });
           },
           complete: (locRes) => {}
         });
