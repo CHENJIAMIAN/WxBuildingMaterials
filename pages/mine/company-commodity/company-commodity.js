@@ -65,6 +65,7 @@ Page({
             },
             success: (resdata) => {
               console.log(url, resdata.data);
+              wx.hideLoading();
               if (resdata.data.code == 0) {} else {
                 wx.showToast({
                   icon: "none",
@@ -73,9 +74,11 @@ Page({
                 });
               }
             },
-            fail: (resdata) => {},
-            complete: (resdata) => {
+            fail: (resdata) => {
               wx.hideLoading();
+            },
+            complete: (resdata) => {
+             
             }
           });
         } else if (sm.cancel) {

@@ -70,9 +70,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
       }
     });
   },
@@ -116,10 +117,11 @@ Page({
         }
       },
       fail: (resdata) => {
+        wx.hideLoading();
         resolve(false);
       },
       complete: (resdata) => {
-        wx.hideLoading();
+        
       }
     });
   },

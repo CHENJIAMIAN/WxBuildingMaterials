@@ -49,7 +49,8 @@ Page({
     brandName: '',
     // 
     totalPrice: 0,
-    // 
+
+    //
     beforeAddBrandClose: function (action) {
       return new Promise((resolve) => {
         if (action === 'confirm') {
@@ -60,12 +61,15 @@ Page({
         }
       })
     },
+
     // 
     phone: '',
     wechat: '',
     qq: '',
     email: '',
   },
+
+
   addBrand(resolve) {
     let url = app.serverUrl + "/api/utils/addBrand";
     const {
@@ -95,6 +99,9 @@ Page({
             title: "提交成功",
             duration: 1000
           });
+
+          app.getBrandList(this);
+          
           resolve(true);
         } else {
           wx.showToast({
@@ -110,6 +117,69 @@ Page({
       }
     });
   },
+
+  initData(){
+
+    const data = {
+      showUserInfoPopup: false,
+      showAreaPopup: false,
+      showPriceActionSheet: false,
+      showAddBrand: false,
+      areaList,
+      // 
+      categoryOptionKeyIdValueName: {},
+      specsOptionKeyIdValueName: {},
+      // 
+      categoryOption: [],
+      brandOption: [],
+      specsOption: [],
+      qualityOption: [],
+      stateOption: [],
+      radio: '1',
+      id: undefined,
+      goodsName: '', //
+      describes: '', //
+      categoryId: '', //
+      brandId: '', //
+      specesId: 0, //
+      qualityId: '', //
+      statusId: '', //
+      areaCode: '', //
+      areaName: '', //
+      region: ['广东省', '广州市', '海珠区'],
+      priceOut: '0', //
+      priceIn: '', //
+      pricePost: '0', //
+      isFreePost: '1', //
+      imgList1: [
+        //   {
+        //   type,
+        //   imgUrl,
+        // }
+      ],
+      imgList2: [],
+      // 
+      brandName: '',
+      // 
+      totalPrice: 0,
+  
+      // 
+      phone: '',
+      wechat: '',
+      qq: '',
+      email: '',
+    };
+
+    this.setData(data);
+
+
+    app.getCategoryList(this);
+    app.getQualityList(this);
+    app.getStateList(this);
+    app.getUser(this);
+
+  },
+
   // tapShowAreaPopup() {
   //   this.setData({
   //     showAreaPopup: true
@@ -215,10 +285,11 @@ Page({
       },
       success: (resdata) => {
         console.log(url, resdata.data);
-        if (resdata.data.code == 0) {} else if (resdata.data.code == 2) {
+        if (resdata.data.code == 2) {
           wx.showModal({
             title: '提示',
-            content: `用户信息不完善, 是否去完善用户信息？`,
+            content: `请先完善用户信息再发布产品`,
+            showCancel: false,
             success: (sm) => {
               if (sm.confirm) {
                 // 用户点击了确定 可以调用删除方法了
@@ -230,7 +301,7 @@ Page({
               }
             }
           })
-        } else {
+        } else if(resdata.data.code != 0) {
           wx.showToast({
             icon: "none",
             title: resdata.data.msg || '',
@@ -349,6 +420,8 @@ Page({
 
 
   addOrEditGoods() {
+
+    var that = this;
     const {
       id,
       goodsName,
@@ -437,14 +510,14 @@ Page({
     if (!areaCode || !areaName) {
       wx.showToast({
         icon: "none",
-        title: `请选择地区`,
+        title: `请选择发货地`,
       });
       return;
     }
-    if (!priceOut) {
+    if (!priceOut || parseInt(priceOut) <= 0) {
       wx.showToast({
         icon: "none",
-        title: `请输入出货价`,
+        title: `请填写价格信息`,
       });
       return;
     }
@@ -519,20 +592,26 @@ Page({
       data: reqParams,
       success: (resdata) => {
         console.log(url, resdata.data);
+        // wx.hideLoading();
         if (resdata.data.code == 0) {
           wx.showToast({
             icon: "success",
             title: "提交成功",
             duration: 1000
           });
-          if (id)
-            wx.navigateBack({
-              delta: -1,
-            })
-          else
-            wx.switchTab({
-              url: "/pages/home/home"
-            });
+
+          console.log("showToast");
+
+          if (id){}
+            // wx.navigateBack({
+            //   delta: -1,
+            // })
+          else{
+            that.initData();
+          }
+            // wx.switchTab({
+            //   url: "/pages/home/home"
+            // });
         } else {
           wx.showToast({
             icon: "none",
@@ -543,11 +622,13 @@ Page({
       },
       fail: (resdata) => {},
       complete: (resdata) => {
-        wx.hideLoading();
+        // wx.hideLoading();
       }
     });
   },
   queryGoods() {
+
+    var that = this;
     let url = app.serverUrl + "/api/goods/queryGoods";
 
     const {
@@ -579,6 +660,11 @@ Page({
             imgList1,
             imgList2
           });
+
+
+          app.getSpecsList(that);
+          app.getBrandList(that);
+          
 
         } else {
           wx.showToast({
@@ -699,6 +785,20 @@ Page({
     })
   },
 
+
+  alertBeforeUnload(){
+
+    wx.enableAlertBeforeUnload({
+      message: "退出当前页面数据将不会保存?",
+      success: function (res) {
+        console.log("方法注册成功：", res);
+      },
+      fail: function (errMsg) {
+        console.log("方法注册失败：", errMsg);
+      },
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -734,6 +834,7 @@ Page({
       this.queryGoods();
     }
 
+    this.alertBeforeUnload();
 
     // wx.enableAlertBeforeUnload({
     //   message: "是否保存更改?",
@@ -753,6 +854,9 @@ Page({
     //   }
     // });
   },
+
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -779,6 +883,11 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+
+    wx.removeStorage({
+      key: 'publish_data'
+    })
+
     // const {
     //   name,
     //   describes,
@@ -796,11 +905,28 @@ Page({
     //   imgList1,
     //   imgList2,
     // } = this.data;
-    console.log('onUnload')
-    wx.setStorage({
-      key: "publish_data",
-      data: JSON.stringify(this.data)
-    })
+
+    // wx.showModal({
+    //   title: '提示',
+    //   content: `是否保存当前编辑?`,
+    //   cancelText: '放弃',
+    //   confirmText: '保留',
+    //   success: (sm) => {
+    //     if (sm.confirm) {
+    //       wx.setStorage({
+    //         key: "publish_data",
+    //         data: JSON.stringify(this.data)
+    //       })
+    //     } else if (sm.cancel) {
+    //       console.log('用户点击取消')
+    //       wx.removeStorage({
+    //         key: 'publish_data'
+    //       })
+      
+    //     }
+    //   }
+    // })
+
 
 
     // wx.showModal({

@@ -185,7 +185,9 @@ Page({
       },
       success: (resdata) => {
         console.log(url, resdata.data);
-        if (resdata.data.code == 0) {} else {
+        if (resdata.data.code == 0) {
+          wx.hideLoading();
+        } else {
           wx.showToast({
             icon: "none",
             title: resdata.data.msg || '',
@@ -193,9 +195,11 @@ Page({
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
+        
       }
     });
   },
@@ -235,6 +239,7 @@ Page({
           //   icon: "none",
           //   title: "收藏成功"
           // });
+          wx.hideLoading();
           this.setData({
             isStar: addOrDel === "add"
           })
@@ -246,9 +251,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
       }
     });
   },
@@ -324,6 +330,7 @@ Page({
       success: (resdata) => {
         console.log(url, resdata.data);
         if (resdata.data.code == 0) {
+          wx.hideLoading();
           const {
             id,
             phone,
@@ -369,9 +376,10 @@ Page({
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
       }
     });
   },
@@ -460,11 +468,12 @@ Page({
       },
       success: (resdata) => {
         console.log(url, resdata.data);
+        // wx.hideLoading();
         if (resdata.data.code == 0) {
           wx.showToast({
             icon: "success",
             title: "提交成功",
-            duration: 1000
+            duration: 2000
           });
           this.setData({
             showUserInfoPopup: false
@@ -476,13 +485,15 @@ Page({
           wx.showToast({
             icon: "none",
             title: resdata.data.msg || '',
-            duration: 1000
+            duration: 2000
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
+        // wx.hideLoading();
       }
     });
   },

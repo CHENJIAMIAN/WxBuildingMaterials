@@ -270,7 +270,8 @@ Page({
         if (resdata.data.code == 0) {
           wx.showToast({
             icon: "success",
-            title: "提交成功"
+            title: "提交成功",
+            duration: 1000
           });
           app.getUser(this);
         } else {
@@ -281,9 +282,11 @@ Page({
           });
         }
       },
-      fail: (resdata) => {},
-      complete: (resdata) => {
+      fail: (resdata) => {
         wx.hideLoading();
+      },
+      complete: (resdata) => {
+        // wx.hideLoading();
       }
     });
   },
