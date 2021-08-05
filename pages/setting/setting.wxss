@@ -29,3 +29,11 @@ page {
 .card-content {
   padding: 20rpx 30rpx 20rpx 50rpx;
 }
+
+.van-field__label {
+}
+.van-cell__title{
+  width: 80rpx;
+  max-width: 3.2em !important;
+  min-width: auto !important;
+}

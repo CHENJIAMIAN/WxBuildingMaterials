@@ -39,6 +39,8 @@ Page({
     last_page: '',
     lastVisitTime: '',
     rows: [],
+    // 
+    tabIndex: 0
   },
   navigateToCommodityDetail(e) {
     let {
@@ -56,7 +58,7 @@ Page({
         showLoading: true,
         pageNo: nextPageNo
       });
-      this.loadGoodsListByPageForUser();
+      this.data.tabIndex === 0 ? this.loadListByPageForUser("Goods") : this.loadListByPageForUser("DisableGoods");
     }
   },
   tabsChange(e) {
@@ -65,8 +67,11 @@ Page({
       name,
       title,
     } = e.detail;
+    this.setData({
+      tabIndex: index
+    })
     switch (index) {
-      case 0:
+      case 0: {
         this.setData({
           state: 2, //发布状态，1是未发布，2已发布(审核通过) 3是成交,4是下架,5审核不通过
           actions: [{
@@ -95,42 +100,45 @@ Page({
           lastVisitTime: '',
           rows: [],
         })
-        break;
-      case 1:
-        this.setData({
-          state: 4,
-          actions: [{
-              id: 1,
-              option: 'done',
-              name: '成交',
-            },
-            {
-              id: 2,
-              option: 'takeOn',
-              name: '上架',
-            },
-            {
-              id: 3,
-              option: 'delete',
-              name: '删除',
-            },
-          ],
-          pageNo: '',
-          current_page: '',
-          pageSize: '',
-          per_page: '',
-          total: '',
-          totalPage: '',
-          last_page: '',
-          lastVisitTime: '',
-          rows: [],
-        })
-        break;
+        this.loadListByPageForUser("Goods");
+      }
+      break;
+    case 1: {
+      this.setData({
+        state: 4,
+        actions: [{
+            id: 1,
+            option: 'done',
+            name: '成交',
+          },
+          {
+            id: 2,
+            option: 'takeOn',
+            name: '上架',
+          },
+          {
+            id: 3,
+            option: 'delete',
+            name: '删除',
+          },
+        ],
+        pageNo: '',
+        current_page: '',
+        pageSize: '',
+        per_page: '',
+        total: '',
+        totalPage: '',
+        last_page: '',
+        lastVisitTime: '',
+        rows: [],
+      })
+      this.loadListByPageForUser("DisableGoods");
     }
-    this.loadGoodsListByPageForUser();
+    break;
+    }
   },
-  loadGoodsListByPageForUser() {
-    let url = app.serverUrl + "/api/goods/loadGoodsListByPageForUser";
+  loadListByPageForUser(type) {
+    let url = app.serverUrl + `/api/goods/load${type}ListByPageForUser`;
     const {
       state,
       pageNo,
@@ -139,7 +147,7 @@ Page({
     let userId = app.globalData.userId;
     const reqParams = {
       userId,
-      state,
+      // state,
       pageNo,
       pageSize,
     }
@@ -234,7 +242,8 @@ Page({
             lastVisitTime: "",
             rows: [],
           });
-          this.loadGoodsListByPageForUser();
+          this.data.tabIndex === 0 ? this.loadListByPageForUser("Goods") : this.loadListByPageForUser("DisableGoods");
+
         } else {
           wx.showToast({
             icon: "none",
@@ -273,7 +282,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadGoodsListByPageForUser();
+    this.data.tabIndex === 0 ? this.loadListByPageForUser("Goods") : this.loadListByPageForUser("DisableGoods");
   },
 
   /**

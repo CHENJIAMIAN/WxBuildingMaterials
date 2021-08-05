@@ -18,7 +18,7 @@
       <van-field model:value="{{ jobPosition }}" label="职位" placeholder="" clearable bind:change="onChange" />
       <van-field label="公司" bind:change="onChange">
         <view slot="input" class="flex-between" style="width: 100%;">
-          <view>{{company}}</view>
+          <view class="van-ellipsis" style="width:370rpx">{{company}}</view>
           <navigator open-type="navigate" url="/pages/setting/apply-join-company/apply-join-company">
             <view>切换</view>
           </navigator>
