@@ -20,7 +20,11 @@
             <text decode="{{true}}">&ensp;</text>
           </view>
           <view slot="bottom" style="color:gray;">
-            收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+            状态:<text wx:if="{{item.state == 1}}">待审核</text>
+            <text wx:if="{{item.state == 2}}" style="color:black;">正常</text>
+            <text wx:if="{{item.state == 3}}" style="color:green;">成交</text>
+            <text wx:if="{{item.state == 4}}" style="color:red;">审核失败</text>
+            ·收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
           </view>
         </van-card>
         <van-divider />
@@ -66,7 +70,11 @@
             <text decode="{{true}}">&ensp;</text>
           </view>
           <view slot="bottom" style="color:gray;">
-            收藏{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
+            状态:<text wx:if="{{item.state == 1}}">待审核</text>
+            <text wx:if="{{item.state == 2}}" style="color:black;">正常</text>
+            <text wx:if="{{item.state == 3}}" style="color:green;">成交</text>
+            <text wx:if="{{item.state == 4}}" style="color:red;">审核失败</text>
+            ·{{item.collectCount}}·浏览{{item.browserCount}}·想要{{item.wantCount}}
           </view>
         </van-card>
         <van-divider />

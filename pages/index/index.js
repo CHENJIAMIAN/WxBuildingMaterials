@@ -151,17 +151,15 @@ Page({
 
   //已经报过名，直接去到主页
   goIndex() {
-    const bool = true;
-    bool &&
-      wx.switchTab({
-        // url: "/pages/mine/mine"
-        url: "/pages/home/home"
-      });
-    !bool &&
-      wx.navigateTo({
-        url: "/pages/publish/publish"
-        // url: "/pages/mine/publish/publish"
-      })
+    let isShowMine = !true;
+    wx.switchTab({
+      url: isShowMine ? "/pages/mine/mine" : "/pages/home/home"
+    });
+
+    // let isShowPublish = false;
+    // wx.navigateTo({
+    //   url: isShowPublish ? "/pages/publish/publish" : "/pages/mine/publish/publish"
+    // })    
   },
 
 
