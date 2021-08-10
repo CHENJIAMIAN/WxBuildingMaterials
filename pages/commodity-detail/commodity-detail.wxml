@@ -14,7 +14,7 @@
   </view>
 </view>
 <view style="padding:30rpx;background:white;">
-  <view style="color:red;font-size:36rpx;font-weight:bold;">￥115</view>
+  <view style="color:red;font-size:36rpx;font-weight:bold;">￥{{priceOut}}</view>
   <view style="margin-top:10rpx;">{{describes}}</view>
   <view style="margin:30rpx 0;">
     <view>
