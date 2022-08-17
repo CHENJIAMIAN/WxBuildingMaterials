@@ -3,9 +3,6 @@
 
 |     |   |
 |  ----  | ----  |
-| 单元格  | 单元格 |
-| 单元格  | 单元格 |
-
 | ![1](https://user-images.githubusercontent.com/20126997/185074688-45723fcc-d8ec-4ade-8ac8-7bd097037e36.png)  | ![2](https://user-images.githubusercontent.com/20126997/185074693-2cf4cc45-de7f-474e-8106-95de2dfc6afb.png) |
 
 | ![3](https://user-images.githubusercontent.com/20126997/185074696-9e0e8711-32f9-4487-ac05-15c655f1aed6.png)  | ![4](https://user-images.githubusercontent.com/20126997/185074700-ffef25b2-658d-4aae-9472-e43fad4dc9df.png) |
