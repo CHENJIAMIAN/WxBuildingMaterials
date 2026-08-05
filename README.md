@@ -1,4 +1,11 @@
 # WxBuildingMaterials
+
+<!-- codex-github-rules:bilingual-summary -->
+> **中文简介**：使用 Vant 的淘建材微信小程序
+
+> **English summary**: A WeChat mini app for building-material shopping built with Vant
+
+---
 淘建材, 微信小程序, vant
 
 | ![1](https://user-images.githubusercontent.com/20126997/185074688-45723fcc-d8ec-4ade-8ac8-7bd097037e36.png) | ![2](https://user-images.githubusercontent.com/20126997/185074693-2cf4cc45-de7f-474e-8106-95de2dfc6afb.png) |
