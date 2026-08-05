@@ -1,3 +1,5 @@
+[English](./README.en.md)
+
 # WxBuildingMaterials
 
 <!-- codex-github-rules:bilingual-summary -->
